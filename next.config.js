@@ -1,20 +1,58 @@
 /** @type {import('next').NextConfig} */
-
-const withTM = require('next-transpile-modules')([
+const nextConfig = {
+  reactStrictMode: false,
+  transpilePackages: [
     '@mui/material',
    '@mui/system',
-  //  '@mui/icons-material', // If @mui/icons-material is being used
-  ]);
+   '@mui/icons-material',
+   '@mui/styled-engine' // If @mui/icons-material is being used
+  ]
+}
+const redirects = {
   
-  module.exports = withTM({
-   webpack: (config) => {
-     config.resolve.alias = {
-       ...config.resolve.alias,
-     '@mui/styled-engine': '@mui/styled-engine-sc',
-      }
-      return config;
-    }
+}
+// const withTM = require('next-transpile-modules')([
+//     '@mui/material',
+//    '@mui/system',
+//    '@mui/icons-material', // If @mui/icons-material is being used
+//   ]);
+  
+//   module.exports = withTM({
+//    webpack: (config) => {
+//      config.resolve.alias = {
+//        ...config.resolve.alias,
+//      '@mui/styled-engine': '@mui/styled-engine-sc',
+//       }
+//       return config;
+//     }
+//   },
+//   nextConfig
+//   );
+  
+module.exports = {
+  // webpackDevMiddleware: (config) => {
+  //   config.watchOptions = {
+  //     poll: 1000,
+  //     aggregateTimeout: 300,
+  //   };
+
+  //   return config;
+  // },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/auth/login',
+        permanent: true,
+      },
+    ]
   },
-  // nextConfig
-  );
-  
+  nextConfig,
+  // reactStrictMode: false,
+  swcMinify: true,
+  // onDemandEntries: {
+  //   websocketPort: 3007,
+  // },
+  output: "standalone",
+  // distDir :'dist'
+};

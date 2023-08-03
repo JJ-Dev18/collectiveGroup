@@ -11,7 +11,8 @@ services:
       POSTGRES_PASSWORD: 123456
       POSTGRES_DB: fleetDb
       POSTGRES_HOST_AUTH_METHOD: trust
-
+    volumes:
+      - postgresdb:/var/lib/postgresql/data
   pgAdmin:
     depends_on:
       - db

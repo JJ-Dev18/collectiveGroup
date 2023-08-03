@@ -1,13 +1,16 @@
 import { NextPage } from 'next'
-import Layout from '../components/layouts/LayoutDonate'
 
 import Cart from '../components/Cart'
 import CartSummary from '../components/CartSummary'
 import Products from '../components/Products'
+import { AuthContext } from 'fleed/context/auth'
+import { useContext } from 'react'
+import Layout from 'fleed/components/layouts/Layout'
 
 const DonatePage: NextPage = () => {
+
   return (
-    <Layout title="Shopping Cart | Next.js + TypeScript Example">
+    <Layout title="Shopping Cart | Next.js + TypeScript Example" >
       <div className="page-container">
         <h1>Shopping Cart</h1>
         <p>

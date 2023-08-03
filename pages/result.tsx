@@ -1,7 +1,6 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
-import Layout from '../components/layouts/LayoutDonate'
 import PrintObject from '../components/PrintObject'
 import Cart from '../components/Cart'
 import ClearCart from '../components/ClearCart'
@@ -49,13 +48,14 @@ export default ResultPage
 // - Only if you need to pre-render a page whose data must be fetched at request time
 import { GetServerSideProps } from 'next'
 import { FC } from 'react'
+import Layout from 'fleed/components/layouts/Layout'
 
 export const getServerSideProps: GetServerSideProps = async ({query}) => {
   console.log(query)
 
   return {
     props: {
-      session_id : query.session_id
+      session_id : query.session_id || ''
     }
   }
 }
