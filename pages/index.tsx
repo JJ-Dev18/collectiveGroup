@@ -1,8 +1,24 @@
 import { NextPage } from 'next'
 import Link from 'next/link'
 import Layout from '../components/layouts/LayoutDonate'
+import db from 'fleed/modules/db'
+import { useEffect } from 'react'
 
-const IndexPage: NextPage = () => {
+const IndexPage: NextPage =  () => {
+
+  
+  // useEffect(() => {
+  //   const getPost = async ()=> {
+  //     const posts = await db.post.findMany({orderBy: { createdAt : 'desc'}})
+  //     console.log(posts)
+  //   }
+  
+   
+  // }, [])
+  
+
+
+
   return (
     <Layout title="Home | Next.js + TypeScript Example">
       <ul className="card-list">
