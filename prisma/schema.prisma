@@ -42,7 +42,7 @@ model BenefitOnProducts{
   benefit     Benefit @relation(fields: [benefitId], references: [id])
   benefitId Int // relation scalar field (used in the `@relation` attribute above)
   createdAt DateTime @default(now())
-  assignedBy String
+  updatedAt String
 
   @@id([productId, benefitId])
 }

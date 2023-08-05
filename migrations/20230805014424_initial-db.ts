@@ -6,7 +6,9 @@ export async function up(knex: Knex): Promise<void> {
     .createTable('User', function (table) {
         table.increments('id').primary();
         table.string('name', 255).notNullable();
+        table.enu('role', ['USER', 'ADMIN']).defaultTo("USER")
         table.string('email', 255).notNullable().unique();
+        table.datetime('emailVerified')
         table.string('hashedPassword', 255).notNullable();
         table.string('image', 255)
         table.timestamp('createdAt').defaultTo(knex.fn.now()).index();
@@ -28,17 +30,25 @@ export async function up(knex: Knex): Promise<void> {
         table.timestamp('updatedAt')
     }).createTable('BenefitOnProducts', function (table) {
         table.increments('id').primary();
+        table.integer('productId').unsigned()
+        table.integer('benefitId').unsigned()
 
+        
+    }).table("BenefitOnProducts", function(table){
+        
         table.foreign("productId").references("id").inTable("Product")
         table.foreign("benefitId").references("id").inTable("Benefit")
-
+   
     })
 }
 
 
 export async function down(knex: Knex): Promise<void> {
     return knex.schema
-    .dropTable("products")
-    .dropTable("users");
+    .dropTable("BenefitOnProducts")
+    .dropTable("Product")
+    .dropTable("User")
+    .dropTable("Benefit")
+    ;
 }
 

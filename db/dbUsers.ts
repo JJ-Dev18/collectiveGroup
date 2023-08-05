@@ -14,32 +14,36 @@ import prisma from './db';
 export const checkUserEmailPassword = async( email: string, password: string ) => {
 
     // await db.connect();
-   
-    const user = await prisma.user.findUnique({
-        where: {
-          email: email
+    try {
+      const user = await prisma.user.findUnique({
+          where: {
+            email: email
+          }
+        });
+      
+        if (!user || !user?.hashedPassword) {
+          return null
         }
-      });
-
-      if (!user || !user?.hashedPassword) {
-        return null
+    
+        const isCorrectPassword = await bcrypt.compare(
+          password,
+          user.hashedPassword
+        );
+    
+        if (!isCorrectPassword) {
+          return null
+        }
+    
+      const { role, name, id } = user;
+    
+      return {
+          id,
+          email: email.toLocaleLowerCase(),
+          role,
+          name,
       }
-
-      const isCorrectPassword = await bcrypt.compare(
-        password,
-        user.hashedPassword
-      );
-
-      if (!isCorrectPassword) {
-        return null
-      }
-
-    const { role, name, id } = user;
-
-    return {
-        id,
-        email: email.toLocaleLowerCase(),
-        role,
-        name,
+    } catch (error) {
+      console.log(error)
     }
+
 }
