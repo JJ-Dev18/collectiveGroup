@@ -12,7 +12,9 @@
     "db:migrate:make": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} knex migrate:make",
     "db:seeds:make": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} knex seed:make",
     "db:seeds": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} knex seed:run",
-    "prisma:push": "dotenv -e .env.local prisma db push",
+    "db:migrate:rollback": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} knex migrate:rollback",
+
+    "prisma:generate": "dotenv -e .env.local prisma generate",
     "vercel-build": "prisma generate && pnpm db:migrate && next build"
   },
   "dependencies": {

@@ -1,7 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,20 +10,79 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id              Int @id @default(autoincrement()) 
-  role            Role     @default(USER)
-  name            String?
-  email           String?   @unique
-  emailVerified   DateTime?
-  image           String?
-  hashedPassword  String?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime? @updatedAt
-
+model User {
+  id             Int       @id @default(autoincrement())
+  role           Role      @default(USER)
+  name           String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          String?
+  hashedPassword String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime? @updatedAt
 }
 
 enum Role {
   USER
   ADMIN
+}
+
+model Product {
+  id   Int     @id @default(autoincrement())
+  name String
+  cost Int
+  benefits BenefitOnProducts[]
+  createdAt DateTime
+  updatedAt DateTime
+}
+
+model BenefitOnProducts{
+  product     Product     @relation(fields: [productId], references: [id])
+  productId   Int // relation scalar field (used in the `@relation` attribute above)
+  benefit     Benefit @relation(fields: [benefitId], references: [id])
+  benefitId Int // relation scalar field (used in the `@relation` attribute above)
+  createdAt DateTime @default(now())
+  assignedBy String
+
+  @@id([productId, benefitId])
+}
+
+model Benefit {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  products BenefitOnProducts[]
+}
+
+model Package {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
+  cost        Decimal
+  createdAt DateTime @default(now())
+  services ServiceOnPackage[]
+  updatedAt DateTime
+}
+
+model ServiceOnPackage{
+  package     Package     @relation(fields: [packageId], references: [id])
+  packageId   Int // relation scalar field (used in the `@relation` attribute above)
+  service     Service  @relation(fields: [serviceId], references: [id])
+  serviceId Int // relation scalar field (used in the `@relation` attribute above)
+ createdAt DateTime @default(now())
+  assignedBy String
+
+  @@id([packageId, serviceId])
+}
+
+model Service {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
+  cost        Decimal
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  packages ServiceOnPackage[]
 }

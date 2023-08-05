@@ -1,6 +1,8 @@
+import { dbProducts } from 'fleed/db'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import Stripe from 'stripe'
+import { Product } from 'use-shopping-cart/core'
 // @ts-ignore
 import { validateCartItems } from 'use-shopping-cart/utilities'
 
@@ -12,7 +14,7 @@ import { validateCartItems } from 'use-shopping-cart/utilities'
  * The important thing is that the product info is loaded from somewhere trusted
  * so you know the pricing information is accurate.
  */
-import inventory from '../../../data/products'
+
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   // https://github.com/stripe/stripe-node#configuration
@@ -25,6 +27,7 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     try {
+      const inventory = await dbProducts.getProducts()
       // Validate the cart details that were sent from the client.
       const line_items = validateCartItems(inventory , req.body)
       const hasSubscription = line_items.find((item: any) => {

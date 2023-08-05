@@ -25,7 +25,7 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=123456 
       - PGADMIN_DEFAULT_EMAIL=superman@google.com
 volumes:
-  postgres-db:
+  postgresdb:
     external: true
 
 
