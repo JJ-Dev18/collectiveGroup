@@ -60,6 +60,7 @@ model Package {
   name        String
   description String?
   cost        Decimal
+  comments    String
   createdAt DateTime @default(now())
   services ServiceOnPackage[]
   updatedAt DateTime? 

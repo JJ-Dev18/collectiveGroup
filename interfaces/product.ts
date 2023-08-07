@@ -1,12 +1,16 @@
-import { IBenefit } from "./benefit";
+import { Benefits } from "./benefit";
 
 
 export interface IProduct {
-    id : number;
-    name : string;
-    cost : number;
-    // benefits : IBenefit[]
+  id: number
+  name: string
+  cost: number
+  createdAt: Date
+  updatedAt: string | null
+  benefits: Benefits[]
 }
+
+
 
 // model Product {
 //     id   Int     @id @default(autoincrement())

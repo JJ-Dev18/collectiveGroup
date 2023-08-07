@@ -1,8 +1,9 @@
 import prisma from 'fleed/db/db';
+import { Benefit } from 'fleed/interfaces';
 import { IProduct } from 'fleed/interfaces/product';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-type Data =  {message: string} | IProduct[] | [];
+type Data =  {message: string} | Benefit[] | [];
 
 
 
@@ -10,25 +11,16 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
    
     switch (req.method) {
         case 'GET':
-            return getProducts(req,res)
+            return getBenefits(req,res)
         default:
             res.status(200).json({ message: 'Endpoint no existe' })
        }
        
 }
 
- const getProducts = async( req: NextApiRequest, res :NextApiResponse)=> {
+ const getBenefits = async( req: NextApiRequest, res :NextApiResponse)=> {
 
-    const data = await prisma.product.findMany({
-        include: {
-           benefits : {
-             select : {
-                benefit : true
-             }
-           }
-        }
-       
-    })
+    const data = await prisma.benefit.findMany()
     
     res.status(200).json(data)
  }

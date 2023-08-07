@@ -10,20 +10,20 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
    
     switch (req.method) {
         case 'GET':
-            return getProducts(req,res)
+            return getPackages(req,res)
         default:
             res.status(200).json({ message: 'Endpoint no existe' })
        }
        
 }
 
- const getProducts = async( req: NextApiRequest, res :NextApiResponse)=> {
+ const getPackages = async( req: NextApiRequest, res :NextApiResponse)=> {
 
-    const data = await prisma.product.findMany({
+    const data = await prisma.package.findMany({
         include: {
-           benefits : {
+           services : {
              select : {
-                benefit : true
+                service : true
              }
            }
         }

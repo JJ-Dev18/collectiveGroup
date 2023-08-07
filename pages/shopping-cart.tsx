@@ -38,7 +38,12 @@ const DonatePage: NextPage = () => {
           {
               products.map( prod => (
                 <div key={prod.id}>
-                     <h1>{prod.product.name}</h1>
+                     <h1>{prod.name}</h1>
+                    {
+                      prod.benefits.map( benefit => (
+                        <span>{benefit.benefit.name}</span>
+                      ))
+                    }
                 </div>
               ))
           }

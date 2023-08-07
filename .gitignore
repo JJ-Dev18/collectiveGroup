@@ -35,6 +35,10 @@ yarn-error.log*
 next-env.d.ts
 
 /pgadmin/
+pgadmin
+/pgadmin
 /postgres/
 docker-compose.yml
+/migrations
+
 

@@ -32,13 +32,36 @@ export async function up(knex: Knex): Promise<void> {
         table.increments('id').primary();
         table.integer('productId').unsigned()
         table.integer('benefitId').unsigned()
-
-        
-    }).table("BenefitOnProducts", function(table){
+    }).createTable("Service", function(table){
+        table.increments('id').primary();
+        table.string('name', 255).notNullable();
+        table.string('description', 255).notNullable();
+        table.decimal('cost').notNullable();
+        table.timestamp('createdAt').defaultTo(knex.fn.now()).index();
+        table.timestamp('updatedAt')
+    })
+    .createTable("Package", function(table){
+        table.increments('id').primary();
+        table.string('name', 255).notNullable();
+        table.string('description', 255).notNullable();
+        table.string('comments', 255).notNullable();
+        table.decimal('cost').notNullable();
+        table.timestamp('createdAt').defaultTo(knex.fn.now()).index();
+        table.timestamp('updatedAt')
+    })
+    .createTable("ServiceOnPackage", function(table){
+        table.increments('id').primary();
+        table.integer('serviceId').unsigned()
+        table.integer('packageId').unsigned()
+    })
+    .table("BenefitOnProducts", function(table){
         
         table.foreign("productId").references("id").inTable("Product")
         table.foreign("benefitId").references("id").inTable("Benefit")
-   
+    })
+    .table("ServiceOnPackage", function(table){   
+        table.foreign("serviceId").references("id").inTable("Service")
+        table.foreign("packageId").references("id").inTable("Package")
     })
 }
 
@@ -49,6 +72,8 @@ export async function down(knex: Knex): Promise<void> {
     .dropTable("Product")
     .dropTable("User")
     .dropTable("Benefit")
-    ;
+    .dropTable("ServiceOnPackage")
+    .dropTable("Service")
+    .dropTable("Package");
 }
 

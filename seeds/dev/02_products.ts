@@ -8,5 +8,7 @@ export async function seed(knex: Knex): Promise<void> {
     await knex("Product").insert([
         {  name: "Fleet IQ360", cost : 120 },
         {  name: "Forklift IQ360", cost : 200 },
+        {  name: "Rental IQ", cost : 200 },
+
     ]);
 };
