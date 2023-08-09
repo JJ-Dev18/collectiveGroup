@@ -18,7 +18,7 @@ model User {
   emailVerified  DateTime?
   image          String?
   hashedPassword String?
-  Sales Sale[]
+  Sales          Sale[]
   createdAt      DateTime  @default(now())
   updatedAt      DateTime? @updatedAt
 }
@@ -29,80 +29,101 @@ enum Role {
 }
 
 model Product {
-  id   Int     @id @default(autoincrement())
-  name String
-  cost Int
-  benefits BenefitOnProducts[]
-  ventas SaleDetail[]
+  id        Int                 @id @default(autoincrement())
+  name      String
+  cost      Int
+  benefits  BenefitOnProducts[]
+  ventas    SaleDetailProduct[]
   createdAt DateTime
   updatedAt DateTime?
 }
 
-model BenefitOnProducts{
-  product     Product     @relation(fields: [productId], references: [id])
-  productId   Int // relation scalar field (used in the `@relation` attribute above)
-  benefit     Benefit @relation(fields: [benefitId], references: [id])
+model BenefitOnProducts {
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int // relation scalar field (used in the `@relation` attribute above)
+  benefit   Benefit @relation(fields: [benefitId], references: [id])
   benefitId Int // relation scalar field (used in the `@relation` attribute above)
- 
 
   @@id([productId, benefitId])
 }
 
 model Benefit {
-  id          Int     @id @default(autoincrement())
+  id          Int                 @id @default(autoincrement())
   name        String
   description String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  products BenefitOnProducts[]
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime?
+  products    BenefitOnProducts[]
 }
 
 model Package {
-  id          Int     @id @default(autoincrement())
+  id          Int                @id @default(autoincrement())
   name        String
   description String?
   cost        Decimal
   comments    String
-  createdAt DateTime @default(now())
-  services ServiceOnPackage[]
-  updatedAt DateTime? 
+  createdAt   DateTime           @default(now())
+  services    ServiceOnPackage[]
+  ventas SaleDetailPackage[]
+  updatedAt   DateTime?
 }
 
-model ServiceOnPackage{
-  package     Package     @relation(fields: [packageId], references: [id])
-  packageId   Int // relation scalar field (used in the `@relation` attribute above)
-  service     Service  @relation(fields: [serviceId], references: [id])
+model ServiceOnPackage {
+  package   Package @relation(fields: [packageId], references: [id])
+  packageId Int // relation scalar field (used in the `@relation` attribute above)
+  service   Service @relation(fields: [serviceId], references: [id])
   serviceId Int // relation scalar field (used in the `@relation` attribute above)
 
   @@id([packageId, serviceId])
 }
 
 model Service {
-  id          Int     @id @default(autoincrement())
+  id          Int                @id @default(autoincrement())
   name        String
   description String?
   cost        Decimal
-  createdAt DateTime @default(now())
-  updatedAt DateTime?
-  packages ServiceOnPackage[]
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime?
+  packages    ServiceOnPackage[]
 }
 
 model Sale {
-  id Int @id @default(autoincrement())
-  user  User @relation(fields: [clienteId], references: [id])
-  sale SaleDetail[]
+  id        Int          @id @default(autoincrement())
+  user      User         @relation(fields: [clienteId], references: [id])
+  saleProducts      SaleDetailProduct[]
+  salePackages    SaleDetailPackage[]
+  shippingAddress String?
+  paymentResult   String?
+  isPaid          Boolean @default(false)
+  paidAt          String?
+  transactionId   String?
+  city            String?
+  country         String?
   clienteId Int
-  createdAt DateTime @default(now())
-
+  createdAt DateTime     @default(now())
 }
 
-model SaleDetail {
-  id Int @id @default(autoincrement())
-  product Product @relation(fields: [productId], references: [id])
-  productId Int
-  sale Sale  @relation(fields : [saleId], references: [id])
-  saleId Int
-  quantity Int
-  cost Decimal
-  subtotal Decimal
+model SaleDetailProduct {
+  id              Int     @id @default(autoincrement())
+  product         Product @relation(fields: [productId], references: [id])
+  productId       Int
+  sale            Sale    @relation(fields: [saleId], references: [id])
+  saleId          Int
+  quantity        Int
+  cost            Decimal
+  subtotal        Decimal
+
+ 
+}
+
+model SaleDetailPackage {
+   id              Int     @id @default(autoincrement())
+  package         Package @relation(fields: [packageId], references: [id])
+  packageId       Int
+  sale            Sale    @relation(fields: [saleId], references: [id])
+  saleId          Int
+  quantity        Int
+  cost            Decimal
+  subtotal        Decimal
+
 }

@@ -3,11 +3,12 @@ import { NextPage } from 'next'
 import Cart from '../components/Cart'
 import CartSummary from '../components/CartSummary'
 import { AuthContext } from 'fleed/context/auth'
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import Layout from 'fleed/components/layouts/Layout'
 import axios from 'axios'
 import { fleetshopApi } from 'fleed/api'
 import { IProduct } from 'fleed/interfaces/product';
+import { FormEmail } from 'fleed/components/FormEmail';
 
 const DonatePage: NextPage = () => {
 
@@ -48,6 +49,7 @@ const DonatePage: NextPage = () => {
               ))
           }
         </Cart>
+        <FormEmail/>
       </div>
     </Layout>
   )

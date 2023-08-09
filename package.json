@@ -13,11 +13,11 @@
     "db:seeds:make": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} knex seed:make",
     "db:seeds": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} knex seed:run",
     "db:migrate:rollback": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} knex migrate:rollback",
-
     "prisma:generate": "dotenv -e .env.local prisma generate",
     "vercel-build": "prisma generate && pnpm db:migrate && next build"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.11.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.3",

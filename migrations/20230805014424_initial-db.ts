@@ -65,9 +65,16 @@ export async function up(knex: Knex): Promise<void> {
     }).createTable('Sale', function(table){
         table.increments('id').primary();
         table.integer('clienteId').unsigned()
+        table.string('shippingAddress', 255)
+        table.string('paymentResult', 255)
+        table.string('paidAt', 255)
+        table.string('transactionId', 255)
+        table.string('city', 255)
+        table.string('country', 255)
+        table.boolean('isPaid ').defaultTo(false)
         table.timestamp('createdAt').defaultTo(knex.fn.now()).index();      
 
-    }).createTable('SaleDetail', function(table){
+    }).createTable('SaleDetailProduct', function(table){
         table.increments('id').primary();
         table.integer('productId').unsigned()
         table.integer('saleId').unsigned()
@@ -75,6 +82,30 @@ export async function up(knex: Knex): Promise<void> {
         table.decimal('cost').notNullable();
         table.decimal('subtotal').notNullable();
         table.timestamp('createdAt').defaultTo(knex.fn.now()).index();      
+       
+
+    }).createTable('SaleDetailPackage', function(table){
+        table.increments('id').primary();
+        table.integer('packageId').unsigned()
+        table.integer('saleId').unsigned()
+        table.integer('quantity').notNullable();
+        table.decimal('cost').notNullable();
+        table.decimal('subtotal').notNullable();
+        table.timestamp('createdAt').defaultTo(knex.fn.now()).index();          
+
+    })
+    .table('Sale', function(table){
+        table.foreign("clienteId").references("id").inTable("User")
+    })
+    .table('SaleDetailProduct', function(table){
+        table.foreign("productId").references("id").inTable("Product")
+        table.foreign("saleId").references("id").inTable("Sale")
+
+    })
+    .table('SaleDetailPackage', function(table){
+        table.foreign("packageId").references("id").inTable("Product")
+        table.foreign("saleId").references("id").inTable("Sale")
+
     })
 }
 
@@ -82,13 +113,15 @@ export async function up(knex: Knex): Promise<void> {
 export async function down(knex: Knex): Promise<void> {
     return knex.schema
     .dropTable("BenefitOnProducts")
+    .dropTable("SaleDetailProduct")
+    .dropTable("SaleDetailPackage")
+    .dropTable("Sale")
     .dropTable("Product")
     .dropTable("User")
     .dropTable("Benefit")
     .dropTable("ServiceOnPackage")
     .dropTable("Service")
     .dropTable("Package")
-    .dropTable("Sale")
-    .dropTable("SaleDetail")
+
 }
 
