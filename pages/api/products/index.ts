@@ -17,6 +17,25 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
        
 }
 
+ const createProduct = async( req: NextApiRequest, res :NextApiResponse)=> {
+   
+    const {
+        email = "",
+        password = "",
+        name = "",
+      } = req.body as { email: string; password: string; name: string };
+
+    const newProduct = await prisma.user.create({
+        data: {
+          
+        },
+      });
+
+ }
+
+
+
+
  const getProducts = async( req: NextApiRequest, res :NextApiResponse)=> {
 
     const data = await prisma.product.findMany({

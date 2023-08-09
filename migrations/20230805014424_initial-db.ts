@@ -62,6 +62,19 @@ export async function up(knex: Knex): Promise<void> {
     .table("ServiceOnPackage", function(table){   
         table.foreign("serviceId").references("id").inTable("Service")
         table.foreign("packageId").references("id").inTable("Package")
+    }).createTable('Sale', function(table){
+        table.increments('id').primary();
+        table.integer('clienteId').unsigned()
+        table.timestamp('createdAt').defaultTo(knex.fn.now()).index();      
+
+    }).createTable('SaleDetail', function(table){
+        table.increments('id').primary();
+        table.integer('productId').unsigned()
+        table.integer('saleId').unsigned()
+        table.integer('quantity').notNullable();
+        table.decimal('cost').notNullable();
+        table.decimal('subtotal').notNullable();
+        table.timestamp('createdAt').defaultTo(knex.fn.now()).index();      
     })
 }
 
@@ -74,6 +87,8 @@ export async function down(knex: Knex): Promise<void> {
     .dropTable("Benefit")
     .dropTable("ServiceOnPackage")
     .dropTable("Service")
-    .dropTable("Package");
+    .dropTable("Package")
+    .dropTable("Sale")
+    .dropTable("SaleDetail")
 }
 

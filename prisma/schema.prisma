@@ -18,6 +18,7 @@ model User {
   emailVerified  DateTime?
   image          String?
   hashedPassword String?
+  Sales Sale[]
   createdAt      DateTime  @default(now())
   updatedAt      DateTime? @updatedAt
 }
@@ -32,6 +33,7 @@ model Product {
   name String
   cost Int
   benefits BenefitOnProducts[]
+  ventas SaleDetail[]
   createdAt DateTime
   updatedAt DateTime?
 }
@@ -83,4 +85,24 @@ model Service {
   createdAt DateTime @default(now())
   updatedAt DateTime?
   packages ServiceOnPackage[]
+}
+
+model Sale {
+  id Int @id @default(autoincrement())
+  user  User @relation(fields: [clienteId], references: [id])
+  sale SaleDetail[]
+  clienteId Int
+  createdAt DateTime @default(now())
+
+}
+
+model SaleDetail {
+  id Int @id @default(autoincrement())
+  product Product @relation(fields: [productId], references: [id])
+  productId Int
+  sale Sale  @relation(fields : [saleId], references: [id])
+  saleId Int
+  quantity Int
+  cost Decimal
+  subtotal Decimal
 }
