@@ -9,50 +9,48 @@ import axios from 'axios'
 import { fleetshopApi } from 'fleed/api'
 import { IProduct } from 'fleed/interfaces/product';
 import { FormEmail } from 'fleed/components/FormEmail';
+import useSWR from 'swr'
+import { fetchGetJSON } from 'fleed/utils/api-helpers';
+import { useProducts } from 'fleed/hooks/useProducts';
+import { usePackages } from 'fleed/hooks/usePackages';
+import { Package } from 'fleed/components/Package';
+import Button from '@mui/material/Button'
+import { Grid } from '@mui/material';
+import { CustomPackage } from 'fleed/components/CustomPackage';
+import { DebugCart } from 'use-shopping-cart';
 
 const DonatePage: NextPage = () => {
 
-  const [products, setProducts] = useState<IProduct[]>([])
+  const { products, isLoading : isLoadinProducts } = useProducts('/products',{
+    fetcher : fetchGetJSON
+  });
 
-  useEffect(() => {
-    const getProducts = async () => {
-      const data = await fleetshopApi.get('/products')
-      setProducts(data.data)
+  const { packages, isLoading : isLoadingPackages} = usePackages('/packages',{
+    fetcher : fetchGetJSON
+  });
 
-    }
-    getProducts()
-    
-  }, [])
+
   
-  console.log(products)
+  
+  
   return (
     <Layout title="Shopping Cart | Next.js + TypeScript Example" >
-      <div className="page-container">
-        <h1>Shopping Cart</h1>
-        <p>
-          Powered by the{' '}
-          <a href="https://useshoppingcart.com">use-shopping-cart</a> React
-          hooks library.
-        </p>
+      
         <Cart>
-          <CartSummary />
-          {
-              products.map( prod => (
-                <div key={prod.id}>
-                     <h1>{prod.name}</h1>
-                    {
-                      prod.benefits.map( benefit => (
-                        <span>{benefit.benefit.name}</span>
-                      ))
-                    }
-                </div>
-              ))
-          }
+          <Grid container  alignItems="center" justifyContent="center">
+          { packages.map(pack => (   
+              <Package key={pack.id} {...pack} />
+          ))}
+          <CustomPackage/>
+          </Grid>
+
+          {/* <DebugCart /> */}
         </Cart>
-        <FormEmail/>
-      </div>
+        
+     
     </Layout>
   )
 }
 
 export default DonatePage
+

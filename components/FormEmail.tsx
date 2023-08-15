@@ -7,8 +7,7 @@ const form = useRef<HTMLFormElement>();
 
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    emailjs.sendForm(process.env.NEXT_PUBLIC_SERVICE_EMAIL_ID, process.env.NEXT_PUBLIC_TEMPLATE_EMAIL_ID, form.current, process.env.NEXT_PUBLIC_EMAIL_ID)
+    emailjs.sendForm( process.env.NEXT_PUBLIC_SERVICE_EMAIL_ID as string, process.env.NEXT_PUBLIC_TEMPLATE_EMAIL_ID as string, form.current as HTMLFormElement , process.env.NEXT_PUBLIC_EMAIL_ID)
       .then((result) => {
           console.log(result.text);
       }, (error) => {

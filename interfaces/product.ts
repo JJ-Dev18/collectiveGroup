@@ -4,10 +4,10 @@ import { Benefits } from "./benefit";
 export interface IProduct {
   id: number
   name: string
-  cost: number
+  price: number
   createdAt: Date
   updatedAt: string | null
-  benefits: Benefits[]
+  benefits?: Benefits[]
 }
 
 

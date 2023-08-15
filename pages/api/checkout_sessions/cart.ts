@@ -1,4 +1,5 @@
 import { dbProducts } from 'fleed/db'
+import { IPackage } from 'fleed/interfaces'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import Stripe from 'stripe'
@@ -27,8 +28,7 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     try {
-      const inventory = await dbProducts.getProducts()
-      // Validate the cart details that were sent from the client.
+      const inventory = await dbProducts.getInventory() as IPackage[]       // Validate the cart details that were sent from the client.
       const line_items = validateCartItems(inventory , req.body)
       const hasSubscription = line_items.find((item: any) => {
         return !!item.price_data.recurring
@@ -44,7 +44,7 @@ export default async function handler(
         line_items,
         success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/shopping-cart`,
-        mode: hasSubscription ? 'subscription' : 'payment',
+        mode: 'payment',
       }
 
       const checkoutSession: Stripe.Checkout.Session =

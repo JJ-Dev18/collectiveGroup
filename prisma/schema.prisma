@@ -31,7 +31,7 @@ enum Role {
 model Product {
   id        Int                 @id @default(autoincrement())
   name      String
-  cost      Int
+  price     Decimal
   benefits  BenefitOnProducts[]
   ventas    SaleDetailProduct[]
   createdAt DateTime
@@ -60,7 +60,7 @@ model Package {
   id          Int                @id @default(autoincrement())
   name        String
   description String?
-  cost        Decimal
+  price        Decimal
   comments    String
   createdAt   DateTime           @default(now())
   services    ServiceOnPackage[]
@@ -81,7 +81,7 @@ model Service {
   id          Int                @id @default(autoincrement())
   name        String
   description String?
-  cost        Decimal
+  price        Decimal
   createdAt   DateTime           @default(now())
   updatedAt   DateTime?
   packages    ServiceOnPackage[]
@@ -110,7 +110,7 @@ model SaleDetailProduct {
   sale            Sale    @relation(fields: [saleId], references: [id])
   saleId          Int
   quantity        Int
-  cost            Decimal
+  price            Decimal
   subtotal        Decimal
 
  
@@ -123,7 +123,7 @@ model SaleDetailPackage {
   sale            Sale    @relation(fields: [saleId], references: [id])
   saleId          Int
   quantity        Int
-  cost            Decimal
+  price            Decimal
   subtotal        Decimal
 
 }

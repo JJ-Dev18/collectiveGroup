@@ -18,7 +18,7 @@ export async function up(knex: Knex): Promise<void> {
     .createTable('Product', function (table) {
         table.increments('id').primary();
         table.string('name', 255).notNullable();
-        table.decimal('cost').notNullable();
+        table.decimal('price').notNullable();
         table.timestamp('createdAt').defaultTo(knex.fn.now()).index();
         table.timestamp('updatedAt')
 
@@ -36,7 +36,7 @@ export async function up(knex: Knex): Promise<void> {
         table.increments('id').primary();
         table.string('name', 255).notNullable();
         table.string('description', 255).notNullable();
-        table.decimal('cost').notNullable();
+        table.decimal('price').notNullable();
         table.timestamp('createdAt').defaultTo(knex.fn.now()).index();
         table.timestamp('updatedAt')
     })
@@ -45,7 +45,7 @@ export async function up(knex: Knex): Promise<void> {
         table.string('name', 255).notNullable();
         table.string('description', 255).notNullable();
         table.string('comments', 255).notNullable();
-        table.decimal('cost').notNullable();
+        table.decimal('price').notNullable();
         table.timestamp('createdAt').defaultTo(knex.fn.now()).index();
         table.timestamp('updatedAt')
     })
@@ -79,7 +79,7 @@ export async function up(knex: Knex): Promise<void> {
         table.integer('productId').unsigned()
         table.integer('saleId').unsigned()
         table.integer('quantity').notNullable();
-        table.decimal('cost').notNullable();
+        table.decimal('price').notNullable();
         table.decimal('subtotal').notNullable();
         table.timestamp('createdAt').defaultTo(knex.fn.now()).index();      
        
@@ -89,7 +89,7 @@ export async function up(knex: Knex): Promise<void> {
         table.integer('packageId').unsigned()
         table.integer('saleId').unsigned()
         table.integer('quantity').notNullable();
-        table.decimal('cost').notNullable();
+        table.decimal('price').notNullable();
         table.decimal('subtotal').notNullable();
         table.timestamp('createdAt').defaultTo(knex.fn.now()).index();          
 

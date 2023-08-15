@@ -9,7 +9,7 @@ export async function seed(knex: Knex): Promise<void> {
         { productId: 1,
              saleId: 1,
              quantity : 1,
-             cost : 10,
+             price : 10,
               subtotal: 10,
 
             

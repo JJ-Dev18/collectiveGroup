@@ -8,10 +8,10 @@ export const lightTheme = createTheme({
         default : grey[300]
       },
       primary:{
-        main : '#90caf9'
+        main : '#1EAEA8'
       },
       secondary: {
-        main : '#19857c'
+        main : '#1F4452'
       },
       error : {
         main : red.A400
@@ -37,13 +37,19 @@ export const lightTheme = createTheme({
       // },
   
       MuiTypography: {
+        
         styleOverrides: {
+          
           h1: {
-            fontSize: 30,
+            fontSize: 26,
             fontWeight: 600
           },
           h2: {
             fontSize: 20,
+            fontWeight: 400
+          },
+          h3:{
+            fontSize: 16,
             fontWeight: 400
           },
           subtitle1: {
@@ -59,7 +65,7 @@ export const lightTheme = createTheme({
       //     variant: 'contained',
       //     size: 'small',
       //     disableElevation: true,
-      //     color: 'info'
+      //     color: 'primary'
       //   },
       //   styleOverrides: {
       //     root: {
@@ -73,16 +79,36 @@ export const lightTheme = createTheme({
       //     }
       //   }
       // },
+
+      MuiButton:{
+       
+        styleOverrides :{
+          textPrimary : {
+            // color : 'white'
+          },
+          root: {
+            // color: 'white'
+            fontWeight: '700'
+          }
+        }
+      },
   
-  
+     
       MuiCard: {
         defaultProps: {
-          elevation: 0
+          elevation: 1
         },
         styleOverrides: {
           root: {
             boxShadow: '0px 5px 5px rgba(0,0,0,0.05)',
             borderRadius: '10px',
+            border :'0px solid #f6f5f3',
+            width: '340px',
+            padding: '10px',
+            fontSize : '16px',
+            fontFamily: 'Heebo'
+     
+            
           }
         }
       }

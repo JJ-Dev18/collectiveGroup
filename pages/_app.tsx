@@ -11,8 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <SessionProvider>
      <AuthProvider>
         <UiProvider>
-      <CssBaseline/>
-      <Component {...pageProps} />
+           <Component {...pageProps} />
         </UiProvider>
         </AuthProvider>
     </SessionProvider> 

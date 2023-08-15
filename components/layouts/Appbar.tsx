@@ -15,9 +15,10 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { useRouter } from "next/router";
 import DarkModeToggle from "../DarkModeToggle";
 import { AuthContext } from "fleed/context/auth";
+import Image from "next/image";
 // import { AuthContext } from "@/context";
 
-const pages = ["Competencias", "Categorias", "Competidores"];
+const pages:any[] = [];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -61,27 +62,10 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" color="inherit">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
+          
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -114,36 +98,21 @@ function ResponsiveAppBar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={() => navegar(page)}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center" color="secondary">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
+          
+          <Image src='./logo.svg' width={100} height={100} alt="logo" className="mr-10 text-white"/>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={() => navegar(page)}
-                sx={{ my: 2, color: "white", display: "block" }}
+                color="primary"
+                // variant="outlined"
+                // sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}
               </Button>

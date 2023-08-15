@@ -12,12 +12,12 @@ const Layout:FC<Props> = ({title = "Competencias",children}) => {
   return (
     <Box sx={{ flexFlow: 1}}>
      <Head>
-        <title>{ `Bmx - ${title} `}</title>
+        <title>{ `Collective Intelligence | ${title} `}</title>
      </Head>
 
-     <Box sx={{ padding : '10px'}} >
+     <Box  >
       <ResponsiveAppBar/>
-      <Box sx={{marginTop: '20px'}}  display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+      <Box sx={{marginTop: '20px'}}  >
         {children}
       </Box>
      </Box>
