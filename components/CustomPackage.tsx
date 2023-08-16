@@ -3,7 +3,7 @@ import React from 'react'
 
 export const CustomPackage = () => {
   return (
-    <Card className='mb-5 sm:mr-5  xl:w-3/12' >
+    <Card variant='outlined' className='mb-5 sm:mr-5  xl:w-3/12' >
         <CardHeader
           title="SELF DRIVING"
           subheader="TAILOR MADE FOR ME"         

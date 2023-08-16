@@ -1,12 +1,11 @@
 import { dbProducts } from 'fleed/db'
-import { IPackage } from 'fleed/interfaces'
+import {  ItemInterface } from 'fleed/interfaces'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import Stripe from 'stripe'
 import { Product } from 'use-shopping-cart/core'
 // @ts-ignore
 import { validateCartItems } from 'use-shopping-cart/utilities'
-
 /*
  * Product data can be loaded from anywhere. In this case, we’re loading it from
  * a local JSON file, but this could also come from an async call to your
@@ -28,8 +27,10 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     try {
-      const inventory = await dbProducts.getInventory() as IPackage[]       // Validate the cart details that were sent from the client.
+      const inventory = await dbProducts.getInventory() as ItemInterface[]  
+       // Validate the cart details that were sent from the client.
       const line_items = validateCartItems(inventory , req.body)
+      console.log(line_items)
       const hasSubscription = line_items.find((item: any) => {
         return !!item.price_data.recurring
       })

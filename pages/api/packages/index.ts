@@ -1,8 +1,9 @@
 import prisma from 'fleed/db/db';
+import { ItemInterface } from 'fleed/interfaces';
 import { IProduct } from 'fleed/interfaces/product';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-type Data =  {message: string} | IProduct[] | [];
+type Data =  {message: string} | ItemInterface[] | [];
 
 
 

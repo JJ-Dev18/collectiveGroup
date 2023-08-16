@@ -1,7 +1,5 @@
 import { NextPage } from 'next'
 
-import Cart from '../components/Cart'
-import CartSummary from '../components/CartSummary'
 import { AuthContext } from 'fleed/context/auth'
 import { useContext, useEffect, useRef, useState } from 'react';
 import Layout from 'fleed/components/layouts/Layout'
@@ -18,6 +16,7 @@ import Button from '@mui/material/Button'
 import { Grid } from '@mui/material';
 import { CustomPackage } from 'fleed/components/CustomPackage';
 import { DebugCart } from 'use-shopping-cart';
+import CartProviderComponent from '../components/CartProvider';
 
 const DonatePage: NextPage = () => {
 
@@ -31,12 +30,12 @@ const DonatePage: NextPage = () => {
 
 
   
-  
+  console.log(packages,"packages")
   
   return (
     <Layout title="Shopping Cart | Next.js + TypeScript Example" >
       
-        <Cart>
+       
           <Grid container  alignItems="center" justifyContent="center">
           { packages.map(pack => (   
               <Package key={pack.id} {...pack} />
@@ -44,8 +43,8 @@ const DonatePage: NextPage = () => {
           <CustomPackage/>
           </Grid>
 
-          {/* <DebugCart /> */}
-        </Cart>
+          <DebugCart />
+     
         
      
     </Layout>

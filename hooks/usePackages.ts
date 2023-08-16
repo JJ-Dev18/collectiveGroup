@@ -1,5 +1,5 @@
 import useSWR, { SWRConfiguration } from 'swr';
-import { IPackage } from '../interfaces';
+import {  ItemInterface } from '../interfaces';
 
 
 // const fetcher = (...args: [key: string]) => fetch(...args).then(res => res.json());
@@ -7,7 +7,7 @@ import { IPackage } from '../interfaces';
 export const usePackages = (url: string, config: SWRConfiguration = {} ) => {
 
     // const { data, error } = useSWR<IProduct[]>(`/api${ url }`, fetcher, config );
-    const { data, error } = useSWR<IPackage[]>(`/api${ url }`, config );
+    const { data, error } = useSWR<ItemInterface[]>(`/api${ url }`, config );
 
     return {
         packages: data || [],

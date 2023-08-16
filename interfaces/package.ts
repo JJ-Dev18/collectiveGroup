@@ -5,13 +5,16 @@ export interface Services {
     service: IService;
 }
 
-export interface IPackage {
-    id:          number;
+export interface ItemInterface {
+    id:          string;
     name:        string;
     description: string;
     price:        number;
+    currency : string;
     comments?:   string;
-    createdAt:   Date;
+    createdAt:   string;
     updatedAt:   null;
     services?:   Services[];
 }
+
+

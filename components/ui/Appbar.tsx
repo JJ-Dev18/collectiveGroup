@@ -11,11 +11,16 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import NextLink from 'next/link';
 import AdbIcon from "@mui/icons-material/Adb";
 import { useRouter } from "next/router";
-import DarkModeToggle from "../DarkModeToggle";
+import DarkModeToggle from "./DarkModeToggle";
 import { AuthContext } from "fleed/context/auth";
 import Image from "next/image";
+
+import { Badge, Link } from '@mui/material';
+import { SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material';
+import { useShoppingCart } from "use-shopping-cart";
 // import { AuthContext } from "@/context";
 
 const pages:any[] = [];
@@ -30,16 +35,17 @@ function ResponsiveAppBar() {
   const router = useRouter();
 
   const { user, isLoggedIn, logout } = React.useContext(AuthContext);
-
   
+  const {cartCount  } = useShoppingCart();
+  console.log(cartCount, "DESDE EL APP BAR")
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
   const settings = [
-    { label: "Perfil", action: handleCloseUserMenu },
-    { label: "Cuenta", action: handleCloseUserMenu },
+    { label: "Profile", action: handleCloseUserMenu },
+    { label: "Account", action: handleCloseUserMenu },
     { label: "Dashboard", action: handleCloseUserMenu },
-    { label: "Cerrar Sesion", action: logout },
+    { label: "Loggout", action: logout },
   ];
   // const pages = [
   //   { label: "Perfil", action: handleCloseUserMenu },
@@ -103,8 +109,11 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          
-          <Image src='./logo.svg' width={100} height={100} alt="logo" className="mr-10 text-white"/>
+          <NextLink href='/' passHref legacyBehavior>
+          <Link>
+          <Image src='/logo.svg' width={100} height={100} alt="logo" className="mr-10 text-white" priority/>
+          </Link>
+          </NextLink>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
@@ -119,8 +128,17 @@ function ResponsiveAppBar() {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0, display: "flex" }}>
+          <Box sx={{ flexGrow: 0, display: "flex", alignItems:'center', justifyContent:"space-between", width: '200px'}}>
             <DarkModeToggle />
+            <NextLink href={cartCount === 0 ? '/cart/empty' : '/cart'} passHref legacyBehavior className="mr-1">
+                <Link>
+                    <IconButton>
+                        <Badge badgeContent={ !cartCount ? '0' : cartCount } color="secondary">
+                            <ShoppingCartOutlined />
+                        </Badge>
+                    </IconButton>
+                </Link>
+            </NextLink>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/profile.jpeg" />

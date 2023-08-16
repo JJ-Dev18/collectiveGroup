@@ -96,7 +96,7 @@ export const lightTheme = createTheme({
      
       MuiCard: {
         defaultProps: {
-          elevation: 1
+          // elevation: 1
         },
         styleOverrides: {
           root: {

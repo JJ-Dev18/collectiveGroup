@@ -10,11 +10,11 @@ import Cookies from "js-cookie";
 import { UiContext } from "fleed/context/ui";
 
 const DarkSwitch = styled(Switch)(({ theme }) => ({
-  width: 62,
+  width: 56,
   height: 34,
   padding: 7,
   '& .MuiSwitch-switchBase': {
-    margin: 1,
+    margin: 0,
     padding: 0,
     transform: 'translateX(6px)',
     '&.Mui-checked': {
@@ -27,12 +27,12 @@ const DarkSwitch = styled(Switch)(({ theme }) => ({
       },
       '& + .MuiSwitch-track': {
         opacity: 1,
-        backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
+        backgroundColor: theme.palette.mode === 'dark' ? '#1EAEA8' : '#1EAEA8',
       },
     },
   },
   '& .MuiSwitch-thumb': {
-    backgroundColor: theme.palette.mode === 'dark' ? '#003892' : '#001e3c',
+    backgroundColor: theme.palette.mode === 'dark' ? '#1EAEA8' : '#1F4452',
     width: 32,
     height: 32,
     '&:before': {
@@ -51,7 +51,7 @@ const DarkSwitch = styled(Switch)(({ theme }) => ({
   },
   '& .MuiSwitch-track': {
     opacity: 1,
-    backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
+    backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#8796A5',
     borderRadius: 20 / 2,
   },
 }));
@@ -68,9 +68,9 @@ const DarkModeToggle = () => {
   }
 
   return (
-    <FormGroup>
+    <FormGroup className="">
       <FormControlLabel
-        control={<DarkSwitch sx={{ m: 1 }}  
+        control={<DarkSwitch sx={{  }}  
         checked={state.theme.palette.mode === 'light' ? true : false }
         onChange={handleTheme}
          />

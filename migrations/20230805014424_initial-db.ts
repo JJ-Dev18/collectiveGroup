@@ -18,7 +18,8 @@ export async function up(knex: Knex): Promise<void> {
     .createTable('Product', function (table) {
         table.increments('id').primary();
         table.string('name', 255).notNullable();
-        table.decimal('price').notNullable();
+        table.integer('price').notNullable();
+        table.string('currency', 255)
         table.timestamp('createdAt').defaultTo(knex.fn.now()).index();
         table.timestamp('updatedAt')
 
@@ -36,7 +37,7 @@ export async function up(knex: Knex): Promise<void> {
         table.increments('id').primary();
         table.string('name', 255).notNullable();
         table.string('description', 255).notNullable();
-        table.decimal('price').notNullable();
+        table.integer('price').notNullable();
         table.timestamp('createdAt').defaultTo(knex.fn.now()).index();
         table.timestamp('updatedAt')
     })
@@ -45,7 +46,8 @@ export async function up(knex: Knex): Promise<void> {
         table.string('name', 255).notNullable();
         table.string('description', 255).notNullable();
         table.string('comments', 255).notNullable();
-        table.decimal('price').notNullable();
+        table.string('currency', 255)
+        table.integer('price').notNullable();
         table.timestamp('createdAt').defaultTo(knex.fn.now()).index();
         table.timestamp('updatedAt')
     })
