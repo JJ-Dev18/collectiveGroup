@@ -5,7 +5,7 @@ import { useShoppingCart } from 'use-shopping-cart';
 
 
 interface Props {
-  id:number
+  id:string
   quantity : number
 }
 

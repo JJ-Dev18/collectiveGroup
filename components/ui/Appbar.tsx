@@ -133,7 +133,7 @@ function ResponsiveAppBar() {
             <NextLink href={cartCount === 0 ? '/cart/empty' : '/cart'} passHref legacyBehavior className="mr-1">
                 <Link>
                     <IconButton>
-                        <Badge badgeContent={ cartCount?.toString() } color="secondary">
+                        <Badge badgeContent={ cartCount?.toString() } color="secondary" >
                             <ShoppingCartOutlined />
                         </Badge>
                     </IconButton>

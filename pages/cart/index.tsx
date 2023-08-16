@@ -11,6 +11,7 @@ import { CartList } from "fleed/components/cart/CartList";
 import { OrderSummary } from "fleed/components/cart/OrderSummary";
 
 import Layout from "fleed/components/layouts/Layout";
+import { useCheckout } from "fleed/hooks/useCheckout";
 import { fetchPostJSON } from "fleed/utils/api-helpers";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -19,24 +20,15 @@ import { DebugCart, useShoppingCart } from "use-shopping-cart";
 
 const CartPage = () => {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const { cartCount , redirectToCheckout,cartDetails } = useShoppingCart()
+  const { loading, errorMessage , handleCheckout } = useCheckout(undefined)
   const [loadCard, setLoadCard] = useState(false)
   const [cantCard, setCantCard] = useState(0)
-  const {
-    formattedTotalPrice,
-    cartCount,
-    clearCart,
-    cartDetails,
-    redirectToCheckout,
-    checkoutSingleItem
-  } = useShoppingCart();
 
   useEffect(() => {
     const cookieProducts = localStorage.getItem('persist:root') ? JSON.parse( localStorage.getItem('persist:root')! ): []
-    // cartCount = cookieProducts.cartCount
     setLoadCard(true)
-    setCantCard(cookieProducts.cartCount)
+    setCantCard(cookieProducts.cartCount || 0)
   }, [cartCount])
  
 
@@ -49,27 +41,7 @@ const CartPage = () => {
   
 //   useEffect(() => setCartEmpty(!cartCount), [cartCount]);
   
-  const handleCheckout: React.MouseEventHandler<HTMLButtonElement> = async (
-    event
-  ) => {
-    event.preventDefault();
-    setLoading(true);
-    setErrorMessage("");
-    const response = await fetchPostJSON(
-      "/api/checkout_sessions/cart",
-      cartDetails
-    );
-
-    if (response.statusCode > 399) {
-      console.error(response.message);
-      setErrorMessage(response.message);
-      setLoading(false);
-      return;
-    }
-
-    console.log(response, "response");
-    redirectToCheckout(response.id);
-  };
+  
 
 
   // if ( !isLoaded || cartCount === 0 ) {

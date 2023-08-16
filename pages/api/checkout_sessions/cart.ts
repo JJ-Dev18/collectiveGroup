@@ -30,10 +30,8 @@ export default async function handler(
       const inventory = await dbProducts.getInventory() as ItemInterface[]  
        // Validate the cart details that were sent from the client.
       const line_items = validateCartItems(inventory , req.body)
-      console.log(line_items)
-      const hasSubscription = line_items.find((item: any) => {
-        return !!item.price_data.recurring
-      })
+      console.log(req.body)
+    
       // Create Checkout Sessions from body params.
       const params: Stripe.Checkout.SessionCreateParams = {
         submit_type: 'pay',
