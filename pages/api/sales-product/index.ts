@@ -26,7 +26,7 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
     const data = await prisma.saleDetailProduct.findMany({
         select: {
             quantity: true,
-            cost:true,
+            price:true,
             subtotal : true,
             
            sale : {

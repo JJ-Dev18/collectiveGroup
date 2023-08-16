@@ -1,6 +1,6 @@
 import { Box } from "@mui/material"
 import Head from "next/head"
-import { FC } from "react";
+import React, { FC, useEffect } from "react";
 import ResponsiveAppBar from "../ui/Appbar";
 
 interface Props { 
@@ -9,6 +9,9 @@ interface Props {
 }
 
 const Layout:FC<Props> = ({title = "Shop",children}) => {
+  
+
+  
   return (
     <Box sx={{ flexFlow: 1}}>
      <Head>

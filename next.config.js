@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false,
+ 
   transpilePackages: [
     '@mui/material',
    '@mui/system',
@@ -48,7 +48,7 @@ module.exports = {
     ]
   },
   nextConfig,
-  // reactStrictMode: false,
+  reactStrictMode: false,
   swcMinify: true,
   // onDemandEntries: {
   //   websocketPort: 3007,

@@ -32,8 +32,6 @@ export const AuthProvider:FC<Props> = ({ children }) => {
     const { data, status } = useSession();
     const router = useRouter();
 
-    console.log(status,"Status")
-
     useEffect(() => {
         
         if ( status === 'authenticated' ) {

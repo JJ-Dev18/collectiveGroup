@@ -1,9 +1,10 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import NextLink from 'next/link';
 import { Box, Button, CardActionArea, CardMedia, Grid, Link, Typography } from '@mui/material';
 import { useShoppingCart } from 'use-shopping-cart';
 import { ItemCounter } from '../ui/ItemCounter';
 import { CartEntry } from 'use-shopping-cart/core';
+import { useRouter } from 'next/router';
 
 
 
@@ -15,11 +16,13 @@ interface Props {
 
 export const CartList: FC<Props> = ({ editable = false }) => {
   
-  const { addItem, removeItem ,cartDetails  } = useShoppingCart();
-
+  const { addItem, removeItem ,cartDetails,cartCount  } = useShoppingCart();
+  const router = useRouter();
+ 
   const productsInCart:CartEntry[] = Object.values(cartDetails as any)
+  
+ 
 
-  console.log(cartDetails)
   return (
     <>
         {

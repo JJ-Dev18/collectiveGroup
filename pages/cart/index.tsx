@@ -16,11 +16,13 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { DebugCart, useShoppingCart } from "use-shopping-cart";
 
+
 const CartPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [cartEmpty, setCartEmpty] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [loadCard, setLoadCard] = useState(false)
+  const [cantCard, setCantCard] = useState(0)
   const {
     formattedTotalPrice,
     cartCount,
@@ -30,7 +32,21 @@ const CartPage = () => {
     checkoutSingleItem
   } = useShoppingCart();
 
-  console.log( cartCount, "Cart count ");
+  useEffect(() => {
+    const cookieProducts = localStorage.getItem('persist:root') ? JSON.parse( localStorage.getItem('persist:root')! ): []
+    // cartCount = cookieProducts.cartCount
+    setLoadCard(true)
+    setCantCard(cookieProducts.cartCount)
+  }, [cartCount])
+ 
+
+  useEffect(() => {
+   if(loadCard && cantCard == 0 || loadCard && cartCount == 0){
+         router.replace('/cart/empty')
+   }
+  }, [loadCard,cartCount])
+  
+  
 //   useEffect(() => setCartEmpty(!cartCount), [cartCount]);
   
   const handleCheckout: React.MouseEventHandler<HTMLButtonElement> = async (
@@ -39,7 +55,6 @@ const CartPage = () => {
     event.preventDefault();
     setLoading(true);
     setErrorMessage("");
-    const productsInCart = Object.values(cartDetails as any)
     const response = await fetchPostJSON(
       "/api/checkout_sessions/cart",
       cartDetails
@@ -55,14 +70,7 @@ const CartPage = () => {
     console.log(response, "response");
     redirectToCheckout(response.id);
   };
-  useEffect(() => {
-    console.log(typeof cartCount)
-    setTimeout(() => {
-        if ( cartCount === 0 ){
-          router.replace('/cart/empty');
-        }
-    }, 1000);
-  }, [  cartCount, router ])
+
 
   // if ( !isLoaded || cartCount === 0 ) {
   //     return (<></>);
@@ -72,7 +80,7 @@ const CartPage = () => {
       <Typography variant="h1" component="h1">
         Carrito
       </Typography>
-      <DebugCart />
+     
       <Grid container>
         <Grid item xs={12} sm={7}>
           <CartList editable />
@@ -93,6 +101,7 @@ const CartPage = () => {
                   color="secondary"
                   className="circular-btn"
                   fullWidth
+                  disabled={loading}
                   onClick={handleCheckout}
                 >
                   Checkout

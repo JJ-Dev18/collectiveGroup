@@ -6,7 +6,6 @@ import Layout from 'fleed/components/layouts/Layout'
 import axios from 'axios'
 import { fleetshopApi } from 'fleed/api'
 import { IProduct } from 'fleed/interfaces/product';
-import { FormEmail } from 'fleed/components/FormEmail';
 import useSWR from 'swr'
 import { fetchGetJSON } from 'fleed/utils/api-helpers';
 import { useProducts } from 'fleed/hooks/useProducts';
@@ -20,9 +19,9 @@ import CartProviderComponent from '../components/CartProvider';
 
 const DonatePage: NextPage = () => {
 
-  const { products, isLoading : isLoadinProducts } = useProducts('/products',{
-    fetcher : fetchGetJSON
-  });
+  // const { products, isLoading : isLoadinProducts } = useProducts('/products',{
+  //   fetcher : fetchGetJSON
+  // });
 
   const { packages, isLoading : isLoadingPackages} = usePackages('/packages',{
     fetcher : fetchGetJSON
@@ -43,7 +42,7 @@ const DonatePage: NextPage = () => {
           <CustomPackage/>
           </Grid>
 
-          <DebugCart />
+       
      
         
      

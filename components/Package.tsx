@@ -5,7 +5,7 @@ import { useShoppingCart, formatCurrencyString } from 'use-shopping-cart';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Services } from './Services';
 
-export const Package:FC<ItemInterface> = (props) => {
+export const Package:FC<ItemInterface> = React.memo((props) => {
   const { addItem, removeItem ,cartDetails,} = useShoppingCart();
   const packageToAdd :ItemInterface= { ... props , 
      id :'package000'+ props.id.toString() ,
@@ -48,5 +48,7 @@ export const Package:FC<ItemInterface> = (props) => {
       </CardActions>
 
     </Card>
-  )
-}
+  ) 
+},
+() => true
+)

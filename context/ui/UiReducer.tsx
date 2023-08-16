@@ -1,6 +1,6 @@
-import { Competencia, Competidor } from "@/interfaces";
+
 import { UiState } from "./UiProvider";
-import { darkTheme, lightTheme } from "@/themes";
+
 import { Theme } from '@mui/material';
 
 type UiAction = {type: 'Set Theme', payload: Theme } 

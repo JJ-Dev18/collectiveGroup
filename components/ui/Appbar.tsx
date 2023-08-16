@@ -32,12 +32,12 @@ function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
+  const { user, isLoggedIn, logout } = React.useContext(AuthContext);
+  const { cartCount  } = useShoppingCart();
   const router = useRouter();
 
-  const { user, isLoggedIn, logout } = React.useContext(AuthContext);
   
-  const {cartCount  } = useShoppingCart();
-  console.log(cartCount, "DESDE EL APP BAR")
+  
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
@@ -133,7 +133,7 @@ function ResponsiveAppBar() {
             <NextLink href={cartCount === 0 ? '/cart/empty' : '/cart'} passHref legacyBehavior className="mr-1">
                 <Link>
                     <IconButton>
-                        <Badge badgeContent={ !cartCount ? '0' : cartCount } color="secondary">
+                        <Badge badgeContent={ cartCount?.toString() } color="secondary">
                             <ShoppingCartOutlined />
                         </Badge>
                     </IconButton>
@@ -141,7 +141,7 @@ function ResponsiveAppBar() {
             </NextLink>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/profile.jpeg" />
+                <Avatar alt="Remy Sharp"  />
               </IconButton>
             </Tooltip>
             <Menu

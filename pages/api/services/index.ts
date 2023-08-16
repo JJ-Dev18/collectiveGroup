@@ -1,8 +1,8 @@
 import prisma from 'fleed/db/db';
-import { Service } from 'fleed/interfaces';
+import { IService} from 'fleed/interfaces';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-type Data =  {message: string} | Service[] | [];
+type Data =  {message: string} | IService[] | [];
 
 
 
