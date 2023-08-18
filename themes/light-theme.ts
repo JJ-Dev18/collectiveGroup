@@ -1,3 +1,4 @@
+import { Height } from '@mui/icons-material';
 import { createTheme } from '@mui/material';
 import { grey,red } from '@mui/material/colors'
 
@@ -5,7 +6,7 @@ export const lightTheme = createTheme({
     palette :{
       mode : 'light',
       background: {
-        default : grey[300]
+        default :'white'
       },
       primary:{
         main : '#1EAEA8'
@@ -55,8 +56,8 @@ export const lightTheme = createTheme({
           props: { itemType: 'default' },
           style: {
             boxShadow: '0px 5px 5px rgba(0,0,0,0.05)',
-            border : 'none',
-            // backgroundColor : 'gray',
+             
+            
             padding: '10px',
             fontSize : '16px',
             fontFamily: 'Heebo'
@@ -132,12 +133,26 @@ export const lightTheme = createTheme({
   
      
       MuiCard: {
+ 
+        variants: [
+          {
+            props: { content : "product" },
+            style: {
+               width:'100%',
+               height:'150px'
+            },
+            
+          },
+         
+          
+        ],
         defaultProps: {
-          // elevation: 1
+          elevation: 4
         },
         styleOverrides: {
+
           root: {
-            boxShadow: '0px 5px 5px rgba(0,0,0,0.05)',
+            // boxShadow: '0px 5px 5px rgba(0,0,0,0.05)',
             borderRadius: '10px',
             border :'0px solid #f6f5f3',
             width: '340px',

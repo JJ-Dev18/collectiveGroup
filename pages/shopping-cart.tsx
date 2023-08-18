@@ -10,15 +10,16 @@ import useSWR from 'swr'
 import { fetchGetJSON } from 'fleed/utils/api-helpers';
 import { useProducts } from 'fleed/hooks/useProducts';
 import { usePackages } from 'fleed/hooks/usePackages';
-import { Package } from 'fleed/components/Package';
+import { Package } from 'fleed/components/packagesUi/Package';
 import Button from '@mui/material/Button'
 import { Grid } from '@mui/material';
-import { CustomPackage } from 'fleed/components/CustomPackage';
+import { CustomPackage } from 'fleed/components/packagesUi/CustomPackage';
 import { DebugCart } from 'use-shopping-cart';
-import CartProviderComponent from '../components/CartProvider';
+import CartProviderComponent from '../components/cart/CartProvider';
 import { useCheckout } from 'fleed/hooks/useCheckout';
-import { TableProducts } from 'fleed/components/TableProducts';
+import { TableProducts } from 'fleed/components/productsUi/TableProducts';
 import { useBenefits } from 'fleed/hooks/useBenefits';
+import { ItemInterface } from 'fleed/interfaces';
 
 const DonatePage: NextPage = () => {
 
@@ -35,6 +36,7 @@ const DonatePage: NextPage = () => {
   });
 
   const columns =  useMemo(() => {
+    console.log("funcion de columns ejecutada")
     const data = benefits.map( benefit => {
       let object :any = {}
       object.benefit= benefit.name
@@ -62,7 +64,7 @@ const DonatePage: NextPage = () => {
       
          <Grid container  alignItems="center" justifyContent="center" >
           
-              <TableProducts columns={columns} products={products}/>
+              <TableProducts columns={columns} products={products} handleCheckout={handleCheckout}/>
                
          </Grid> 
 

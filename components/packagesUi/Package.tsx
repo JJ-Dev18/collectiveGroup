@@ -34,7 +34,7 @@ export const Package:FC<Props> = React.memo(({handleCheckout,packageInfo}) => {
   
 
   return (
-    <Card variant="outlined" className='mb-5 sm:mr-5 xl:w-3/12' >
+    <Card variant="elevation" className='mb-5 sm:mr-5 xl:w-3/12' >
         <CardHeader
         sx={{color: 'secondary'}}
         title={packageInfo.name}
@@ -58,7 +58,7 @@ export const Package:FC<Props> = React.memo(({handleCheckout,packageInfo}) => {
           </ul>
         {packageInfo.comments}
         </CardContent>
-        <CardActions>
+        <CardActions className='flex justify-center'>
         
         <Button variant='outlined' color="primary" sx={{fontWeight:'600'}}  onClick={() => addItem(packageToAdd)} >
           Add To Cart

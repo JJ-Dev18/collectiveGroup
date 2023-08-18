@@ -78,7 +78,7 @@ const LoginPage = () => {
                         <Grid item xs={12}>
                             <TextField
                                 type="email"
-                                label="Correo"
+                                label="E-mail"
                                 variant="filled"
                                 fullWidth 
                                 { ...register('email', {
@@ -93,7 +93,7 @@ const LoginPage = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                label="Contraseña"
+                                label="Password"
                                 type='password'
                                 variant="filled"
                                 fullWidth 
@@ -113,7 +113,7 @@ const LoginPage = () => {
                                 className='circular-btn'
                                 size='large'
                                 fullWidth>
-                                Ingresar
+                                Sign In
                             </Button>
                         </Grid>
 
@@ -125,7 +125,7 @@ const LoginPage = () => {
                                 passHref
                             >
                                 <Link underline='always'>
-                                    ¿No tienes cuenta?
+                                    Create Account
                                 </Link>
                             </NextLink>
                         </Grid>

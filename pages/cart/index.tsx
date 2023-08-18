@@ -44,16 +44,16 @@ const CartPage = () => {
   
 
 
-  // if ( !isLoaded || cartCount === 0 ) {
-  //     return (<></>);
-  // }
+  if ( !loadCard || cartCount === 0 ) {
+      return (<></>);
+  }
   return (
     <Layout title="Carrito - 3">
       <Typography variant="h1" component="h1">
-        Carrito
+        Cart
       </Typography>
      
-      <Grid container>
+      <Grid container height="100vh">
         <Grid item xs={12} sm={7}>
           <CartList editable />
         </Grid>
@@ -63,7 +63,7 @@ const CartPage = () => {
           ) : null}
           <Card className="summary-card">
             <CardContent>
-              <Typography variant="h2">Orden</Typography>
+              <Typography variant="h2">Purchase</Typography>
               <Divider sx={{ my: 1 }} />
 
               <OrderSummary />

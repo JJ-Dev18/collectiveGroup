@@ -7,7 +7,7 @@ export const darkTheme = createTheme({
     palette :{
         mode : 'dark',
         background: {
-          default : "#000000"
+          default : "#1B1B1B"
         },
         secondary:{
           main : '#1EAEA8'
@@ -53,9 +53,9 @@ export const darkTheme = createTheme({
           {
             props: { itemType: 'default' },
             style: {
-              boxShadow: '0px 5px 5px rgba(0,0,0,0.05)',
+              boxShadow: '0px 5px 5px "#1B1B1B"',
              
-              backgroundColor : '#121212',
+              backgroundColor : "#1B1B1B",
               padding: '10px',
               fontSize : '16px',
               fontFamily: 'Heebo'
@@ -96,6 +96,11 @@ export const darkTheme = createTheme({
               fontSize: 20,
               fontWeight: 400
             },
+            h3:{
+              fontSize: 16,
+              fontWeight: 400
+            },
+           
             subtitle1: {
               fontSize: 18,
               fontWeight: 600
@@ -128,6 +133,18 @@ export const darkTheme = createTheme({
     
     
         MuiCard: {
+          variants: [
+            {
+              props: { content : "product" },
+              style: {
+                 width:'100%',
+                 height:'150px'
+              },
+              
+            },
+           
+            
+          ],
           defaultProps: {
             // elevation: 1
           },

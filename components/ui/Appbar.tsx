@@ -23,7 +23,8 @@ import { SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material';
 import { useShoppingCart } from "use-shopping-cart";
 // import { AuthContext } from "@/context";
 
-const pages:any[] = [];
+ const pages = ["Login", "Register"];
+;
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -42,16 +43,15 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
   const settings = [
-    { label: "Profile", action: handleCloseUserMenu },
-    { label: "Account", action: handleCloseUserMenu },
-    { label: "Dashboard", action: handleCloseUserMenu },
-    { label: "Loggout", action: logout },
+    { label: "My Account", action: handleCloseUserMenu },
+    { label: "My Purchase", action: handleCloseUserMenu },
+    { label: "Logout", action: logout },
   ];
   // const pages = [
-  //   { label: "Perfil", action: handleCloseUserMenu },
-  //   { label: "Cuenta", action: handleCloseUserMenu },
-  //   { label: "Dashboard", action: handleCloseUserMenu },
-  //   { label: "Cerrar Sesion", action: logout },
+  //   { label: "Login", action: handleCloseUserMenu },
+  //   { label: "Loggout", action: handleCloseUserMenu },
+  //   // { label: "Dashboard", action: handleCloseUserMenu },
+  //   // { label: "Cerrar Sesion", action: logout },
   // ];
 
   const handleCloseNavMenu = () => {
@@ -64,7 +64,7 @@ function ResponsiveAppBar() {
     setAnchorElUser(event.currentTarget);
   };
   const navegar = (page: string) => {
-    router.push(`/${page.toLocaleLowerCase()}`);
+    router.push(`/auth/${page.toLocaleLowerCase()}`);
   };
 
   return (
@@ -114,21 +114,22 @@ function ResponsiveAppBar() {
           <Image src='/logo.svg' width={100} height={100} alt="logo" className="mr-10 text-white" priority/>
           </Link>
           </NextLink>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } , justifyContent:'center'}}>
+            {!isLoggedIn && pages.map((page) => (
               <Button
                 key={page}
                 onClick={() => navegar(page)}
                 color="primary"
                 // variant="outlined"
-                // sx={{ my: 2, color: "white", display: "block" }}
+                sx={{ my: 2, fontWeight:'400' ,textTransform :'none'}}
               >
                 {page}
               </Button>
             ))}
+            
           </Box>
 
-          <Box sx={{ flexGrow: 0, display: "flex", alignItems:'center', justifyContent:"space-between", width: '200px'}}>
+          <Box sx={{ flexGrow: 0, display: "flex", alignItems:'center', justifyContent:"space-between", width: isLoggedIn ? '200px' : '100px'}}>
             <DarkModeToggle />
             <NextLink href={cartCount === 0 ? '/cart/empty' : '/cart'} passHref legacyBehavior className="mr-1">
                 <Link>
@@ -139,7 +140,10 @@ function ResponsiveAppBar() {
                     </IconButton>
                 </Link>
             </NextLink>
-            <Tooltip title="Open settings">
+            {
+              isLoggedIn && 
+              <>
+              <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp"  />
               </IconButton>
@@ -166,6 +170,9 @@ function ResponsiveAppBar() {
                 </MenuItem>
               ))}
             </Menu>
+              </>
+            }
+           
           </Box>
         </Toolbar>
       </Container>

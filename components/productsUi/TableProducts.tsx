@@ -9,12 +9,15 @@ import React, { FC ,useEffect} from "react";
 import styled from "styled-components";
 // import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import { Button, Card, Stack } from '@mui/material';
+import { Button, Card, Stack, Typography } from '@mui/material';
 import { inherits } from 'util';
 import DoneAllSharpIcon from '@mui/icons-material/DoneAllSharp';
 import DoDisturbOnSharpIcon from '@mui/icons-material/DoDisturbOnSharp';
-
+import { CardProduct } from './CardProduct';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useShoppingCart } from 'use-shopping-cart';
 const StyledTableCell = styled(TableCell)`
+
 
 `
 
@@ -28,21 +31,18 @@ type Column = {
 }
 
 type Props = {
-  products : IProduct[]
-  columns : Column[]
+  products : ItemInterface[]
+  columns : Column[],
+  handleCheckout : (productToAdd:ItemInterface) => void 
 }
 
 
-export const TableProducts: FC<Props> = ({columns,products}) => {
+export const TableProducts: FC<Props> = ({columns,products,handleCheckout}) => {
   
-  const buyNow:React.MouseEventHandler<HTMLButtonElement> = async (event) => {
-  //   clearCart()
-  //  //  addItem(packageToAdd)
-  //   handleCheckout(packageToAdd)
- }
+  const { addItem } = useShoppingCart()
   
   return (
-    <TableContainer className='mb-10'>
+    <TableContainer className='mb-36'>
     <Table  aria-label="customized table">
       <TableHead sx={{border: 'none'}}>
         <TableRow >
@@ -51,15 +51,28 @@ export const TableProducts: FC<Props> = ({columns,products}) => {
         </StyledTableCell>
           {
             products.map( product => (
-              <StyledTableCell align="center"> 
-               <Paper>
-              {product.name}
-
-               </Paper>
+            <StyledTableCell align="center" > 
+                <div className='hidden lg:flex align-center justify-center'>
+                <CardProduct product={product} handleCheckout={handleCheckout} />
+                </div>
+                <div className="lg:hidden">
+                   <Paper
+                  
+                   onClick={()=> addItem(product)}
+                   sx={{display:'flex',flexDirection:'column',justifyContent:"center",alignItems:'center'}}>
+                    <Typography variant="caption" color="secondary" >
+                    {product.name}
+                    </Typography>            
+                     <ShoppingCartIcon fontSize={'small'} color='secondary' />
+                   </Paper>
+                </div>
             </StyledTableCell>
             ))
           }
          
+        </TableRow>
+        <TableRow >
+
         </TableRow>
       </TableHead>
       <TableBody>

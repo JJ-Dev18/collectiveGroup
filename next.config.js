@@ -42,7 +42,7 @@ module.exports = {
     return [
       {
         source: '/',
-        destination: '/auth/login',
+        destination: '/shopping-cart',
         permanent: true,
       },
     ]

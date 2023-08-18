@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
 import PrintObject from '../components/PrintObject'
-import Cart from '../components/CartProvider'
+import Cart from '../components/cart/CartProvider'
 import ClearCart from '../components/ClearCart'
 
 import { fetchGetJSON } from '../utils/api-helpers'

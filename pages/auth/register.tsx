@@ -58,7 +58,7 @@ const RegisterPage = () => {
                 <Box sx={{ width: 350, padding:'10px 20px' }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <Typography variant='h1' component="h1">Crear cuenta</Typography>
+                            <Typography variant='h1' component="h1">Create Account</Typography>
                             <Chip 
                                 label={`${errorMessage}`}
                                 color="error"
@@ -70,7 +70,7 @@ const RegisterPage = () => {
 
                         <Grid item xs={12}>
                             <TextField
-                                label="Nombre completo"
+                                label="Full Name"
                                 variant="filled"
                                 fullWidth 
                                 { ...register('name', {
@@ -84,7 +84,7 @@ const RegisterPage = () => {
                         <Grid item xs={12}>
                             <TextField
                                 type="email"
-                                label="Correo"
+                                label="E-mail"
                                 variant="filled"
                                 fullWidth 
                                 { ...register('email', {
@@ -98,7 +98,7 @@ const RegisterPage = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                label="Contraseña"
+                                label="Password"
                                 type='password'
                                 variant="filled"
                                 fullWidth 
@@ -119,7 +119,7 @@ const RegisterPage = () => {
                                 size='large'
                                 fullWidth
                             >
-                                Registrarse
+                                Sign Up
                             </Button>
                         </Grid>
 
@@ -129,7 +129,7 @@ const RegisterPage = () => {
                                 passHref legacyBehavior
                             >
                                 <Link underline='always'>
-                                    ¿Ya tienes cuenta?
+                                  Already have an account?
                                 </Link>
                             </NextLink>
                         </Grid>
@@ -147,7 +147,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
     const session = await getSession({ req });
     // console.log({session});
 
-    const { p = '/competencias' } = query;
+    const { p = '/shopping-cart' } = query;
 
     if ( session ) {
         return {

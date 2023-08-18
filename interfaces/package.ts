@@ -1,4 +1,4 @@
-import { IService } from ".";
+import { Benefits, IService } from ".";
 
 
 export interface Services {
@@ -8,12 +8,13 @@ export interface Services {
 export interface ItemInterface {
     id:          string;
     name:        string;
-    description: string;
+    description?: string;
     price:        number;
-    currency : string;
+    currency? : string;
     comments?:   string;
     createdAt:   string;
     updatedAt:   null;
+    benefits? :  Benefits[]
     services?:   Services[];
 }
 

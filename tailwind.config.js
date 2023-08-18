@@ -9,5 +9,13 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  theme: {
+    screens: {
+     
+      'lg': '1102px',
+      // => @media (min-width: 1024px) { ... }
+
+    }
+  }
  
 }

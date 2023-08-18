@@ -2,6 +2,7 @@ import { Box } from "@mui/material"
 import Head from "next/head"
 import React, { FC, useEffect } from "react";
 import ResponsiveAppBar from "../ui/Appbar";
+import Footer from "../ui/Footer";
 
 interface Props { 
   title?: string;
@@ -22,10 +23,11 @@ const Layout:FC<Props> = ({title = "Shop",children}) => {
       <ResponsiveAppBar/>
       <Box sx={{marginTop: '20px'}} justifyContent="center" alignItems="center" display="flex" flexDirection="column">
          <Box sx={{maxWidth:'1200px'}}>
-        {children}
+           {children}
            
          </Box>
       </Box>
+     <Footer/>
      </Box>
     </Box>
   )
