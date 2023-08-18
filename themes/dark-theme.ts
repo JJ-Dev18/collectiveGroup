@@ -34,6 +34,37 @@ export const darkTheme = createTheme({
             },
           }
         },
+        MuiTableCell : {
+
+          variants: [
+          {
+            props: { itemType: 'product' },
+            style: {
+              boxShadow: '0px 5px 5px rgba(0,0,0,0.05)',
+              borderRadius: '10px',
+              border :'0px solid #f6f5f3',
+             
+              padding: '10px',
+              fontSize : '16px',
+              fontFamily: 'Heebo'
+            },
+            
+          },
+          {
+            props: { itemType: 'default' },
+            style: {
+              boxShadow: '0px 5px 5px rgba(0,0,0,0.05)',
+             
+              backgroundColor : '#121212',
+              padding: '10px',
+              fontSize : '16px',
+              fontFamily: 'Heebo'
+            },
+            
+          },
+          
+        ]
+        },
         // MuiChip:{
         //     styleOverrides : {
         //       root: {

@@ -18,10 +18,13 @@ const Layout:FC<Props> = ({title = "Shop",children}) => {
         <title>{ `Collective Intelligence | ${title} `}</title>
      </Head>
 
-     <Box  >
+     <Box >
       <ResponsiveAppBar/>
-      <Box sx={{marginTop: '20px'}}  >
+      <Box sx={{marginTop: '20px'}} justifyContent="center" alignItems="center" display="flex" flexDirection="column">
+         <Box sx={{maxWidth:'1200px'}}>
         {children}
+           
+         </Box>
       </Box>
      </Box>
     </Box>

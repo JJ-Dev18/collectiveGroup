@@ -20,8 +20,8 @@ import { DebugCart, useShoppingCart } from "use-shopping-cart";
 
 const CartPage = () => {
   const router = useRouter();
-  const { cartCount , redirectToCheckout,cartDetails } = useShoppingCart()
-  const { loading, errorMessage , handleCheckout } = useCheckout(undefined)
+  // const { cartCount  } = useShoppingCart()
+  const { loading, errorMessage , handleCheckout, cartCount } = useCheckout()
   const [loadCard, setLoadCard] = useState(false)
   const [cantCard, setCantCard] = useState(0)
 
@@ -74,7 +74,7 @@ const CartPage = () => {
                   className="circular-btn"
                   fullWidth
                   disabled={loading}
-                  onClick={handleCheckout}
+                  onClick={()=> handleCheckout(undefined)}
                 >
                   Checkout
                 </Button>

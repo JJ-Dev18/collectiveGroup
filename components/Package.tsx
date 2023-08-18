@@ -6,13 +6,19 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Services } from './Services';
 import { useCheckout } from 'fleed/hooks/useCheckout';
 
-export const Package:FC<ItemInterface> = React.memo((props) => {
+type Props = {
+  handleCheckout  : (packagetoAdd:ItemInterface) => void 
+  packageInfo : ItemInterface
+}
+
+export const Package:FC<Props> = React.memo(({handleCheckout,packageInfo}) => {
   const { addItem, removeItem ,cartDetails, redirectToCheckout,clearCart,} = useShoppingCart();
-  const packageToAdd :ItemInterface= { ... props , 
-     id :'package000'+ props.id.toString() ,
-      price : Number(props.price),
+  
+  const packageToAdd :ItemInterface= { ... packageInfo , 
+     id :'package000'+ packageInfo.id.toString() ,
+      price : Number(packageInfo.price),
      }
-  const { handleCheckout } = useCheckout(packageToAdd)  
+
 
   useEffect(() => {
    
@@ -21,7 +27,7 @@ export const Package:FC<ItemInterface> = React.memo((props) => {
   const buyNow:React.MouseEventHandler<HTMLButtonElement> = async (event) => {
      clearCart()
     //  addItem(packageToAdd)
-     handleCheckout(event)
+     handleCheckout(packageToAdd)
   }
    
   
@@ -31,12 +37,12 @@ export const Package:FC<ItemInterface> = React.memo((props) => {
     <Card variant="outlined" className='mb-5 sm:mr-5 xl:w-3/12' >
         <CardHeader
         sx={{color: 'secondary'}}
-        title={props.name}
-        subheader={props.description}
+        title={packageInfo.name}
+        subheader={packageInfo.description}
       />
         <Box display="flex" justifyContent="center" flexDirection="column" alignItems="center">
            <Typography variant="h1" color="secondary">
-            {props.price /100} USD
+            {packageInfo.price /100} USD
            </Typography>
            <Typography variant="subtitle1" color="primary">
             Per truck/month
@@ -45,12 +51,12 @@ export const Package:FC<ItemInterface> = React.memo((props) => {
         <CardContent>
             <ul className=' d-flex flex-column '>
             {
-                props.services?.map( service => (
+                packageInfo.services?.map( service => (
                     <Services key={service.service.id} {...service.service} />
                 ))
             }
           </ul>
-        {props.comments}
+        {packageInfo.comments}
         </CardContent>
         <CardActions>
         

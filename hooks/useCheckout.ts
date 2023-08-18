@@ -5,13 +5,13 @@ import { FC, useEffect, useState } from "react";
 import { useShoppingCart } from "use-shopping-cart";
 import { CartDetails, CartEntry } from "use-shopping-cart/core";
 
-export const useCheckout = (cartEntry: ItemInterface | undefined) => {
+export const useCheckout = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const { cartDetails, addItem, redirectToCheckout } = useShoppingCart();
+  const { cartDetails, cartCount, redirectToCheckout } = useShoppingCart();
 
-  const handleCheckout: React.MouseEventHandler<HTMLButtonElement> = async (
-    event
+  const handleCheckout = async (
+    cartEntry: ItemInterface | undefined
   ) => {
     setLoading(true);
     setErrorMessage("");
@@ -43,5 +43,6 @@ export const useCheckout = (cartEntry: ItemInterface | undefined) => {
     handleCheckout,
     loading,
     errorMessage,
+    cartCount
   };
 };
