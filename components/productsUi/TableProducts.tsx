@@ -5,7 +5,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Benefit, Benefits, IProduct, ItemInterface } from "fleed/interfaces";
-import React, { FC ,useEffect} from "react";
+import React, { FC ,useContext,useEffect} from "react";
 import styled from "styled-components";
 // import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
@@ -16,6 +16,7 @@ import DoDisturbOnSharpIcon from '@mui/icons-material/DoDisturbOnSharp';
 import { CardProduct } from './CardProduct';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useShoppingCart } from 'use-shopping-cart';
+import { UiContext } from 'fleed/context/ui';
 const StyledTableCell = styled(TableCell)`
 
 
@@ -34,13 +35,15 @@ type Props = {
   products : ItemInterface[]
   columns : Column[],
   handleCheckout : (productToAdd:ItemInterface) => void 
+  loading : boolean
 }
 
 
-export const TableProducts: FC<Props> = ({columns,products,handleCheckout}) => {
+export const TableProducts: FC<Props> = ({columns,products,handleCheckout,loading}) => {
   
   const { addItem } = useShoppingCart()
-  
+  const { showSuccessAlert } = useContext(UiContext)
+
   return (
     <TableContainer className='mb-36'>
     <Table  aria-label="customized table">
@@ -53,12 +56,17 @@ export const TableProducts: FC<Props> = ({columns,products,handleCheckout}) => {
             products.map( product => (
             <StyledTableCell align="center" > 
                 <div className='hidden lg:flex align-center justify-center'>
-                <CardProduct product={product} handleCheckout={handleCheckout} />
+                <CardProduct product={product} handleCheckout={handleCheckout} loading={loading} />
                 </div>
                 <div className="lg:hidden">
-                   <Paper
-                  
-                   onClick={()=> addItem(product)}
+                   <Paper                
+                    onClick={()=> {
+                    addItem({ ... product , 
+                      id :'product000'+ product.id.toString() ,
+                      price : Number(product.price),
+                     })
+                    showSuccessAlert("Product Add to cart")
+                   }}
                    sx={{display:'flex',flexDirection:'column',justifyContent:"center",alignItems:'center'}}>
                     <Typography variant="caption" color="secondary" >
                     {product.name}

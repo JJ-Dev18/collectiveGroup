@@ -15,6 +15,10 @@ module.exports = {
       'lg': '1102px',
       // => @media (min-width: 1024px) { ... }
 
+    },
+    colors: {
+       'primary' :'#1EAEA8' ,
+       'secondary' : '#1F4452'
     }
   }
  

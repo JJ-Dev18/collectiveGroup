@@ -72,8 +72,8 @@ function ResponsiveAppBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          {
+            !isLoggedIn &&  <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -109,6 +109,8 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
+          }
+         
           <NextLink href='/' passHref legacyBehavior>
           <Link>
           <Image src='/logo.svg' width={100} height={100} alt="logo" className="mr-10 text-white" priority/>
@@ -133,17 +135,19 @@ function ResponsiveAppBar() {
             <DarkModeToggle />
             <NextLink href={cartCount === 0 ? '/cart/empty' : '/cart'} passHref legacyBehavior className="mr-1">
                 <Link>
+                <Tooltip title="View Shopping cart">
                     <IconButton>
                         <Badge badgeContent={ cartCount?.toString() } color="secondary" >
                             <ShoppingCartOutlined />
                         </Badge>
                     </IconButton>
+                </Tooltip>
                 </Link>
             </NextLink>
             {
               isLoggedIn && 
               <>
-              <Tooltip title="Open settings">
+              <Tooltip title="Profile">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp"  />
               </IconButton>

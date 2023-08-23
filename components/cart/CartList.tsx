@@ -1,62 +1,47 @@
 import { FC, useEffect } from 'react';
 import NextLink from 'next/link';
-import { Box, Button, CardActionArea, CardMedia, Grid, Link, Typography } from '@mui/material';
+import { Box, Button, CardActionArea, CardMedia, Divider, Grid, Link, Typography } from '@mui/material';
 import { useShoppingCart } from 'use-shopping-cart';
 import { ItemCounter } from '../ui/ItemCounter';
 import { CartEntry } from 'use-shopping-cart/core';
 import { useRouter } from 'next/router';
+import { ItemCart } from './ItemCart';
+import { ItemInterface } from 'fleed/interfaces';
 
 
 
 
 
 interface Props {
-    editable?: boolean;
+    handleCheckout  : (productToAdd :ItemInterface | undefined | CartEntry) => void
 }
 
-export const CartList: FC<Props> = ({ editable = false }) => {
+export const CartList: FC<Props> = ({handleCheckout}) => {
   
   const { addItem, removeItem ,cartDetails,cartCount  } = useShoppingCart();
   const router = useRouter();
  
-  const productsInCart:CartEntry[] = Object.values(cartDetails as any)
+  const productsInCart:CartEntry[] = Object.values(cartDetails as CartEntry)
   
- 
+  console.log(productsInCart, cartDetails)
 
   return (
-    <>
+    <Box  sx={{ flexDirection: { xs: 'column', sm: 'row' }}}>
+           
         {
             productsInCart.map( product => (
-                <Grid container spacing={2} key={ product.id } sx={{ mb:1 }}>
-                  
-                    <Grid item xs={7}>
-                        <Box display='flex' flexDirection='column'>
-                            <Typography variant='body1'>{ product.name }</Typography>
-                     
-                            <Typography variant='body1'>{product.description}</Typography>
-
-                            {
-                                editable 
-                                ? <ItemCounter id={product.id} quantity={product.quantity}/>
-                                : <Typography variant='h5'>{product.quantity} items</Typography>
-                            }
-                            
-                        </Box>
-                    </Grid>
-                    <Grid item xs={2} display='flex' alignItems='center' flexDirection='column'>
-                        <Typography variant='subtitle1'>{ `${ product.formattedValue }` }</Typography>
-                        
-                        {
-                            editable && (
-                                <Button variant='text' color='secondary' onClick={()=> removeItem(product.id)} >
-                                    Remover
-                                </Button>
-                            )
-                        }
-                    </Grid>
-                </Grid>
-            ))
-        }
-    </>
+                  <Grid item xs={12} key={product.id}>
+                    { 
+                         <>
+                        <ItemCart product={product} handleCheckout={handleCheckout}/>
+                         <Divider/>
+                         </>
+                    }
+                  </Grid>
+                    
+                    ))
+                }
+                
+    </Box>
   )
 }

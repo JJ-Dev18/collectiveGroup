@@ -1,19 +1,22 @@
 import { Button, Card, Box,CardActions, CardContent, CardHeader, Typography } from '@mui/material'
 import {  IProduct, ItemInterface } from 'fleed/interfaces'
-import React, { FC ,useEffect} from 'react'
+import React, { FC ,useContext,useEffect} from 'react'
 import { useShoppingCart, formatCurrencyString } from 'use-shopping-cart';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Services } from './Services';
 import { useCheckout } from 'fleed/hooks/useCheckout';
-
+import {  ToastContainer, toast } from 'react-toastify';
+import { UiContext } from 'fleed/context/ui';
 type Props = {
   handleCheckout  : (packagetoAdd:ItemInterface) => void 
+  loading : boolean
   packageInfo : ItemInterface
 }
 
-export const Package:FC<Props> = React.memo(({handleCheckout,packageInfo}) => {
+export const Package:FC<Props> = React.memo(({handleCheckout,packageInfo,loading}) => {
   const { addItem, removeItem ,cartDetails, redirectToCheckout,clearCart,} = useShoppingCart();
-  
+  const { showInfoAlert , showSuccessAlert} = useContext(UiContext)
+
   const packageToAdd :ItemInterface= { ... packageInfo , 
      id :'package000'+ packageInfo.id.toString() ,
       price : Number(packageInfo.price),
@@ -24,9 +27,8 @@ export const Package:FC<Props> = React.memo(({handleCheckout,packageInfo}) => {
    
   }, [])
 
-  const buyNow:React.MouseEventHandler<HTMLButtonElement> = async (event) => {
+  const buyNow =  () => {
      clearCart()
-    //  addItem(packageToAdd)
      handleCheckout(packageToAdd)
   }
    
@@ -60,16 +62,22 @@ export const Package:FC<Props> = React.memo(({handleCheckout,packageInfo}) => {
         </CardContent>
         <CardActions className='flex justify-center'>
         
-        <Button variant='outlined' color="primary" sx={{fontWeight:'600'}}  onClick={() => addItem(packageToAdd)} >
+        <Button variant='outlined'
+          
+          
+          color="primary" sx={{fontWeight:'600'}}  onClick={() => {
+          addItem(packageToAdd)
+          showSuccessAlert("Package Add to cart")
+          }} >
           Add To Cart
         </Button>
-        <Button variant='contained' color='secondary' sx={{fontWeight:'600'}} onClick={buyNow}>
+        <Button variant='contained' color='secondary' sx={{fontWeight:'600'}} onClick={buyNow} disabled={loading}>
           Buy Now
         </Button>
       </CardActions>
-
+     
     </Card>
   ) 
 },
-() => true
+() => false
 )

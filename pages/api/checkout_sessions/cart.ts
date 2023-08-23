@@ -28,9 +28,11 @@ export default async function handler(
   if (req.method === 'POST') {
     try {
       const inventory = await dbProducts.getInventory() as ItemInterface[]  
+      const saleId: string = req.query.saleId as string
+
        // Validate the cart details that were sent from the client.
       const line_items = validateCartItems(inventory , req.body)
-      console.log(req.body)
+      // console.log(req.body)
     
       // Create Checkout Sessions from body params.
       const params: Stripe.Checkout.SessionCreateParams = {
@@ -40,6 +42,7 @@ export default async function handler(
         shipping_address_collection: {
           allowed_countries: ['US', 'CA'],
         },
+        metadata:{ sale_id : saleId},
         line_items,
         success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/shopping-cart`,

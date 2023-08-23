@@ -57,20 +57,20 @@ const DonatePage: NextPage = () => {
   return data
   }, [benefits,products])
  
-  const { handleCheckout } = useCheckout()
+  const { handleCheckout, loading } = useCheckout()
   
   return (
     <Layout title="Shopping Cart | Next.js + TypeScript Example" >
       
          <Grid container  alignItems="center" justifyContent="center" >
           
-              <TableProducts columns={columns} products={products} handleCheckout={handleCheckout}/>
+              <TableProducts loading={loading} columns={columns} products={products} handleCheckout={handleCheckout}/>
                
          </Grid> 
 
           <Grid container  alignItems="center" justifyContent="center"  >
           { packages.map(pack => (   
-              <Package key={pack.id} handleCheckout={handleCheckout} packageInfo={pack} />
+              <Package loading={loading} key={pack.id} handleCheckout={handleCheckout} packageInfo={pack} />
           ))}
           <CustomPackage/>
           </Grid>

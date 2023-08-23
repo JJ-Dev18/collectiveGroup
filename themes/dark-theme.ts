@@ -87,23 +87,28 @@ export const darkTheme = createTheme({
         },
     
         MuiTypography: {
+        
           styleOverrides: {
+            
             h1: {
-              fontSize: 30,
-              fontWeight: 600
+              fontSize: 26,
+              fontWeight: 600,
+              fontFamily: 'helbet'
             },
             h2: {
               fontSize: 20,
-              fontWeight: 400
+              fontWeight: 400,
+              fontFamily: 'helbet'
             },
             h3:{
               fontSize: 16,
-              fontWeight: 400
+              fontWeight: 400,
+              fontFamily: 'helbet'
             },
-           
             subtitle1: {
               fontSize: 18,
-              fontWeight: 600
+              fontWeight: 600,
+              fontFamily: 'helbet'
             }
           }
         },

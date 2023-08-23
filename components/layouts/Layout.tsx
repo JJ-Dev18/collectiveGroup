@@ -14,22 +14,18 @@ const Layout:FC<Props> = ({title = "Shop",children}) => {
 
   
   return (
-    <Box sx={{ flexFlow: 1}}>
+    <>
      <Head>
         <title>{ `Collective Intelligence | ${title} `}</title>
      </Head>
-
-     <Box >
-      <ResponsiveAppBar/>
-      <Box sx={{marginTop: '20px'}} justifyContent="center" alignItems="center" display="flex" flexDirection="column">
-         <Box sx={{maxWidth:'1200px'}}>
-           {children}
-           
-         </Box>
-      </Box>
-     <Footer/>
-     </Box>
-    </Box>
+        <ResponsiveAppBar />
+     <div className="flex flex-col min-h-screen mx-auto max-w-7xl px-4 pt-8 pb-16">
+      <div className="flex-grow">
+        <main className="my-0 py-16">{children}</main>
+      </div>
+    </div>
+      <Footer />
+    </>
   )
 }
 

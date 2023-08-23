@@ -5,6 +5,7 @@ import {
   CardContent,
   Divider,
   Grid,
+  Paper,
   Typography,
 } from "@mui/material";
 import { CartList } from "fleed/components/cart/CartList";
@@ -16,6 +17,7 @@ import { fetchPostJSON } from "fleed/utils/api-helpers";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { DebugCart, useShoppingCart } from "use-shopping-cart";
+
 
 
 const CartPage = () => {
@@ -37,38 +39,26 @@ const CartPage = () => {
          router.replace('/cart/empty')
    }
   }, [loadCard,cartCount])
-  
-  
-//   useEffect(() => setCartEmpty(!cartCount), [cartCount]);
-  
-  
-
 
   if ( !loadCard || cartCount === 0 ) {
       return (<></>);
   }
   return (
-    <Layout title="Carrito - 3">
-      <Typography variant="h1" component="h1">
-        Cart
-      </Typography>
-     
-      <Grid container height="100vh">
-        <Grid item xs={12} sm={7}>
-          <CartList editable />
-        </Grid>
-        <Grid item xs={12} sm={5}>
-          {errorMessage ? (
-            <p style={{ color: "red" }}>Error: {errorMessage}</p>
-          ) : null}
-          <Card className="summary-card">
+    <Layout title="Carrito - ">
+      <Typography variant="h1" color="inherit" textAlign="center">Shopping Cart</Typography>
+      <Grid container> 
+      <Grid item xs={12} md={7}>
+      <CartList handleCheckout={handleCheckout}/>
+      </Grid>
+      <Grid item xs={12} md={5}  sx={{ display:'flex', justifyContent:{ xs : 'center' , }}}>
+      <Card sx={{ marginTop: {xs : '20px', md: '0'},marginLeft : { xs : '0', md : '20px'}, height:'220px'}}  >
             <CardContent>
               <Typography variant="h2">Purchase</Typography>
               <Divider sx={{ my: 1 }} />
 
               <OrderSummary />
 
-              <Box sx={{ mt: 3 }}>
+              <Box >
                 <Button
                   color="secondary"
                   className="circular-btn"
@@ -81,7 +71,7 @@ const CartPage = () => {
               </Box>
             </CardContent>
           </Card>
-        </Grid>
+      </Grid>
       </Grid>
     </Layout>
   );

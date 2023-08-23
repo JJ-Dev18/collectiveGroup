@@ -12,7 +12,9 @@ export async function middleware(req: NextRequest) {
     const requestedPage = req.nextUrl.pathname;
     const url = req.nextUrl.clone();
     url.pathname = `/auth/login`;
-    url.search = `p=${requestedPage}`;
+    if(requestedPage != '/result'){
+      url.search = `p=${requestedPage}`;
+    }
     return NextResponse.redirect(url);
   }
 

@@ -6,6 +6,7 @@ import { SessionProvider } from "next-auth/react";
 import { AuthProvider } from "fleed/context/auth";
 import { UiProvider } from "fleed/context/ui";
 import CartProviderComponent from "fleed/components/cart/CartProvider";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
