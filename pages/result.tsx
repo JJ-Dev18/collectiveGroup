@@ -46,7 +46,7 @@ const ResultPage: FC <Props>= ({session_id,sale_id}) => {
 
           })
           console.log(updateSale,"se actualizo la venta")
-          // const data = await fleedShopApi.post('/send', {email : user?.email} )
+           await fleedShopApi.post('/send', {email : user?.email} )
           // console.log(data)     
           clearCart()    
         } catch (error) {

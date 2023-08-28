@@ -1,8 +1,10 @@
 import { dbProducts } from 'fleed/db'
 import {  ItemInterface } from 'fleed/interfaces'
+import { formatAmountForStripe } from 'fleed/utils/stripe-helpers'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import Stripe from 'stripe'
+import { CartEntry } from 'use-shopping-cart/core'
 import { Product } from 'use-shopping-cart/core'
 // @ts-ignore
 import { validateCartItems } from 'use-shopping-cart/utilities'
@@ -29,10 +31,27 @@ export default async function handler(
     try {
       const inventory = await dbProducts.getInventory() as ItemInterface[]  
       const saleId: string = req.query.saleId as string
-
-       // Validate the cart details that were sent from the client.
-      const line_items = validateCartItems(inventory , req.body)
-      // console.log(req.body)
+      const { products , custom } = req.body 
+      // Validate the cart details that were sent from the client.
+      let line_items = [];
+      if(custom){
+        const customPackage:CartEntry[] = Object.values(products as CartEntry)
+        console.log(customPackage,"custom package")
+         line_items = [ {
+          quantity: 1,
+          price_data: {
+            currency: customPackage[0].currency,
+            product_data: {
+              name: 'Custom Package',
+            },
+            unit_amount: customPackage[0].price,
+          },
+        },]
+        
+      }else{
+        line_items = validateCartItems(inventory , products)
+      }
+      console.log(line_items)
     
       // Create Checkout Sessions from body params.
       const params: Stripe.Checkout.SessionCreateParams = {

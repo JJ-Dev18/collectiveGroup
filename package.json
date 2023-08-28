@@ -17,6 +17,7 @@
     "vercel-build": "prisma generate && pnpm db:migrate && next build"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.0.8",
     "@emailjs/browser": "^3.11.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",

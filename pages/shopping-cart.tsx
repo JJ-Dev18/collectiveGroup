@@ -12,28 +12,34 @@ import { useProducts } from 'fleed/hooks/useProducts';
 import { usePackages } from 'fleed/hooks/usePackages';
 import { Package } from 'fleed/components/packagesUi/Package';
 import Button from '@mui/material/Button'
-import { Grid } from '@mui/material';
-import { CustomPackage } from 'fleed/components/packagesUi/CustomPackage';
+import { Grid, paperClasses } from '@mui/material';
 import { DebugCart } from 'use-shopping-cart';
 import CartProviderComponent from '../components/cart/CartProvider';
 import { useCheckout } from 'fleed/hooks/useCheckout';
 import { TableProducts } from 'fleed/components/productsUi/TableProducts';
 import { useBenefits } from 'fleed/hooks/useBenefits';
 import { ItemInterface } from 'fleed/interfaces';
+import { CustomPackage } from 'fleed/components/packagesUi/customPackage/CustomPackage';
+import { CreateBoard } from 'fleed/components/packagesUi/customPackage/CreateBoard';
+import { useData } from 'fleed/hooks/useData';
 
 const DonatePage: NextPage = () => {
 
-  const { products, isLoading : isLoadinProducts } = useProducts('/products',{
-    fetcher : fetchGetJSON
-  });
+  // const { products, isLoading : isLoadinProducts } = useProducts('/products',{
+  //   fetcher : fetchGetJSON
+  // });
 
-  const { packages, isLoading : isLoadingPackages} = usePackages('/packages',{
-    fetcher : fetchGetJSON
-  });
+  // const { packages, isLoading : isLoadingPackages} = usePackages('/packages',{
+  //   fetcher : fetchGetJSON
+  // });
 
-  const { benefits, isLoading : isLoadingBenefits} = useBenefits('/benefits',{
+  // const { benefits, isLoading : isLoadingBenefits} = useBenefits('/benefits',{
+  //   fetcher : fetchGetJSON
+  // });
+
+  const { benefits ,products , packages , services } = useData({
     fetcher : fetchGetJSON
-  });
+  })
 
   const columns =  useMemo(() => {
     console.log("funcion de columns ejecutada")
@@ -62,17 +68,18 @@ const DonatePage: NextPage = () => {
   return (
     <Layout title="Shopping Cart | Next.js + TypeScript Example" >
       
-         <Grid container  alignItems="center" justifyContent="center" >
-          
-              <TableProducts loading={loading} columns={columns} products={products} handleCheckout={handleCheckout}/>
-               
+         <Grid container  alignItems="center" justifyContent="center" >     
+              <TableProducts loading={loading} columns={columns} products={products} handleCheckout={handleCheckout}/>            
          </Grid> 
-
           <Grid container  alignItems="center" justifyContent="center"  >
-          { packages.map(pack => (   
-              <Package loading={loading} key={pack.id} handleCheckout={handleCheckout} packageInfo={pack} />
-          ))}
-          <CustomPackage/>
+          { packages.map(pack => {
+             if(pack.id != "4") {
+              return <Package loading={loading} key={pack.id} handleCheckout={handleCheckout} packageInfo={pack} />
+             } else{
+               return  <CustomPackage key={pack.id}/>
+             }
+          }   
+          )}
           </Grid>
     
     </Layout>

@@ -36,25 +36,31 @@ const LoginPage = () => {
         setProviders(prov)
       })
     }, [])
-    
+     
+    useEffect(() => {
+        // if( query?.error === 'CredentialsSignin' )
+        //   setShowError(true);      
+  }, []);
 
 
     const onLoginUser = async( { email, password }: FormData ) => {
 
         setShowError(false);
+            try {
+                const signin = await signIn('credentials',{ email, password ,redirect : false});
+            if(signin?.error){
+                setShowError(true)
+            }
+            else{
+                const destination = router.query.p?.toString() || '/shopping-cart';
+                router.replace(destination);
+            }
+            } catch (error) {
+        
+            console.log(error)
+        }
 
-        // const isValidLogin = await loginUser( email, password );
-        // if ( !isValidLogin ) {
-        //     setShowError(true);
-        //     setTimeout(() => setShowError(false), 3000);
-        //     return;
-        // }
-        // // Todo: navegar a la pantalla que el usuario estaba
-        const signin = await signIn('credentials',{ email, password });
-
-        console.log(signin)
-        // const destination = router.query.p?.toString() || '/competencias';
-        // router.replace(destination);
+     
 
     }
 
@@ -65,14 +71,14 @@ const LoginPage = () => {
                 <Box sx={{ width: 350, padding:'10px 20px' }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <Typography variant='h1' component="h1">Iniciar Sesión</Typography>
-                            {/* <Chip 
-                                label="No reconocemos ese usuario / contraseña"
+                            <Typography variant='h2' component="h1" textAlign="center">Log in</Typography>
+                            <Chip 
+                                label="User or Password incorrect"
                                 color="error"
                                 icon={ <ErrorOutline /> }
                                 className="fadeIn"
                                 sx={{ display: showError ? 'flex': 'none' }}
-                            /> */}
+                            />
                         </Grid>
 
                         <Grid item xs={12}>

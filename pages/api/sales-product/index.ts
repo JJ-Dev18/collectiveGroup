@@ -28,12 +28,12 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
 
  const getSales = async( req: NextApiRequest, res :NextApiResponse)=> {
 
-    const data = await prisma.saleDetailProduct.findMany({
+    const data = await prisma.saleDetailPackage.findMany({
         select: {
             quantity: true,
             price:true,
             subtotal : true,
-            product: {
+            package: {
               select :{
                 name: true,
                 price: true
@@ -61,7 +61,7 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
  const createSale = async (req: NextApiRequest, res :NextApiResponse)=> {
   
     const {
-        clienteId= 1,
+        clienteId= 0,
         products = []
        
       } = req.body as { clienteId: number, products : Array<CartEntry> };
@@ -72,6 +72,8 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
             }
             
         });
+        console.log(newSale)
+        console.log(products)
         products.forEach(async (product) => {
             let type = product.id.slice(0,7)
             let id = Number(product.id.slice(7))
@@ -83,7 +85,7 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
                     saleId : newSale.id,
                     productId : id,
                     quantity : product.quantity,
-                    subtotal : product.value,
+                    subtotal : product.value || product.price,
                     price : product.price
                    }
                 })
@@ -93,7 +95,7 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
                         saleId : newSale.id,
                         packageId : id,
                         quantity : product.quantity,
-                        subtotal : product.value,
+                        subtotal : product.value || product.price,
                         price : product.price
                        }
                 })
@@ -119,7 +121,6 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
        
       } = req.body as { paymentResult: string, isPaid : boolean ,paidAt:string,transactionId : string, city :string,country:string,id: number};
       
-     console.log(req.body,"body")
 
      const saleUpdated =  await prisma.sale.update({
         where :{

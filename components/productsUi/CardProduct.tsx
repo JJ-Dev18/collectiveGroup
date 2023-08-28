@@ -15,7 +15,7 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading}) => {
    const { addItem, clearCart } = useShoppingCart()
    const productToAdd:ItemInterface = { ... product , 
      id :'product000'+ product.id.toString() ,
-     price : Number(product.price),
+     price :  Number(product.price * 100),
     }
 
     const toBuy =  () => {
@@ -26,7 +26,7 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading}) => {
     <Card content="product" >
         <CardHeader
           title={product.name}        
-          subheader={`${product.price} USD `}
+          subheader={`${product.price/ 100} USD `}
         />
         <CardActions className='flex justify-center'>
             <Button variant="outlined" color="primary" size='small' onClick={() => {

@@ -105,7 +105,7 @@ export async function up(knex: Knex): Promise<void> {
 
     })
     .table('SaleDetailPackage', function(table){
-        table.foreign("packageId").references("id").inTable("Product")
+        table.foreign("packageId").references("id").inTable("Package")
         table.foreign("saleId").references("id").inTable("Sale")
 
     })

@@ -13,7 +13,7 @@ export interface ItemInterface {
     currency? : string;
     comments?:   string;
     createdAt:   string;
-    updatedAt:   null;
+    updatedAt?:   null;
     benefits? :  Benefits[]
     services?:   Services[];
 }

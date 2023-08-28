@@ -58,7 +58,7 @@ const RegisterPage = () => {
                 <Box sx={{ width: 350, padding:'10px 20px' }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <Typography variant='h1' component="h1">Create Account</Typography>
+                            <Typography variant='h1' component="h1" textAlign="center">Create Account</Typography>
                             <Chip 
                                 label={`${errorMessage}`}
                                 color="error"
