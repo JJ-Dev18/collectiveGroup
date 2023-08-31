@@ -1,4 +1,5 @@
 import { Container , Grid} from '@mui/material'
+import { EmailTemplate } from 'fleed/components/email-template'
 import Layout from 'fleed/components/layouts/Layout'
 import React from 'react'
 
@@ -6,7 +7,7 @@ import React from 'react'
   return (
     <Layout>
         <Grid container height="100vh">
-          <p>SADasd</p>
+          <EmailTemplate firstName='juan'/>
         </Grid>
     </Layout>
   )

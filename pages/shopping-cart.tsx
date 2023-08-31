@@ -22,6 +22,7 @@ import { ItemInterface } from 'fleed/interfaces';
 import { CustomPackage } from 'fleed/components/packagesUi/customPackage/CustomPackage';
 import { CreateBoard } from 'fleed/components/packagesUi/customPackage/CreateBoard';
 import { useData } from 'fleed/hooks/useData';
+import { UiContext } from 'fleed/context/ui';
 
 const DonatePage: NextPage = () => {
 
@@ -40,7 +41,9 @@ const DonatePage: NextPage = () => {
   const { benefits ,products , packages , services } = useData({
     fetcher : fetchGetJSON
   })
-
+  const { showInfoAlert , showSuccessAlert} = useContext(UiContext)
+  const { isLoggedIn } = useContext(AuthContext)
+  
   const columns =  useMemo(() => {
     console.log("funcion de columns ejecutada")
     const data = benefits.map( benefit => {
@@ -74,7 +77,7 @@ const DonatePage: NextPage = () => {
           <Grid container  alignItems="center" justifyContent="center"  >
           { packages.map(pack => {
              if(pack.id != "4") {
-              return <Package loading={loading} key={pack.id} handleCheckout={handleCheckout} packageInfo={pack} />
+              return <Package  isLoggedIn={isLoggedIn}  loading={loading} key={pack.id} handleCheckout={handleCheckout} packageInfo={pack} showSuccessAlert={showSuccessAlert} />
              } else{
                return  <CustomPackage key={pack.id}/>
              }

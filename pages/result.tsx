@@ -19,21 +19,19 @@ const ResultPage: FC <Props>= ({session_id,sale_id}) => {
   // https://nextjs.org/docs/basic-features/data-fetching#static-generation
   const { user, isLoggedIn, logout } = useContext(AuthContext);
   const { clearCart } = useShoppingCart()
-  console.log(user)
   const { data, error } = useSWR(
     session_id
       ? `/api/checkout_sessions/${session_id}`
       : null,
     fetchGetJSON
   )
-  console.log(data)
 
   useEffect(() => {
     const sendEmail = async() =>{
       if(data?.payment_intent.status === 'succeeded'){
         try {
 
-           const updateSale = await fleedShopApi.put('/sales-product',
+           const {data :saleData} = await fleedShopApi.put('/sales-product',
            { 
             id : Number(data.metadata.sale_id),
             paymentResult :data?.payment_intent.status  ,
@@ -45,9 +43,9 @@ const ResultPage: FC <Props>= ({session_id,sale_id}) => {
 
 
           })
-          console.log(updateSale,"se actualizo la venta")
-           await fleedShopApi.post('/send', {email : user?.email} )
-          // console.log(data)     
+          console.log(saleData,"se actualizo la venta")
+           const postsend =  await fleedShopApi.post('/send', {...saleData,email : user?.email} )
+          console.log(postsend, "Asdfasd ")     
           clearCart()    
         } catch (error) {
           console.log(error)

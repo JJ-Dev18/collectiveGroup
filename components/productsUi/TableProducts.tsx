@@ -17,6 +17,7 @@ import { CardProduct } from './CardProduct';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useShoppingCart } from 'use-shopping-cart';
 import { UiContext } from 'fleed/context/ui';
+import { AuthContext } from 'fleed/context/auth';
 const StyledTableCell = styled(TableCell)`
 
 
@@ -43,7 +44,7 @@ export const TableProducts: FC<Props> = ({columns,products,handleCheckout,loadin
   
   const { addItem } = useShoppingCart()
   const { showSuccessAlert } = useContext(UiContext)
-
+  const { isLoggedIn} = useContext(AuthContext)
   return (
     <TableContainer className='mb-36'>
     <Table  aria-label="customized table">
@@ -56,7 +57,12 @@ export const TableProducts: FC<Props> = ({columns,products,handleCheckout,loadin
             products.map( product => (
             <StyledTableCell align="center" > 
                 <div className='hidden lg:flex align-center justify-center'>
-                <CardProduct product={product} handleCheckout={handleCheckout} loading={loading} />
+                <CardProduct 
+                product={product}
+                 handleCheckout={handleCheckout} 
+                 loading={loading}
+                  isLoggedIn={isLoggedIn}
+                  showSuccessAlert={showSuccessAlert}/>
                 </div>
                 <div className="lg:hidden">
                    <Paper                

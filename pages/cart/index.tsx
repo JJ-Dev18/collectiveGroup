@@ -12,10 +12,11 @@ import { CartList } from "fleed/components/cart/CartList";
 import { OrderSummary } from "fleed/components/cart/OrderSummary";
 
 import Layout from "fleed/components/layouts/Layout";
+import { AuthContext } from "fleed/context/auth";
 import { useCheckout } from "fleed/hooks/useCheckout";
 import { fetchPostJSON } from "fleed/utils/api-helpers";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DebugCart, useShoppingCart } from "use-shopping-cart";
 
 
@@ -26,14 +27,21 @@ const CartPage = () => {
   const { loading, errorMessage , handleCheckout, cartCount } = useCheckout()
   const [loadCard, setLoadCard] = useState(false)
   const [cantCard, setCantCard] = useState(0)
-
+  const { user,isLoggedIn }  = useContext(AuthContext)
   useEffect(() => {
     const cookieProducts = localStorage.getItem('persist:root') ? JSON.parse( localStorage.getItem('persist:root')! ): []
     setLoadCard(true)
     setCantCard(cookieProducts.cartCount || 0)
   }, [cartCount])
- 
-
+  
+  const checkout = () => {
+    if(!isLoggedIn){
+      router.replace('/auth/login?p=/cart')
+    }else{
+      handleCheckout(undefined)
+    }
+  }
+  
   useEffect(() => {
    if(loadCard && cantCard == 0 || loadCard && cartCount == 0){
          router.replace('/cart/empty')
@@ -64,7 +72,7 @@ const CartPage = () => {
                   className="circular-btn"
                   fullWidth
                   disabled={loading}
-                  onClick={()=> handleCheckout(undefined)}
+                  onClick={checkout}
                 >
                   Checkout
                 </Button>

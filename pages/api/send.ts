@@ -5,18 +5,17 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.NEXT_PUBLIC_APIKEY_EMAIL);
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { email } = req.body
-  
+  const { email , city, country , quantity,price, subtotal, transactionId ,name, id, createdAt} = req.body
   try {
     const data = await resend.emails.send({
       from: 'Acme <onboarding@resend.dev>',
       to: email,
       subject: 'Receipt for Your Payment',
     //   html : "<h1>Funciona</h1>"
-      react: EmailTemplate({firstName : "juan"}),
+      react: EmailTemplate(req.body),
       text: 'Thanks for the payment',
     });
-
+   console.log(data, " data")
     res.status(200).json(data);
   } catch (error) {
     res.status(400).json(error);

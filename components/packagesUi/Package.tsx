@@ -7,29 +7,31 @@ import { Services } from './Services';
 import { useCheckout } from 'fleed/hooks/useCheckout';
 import {  ToastContainer, toast } from 'react-toastify';
 import { UiContext } from 'fleed/context/ui';
+import { useRouter } from 'next/router';
 type Props = {
   handleCheckout  : (packagetoAdd:ItemInterface) => void 
   loading : boolean
   packageInfo : ItemInterface
+  showSuccessAlert : (msg:string) => void
+  isLoggedIn : boolean
 }
 
-export const Package:FC<Props> = React.memo(({handleCheckout,packageInfo,loading}) => {
+export const Package:FC<Props> = React.memo(({handleCheckout,packageInfo,loading,showSuccessAlert,isLoggedIn}) => {
   const { addItem, removeItem ,cartDetails, redirectToCheckout,clearCart,} = useShoppingCart();
-  const { showInfoAlert , showSuccessAlert} = useContext(UiContext)
-
+  const router = useRouter()
   const packageToAdd :ItemInterface= { ... packageInfo , 
      id :'package000'+ packageInfo.id.toString() ,
       price : Number(packageInfo.price),
      }
 
 
-  useEffect(() => {
-   
-  }, [])
-
   const buyNow =  () => {
-     clearCart()
-     handleCheckout(packageToAdd)
+    if(!isLoggedIn){
+      router.replace('/auth/login')
+    }else{
+      clearCart()
+      handleCheckout(packageToAdd)
+    }
   }
    
   
