@@ -27,19 +27,19 @@ export const AuthLayout: FC<Props> = ({ children, title  }) => {
            height:'100%'
           }}
         >
-           <Carousel height="100vh" navButtonsAlwaysVisible={false}  duration={10} navButtonsAlwaysInvisible={true} indicators={false}> 
-            <Image src="/fleet/fleet-4-1024x673.jpg"  layout='fill'
+           <Carousel height="100vh" navButtonsAlwaysVisible={false}   navButtonsAlwaysInvisible={true} indicators={false}> 
+            <Image src="/Fleet/fleet-4-1024x673.jpg"  layout='fill'
     objectFit='cover' alt='logo'/>
             
-      <Image src="/fleet/fleet-5-1024x673.jpg" layout='fill'
+      <Image src="/Fleet/fleet-5-1024x673.jpg" layout='fill'
     objectFit='cover' alt='logo'/>
-    <Image src="/forklift/forklift-2-1024x673.jpg"  layout='fill'
+    <Image src="/Forklift/forklift-2-1024x673.jpg"  layout='fill'
     objectFit='cover' alt='logo'/>
-      <Image src="/forklift/forklift-4-1024x673.jpg"  layout='fill'
+      <Image src="/Forklift/forklift-4-1024x673.jpg"  layout='fill'
     objectFit='cover' alt='logo'/>
-    <Image src="/forklift/forklift-5-1024x673.jpg"  layout='fill'
+    <Image src="/Forklift/forklift-5-1024x673.jpg"  layout='fill'
     objectFit='cover' alt='logo'/>
-    <Image src="/forklift/forklift-6-1024x673.jpg"  layout='fill'
+    <Image src="/Forklift/forklift-6-1024x673.jpg"  layout='fill'
     objectFit='cover' alt='logo'/>
 
             </Carousel>

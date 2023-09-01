@@ -53,7 +53,7 @@ const CartPage = () => {
   }
   return (
     <Layout title="Carrito - ">
-      <Typography variant="h1" color="inherit" textAlign="center">Shopping Cart</Typography>
+      <Typography variant="h1" color="inherit" textAlign="center" marginTop="107px">Shopping Cart</Typography>
       <Grid container> 
       <Grid item xs={12} md={7}>
       <CartList handleCheckout={handleCheckout}/>

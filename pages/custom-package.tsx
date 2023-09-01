@@ -13,8 +13,8 @@ const CustomPage = () => {
   
   return (
     <Layout title="Create Custom Package">
-        <Box sx={{ display : 'flex', flexDirection: 'column',justifyContent: 'center',alignItems :'center',width: '100%'}} >
-            <Typography variant="h1" color="inherit">Drag and drop services you want</Typography>
+        <Box sx={{ display : 'flex', flexDirection: 'column',justifyContent: 'center',alignItems :'center',width: '100%',marginTop:'120px',marginBottom:"10px"}} >
+            <Typography variant="h1" color="inherit"  about="title">Drag and drop services you want</Typography>
             <CreateBoard services={services} handleCheckout={handleCheckout} loading={loading}/>
         </Box>
     </Layout>

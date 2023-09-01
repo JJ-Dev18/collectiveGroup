@@ -12,7 +12,7 @@ import { useProducts } from 'fleed/hooks/useProducts';
 import { usePackages } from 'fleed/hooks/usePackages';
 import { Package } from 'fleed/components/packagesUi/Package';
 import Button from '@mui/material/Button'
-import { Grid, paperClasses } from '@mui/material';
+import { Grid, paperClasses, Typography } from '@mui/material';
 import { DebugCart } from 'use-shopping-cart';
 import CartProviderComponent from '../components/cart/CartProvider';
 import { useCheckout } from 'fleed/hooks/useCheckout';
@@ -23,6 +23,7 @@ import { CustomPackage } from 'fleed/components/packagesUi/customPackage/CustomP
 import { CreateBoard } from 'fleed/components/packagesUi/customPackage/CreateBoard';
 import { useData } from 'fleed/hooks/useData';
 import { UiContext } from 'fleed/context/ui';
+import { CarouselComponent } from 'fleed/components/ui/Carousel';
 
 const DonatePage: NextPage = () => {
 
@@ -70,11 +71,13 @@ const DonatePage: NextPage = () => {
   
   return (
     <Layout title="Shopping Cart | Next.js + TypeScript Example" >
-      
-         <Grid container  alignItems="center" justifyContent="center" >     
+         <CarouselComponent/>
+         <Typography variant="h1" textAlign="center" color="inherit" marginTop={6}  about='title'>Products </Typography>
+         <Grid container  alignItems="center" justifyContent="center" marginTop={6}>     
               <TableProducts loading={loading} columns={columns} products={products} handleCheckout={handleCheckout}/>            
          </Grid> 
-          <Grid container  alignItems="center" justifyContent="center"  >
+            <Typography variant="h1" textAlign="center" color="inherit" about="title">Packages </Typography>
+          <Grid container  alignItems="center" justifyContent="center" marginTop={6} >
           { packages.map(pack => {
              if(pack.id != "4") {
               return <Package  isLoggedIn={isLoggedIn}  loading={loading} key={pack.id} handleCheckout={handleCheckout} packageInfo={pack} showSuccessAlert={showSuccessAlert} />

@@ -68,7 +68,7 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static" color="inherit">
+    <AppBar position="absolute" color="transparent" sx={{boxShadow:'none',outline: 'none'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           
@@ -121,9 +121,9 @@ function ResponsiveAppBar() {
               <Button
                 key={page}
                 onClick={() => navegar(page)}
-                color="primary"
+                // color="primary"
                 // variant="outlined"
-                sx={{ my: 2, fontWeight:'400' ,textTransform :'none'}}
+                sx={{ my: 2, fontWeight:'700' ,textTransform :'none',color:'white'}}
               >
                 {page}
               </Button>
@@ -138,7 +138,7 @@ function ResponsiveAppBar() {
                 <Tooltip title="View Shopping cart">
                     <IconButton>
                         <Badge badgeContent={ cartCount?.toString() } color="secondary" >
-                            <ShoppingCartOutlined />
+                            <ShoppingCartOutlined color="primary" />
                         </Badge>
                     </IconButton>
                 </Tooltip>

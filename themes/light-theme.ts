@@ -2,7 +2,7 @@ import { Height } from '@mui/icons-material';
 import { createTheme } from '@mui/material';
 import { grey,red } from '@mui/material/colors'
 
-export const lightTheme = createTheme({
+export let lightTheme = createTheme({
     palette :{
       mode : 'light',
       background: {
@@ -45,7 +45,10 @@ export const lightTheme = createTheme({
             boxShadow: '0px 5px 5px rgba(0,0,0,0.05)',
             borderRadius: '10px',
             border :'0px solid #f6f5f3',
-           
+            ":hover": {
+              backgroundColor: '#1F4452',
+              color : 'white'
+           },
             padding: '10px',
             fontSize : '16px',
             fontFamily: 'Heebo'
@@ -57,7 +60,10 @@ export const lightTheme = createTheme({
           style: {
             boxShadow: '0px 5px 5px rgba(0,0,0,0.05)',
              
-            
+            ":hover": {
+               backgroundColor: '#1F4452',
+               color : 'white'
+            },
             padding: '10px',
             fontSize : '16px',
             fontFamily: 'Heebo'
@@ -67,15 +73,21 @@ export const lightTheme = createTheme({
         
       ]
       },
-      // MuiTableContainer:{
-      //  styleOverrides:{
-      //   root:{
-      //     border: '1px solid gray'
-      //   }
-      //  }
-      // },
+ 
       MuiTypography: {
-        
+        defaultProps: {
+          fontFamily:'helbet'
+        },
+        variants: [
+          {
+            props: { about: "title" },
+            style: {
+               borderBottom : `1px solid #1EAEA8`,
+               color : 'red'
+            },
+            
+          },
+        ],
         styleOverrides: {
           
           h1: {
@@ -93,6 +105,7 @@ export const lightTheme = createTheme({
             fontWeight: 400,
             fontFamily: 'helbet'
           },
+         
           subtitle1: {
             fontSize: 18,
             fontWeight: 600,
@@ -102,25 +115,6 @@ export const lightTheme = createTheme({
       },
   
   
-      // MuiButton: {
-      //   defaultProps: {
-      //     variant: 'contained',
-      //     size: 'small',
-      //     disableElevation: true,
-      //     color: 'primary'
-      //   },
-      //   styleOverrides: {
-      //     root: {
-      //       textTransform: 'none',
-      //       boxShadow: 'none',
-      //       borderRadius: 10,
-      //       ":hover": {
-      //         backgroundColor: 'rgba(0,0,0,0.05)',
-      //         transition: 'all 0.3s ease-in-out'
-      //       }
-      //     }
-      //   }
-      // },
 
       MuiButton:{
        
@@ -130,7 +124,11 @@ export const lightTheme = createTheme({
           },
           root: {
             // color: 'white'
-            fontWeight: '700'
+            fontWeight: '700',
+            // height: '60px',
+            // width:'190px',
+            borderRadius:'40px'
+
           }
         }
       },
@@ -143,7 +141,7 @@ export const lightTheme = createTheme({
             props: { content : "product" },
             style: {
                width:'100%',
-               height:'150px'
+               height:'400px'
             },
             
           },
@@ -172,3 +170,6 @@ export const lightTheme = createTheme({
     }
 
   });
+
+
+  

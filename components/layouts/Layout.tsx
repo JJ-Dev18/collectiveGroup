@@ -3,6 +3,7 @@ import Head from "next/head"
 import React, { FC, useEffect } from "react";
 import ResponsiveAppBar from "../ui/Appbar";
 import Footer from "../ui/Footer";
+import { CarouselComponent } from "../ui/Carousel";
 
 interface Props { 
   title?: string;
@@ -19,9 +20,9 @@ const Layout:FC<Props> = ({title = "Shop",children}) => {
         <title>{ `Collective Intelligence | ${title} `}</title>
      </Head>
         <ResponsiveAppBar />
-     <div className="flex flex-col min-h-screen mx-auto max-w-7xl px-4 pt-8 pb-16">
+     <div className="flex flex-col min-h-screen mx-auto max-w-7xl">
       <div className="flex-grow">
-        <main className="my-0 py-16">{children}</main>
+        <main className="flex items-center flex-col">{children}</main>
       </div>
     </div>
       <Footer />

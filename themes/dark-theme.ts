@@ -87,7 +87,15 @@ export const darkTheme = createTheme({
         },
     
         MuiTypography: {
-        
+          variants: [
+            {
+              props: { about: "title" },
+              style: {
+                 borderBottom : `1px solid #1EAEA8`,
+              },
+              
+            },
+          ],
           styleOverrides: {
             
             h1: {
@@ -142,8 +150,8 @@ export const darkTheme = createTheme({
             {
               props: { content : "product" },
               style: {
-                 width:'100%',
-                 height:'150px'
+                width:'100%',
+                height:'400px'
               },
               
             },

@@ -61,7 +61,7 @@ const ResultPage: FC <Props>= ({session_id,sale_id}) => {
 
   return (
     <Layout title="Checkout Payment Result | Next.js + TypeScript Example">
-      <Box sx={{ display : 'flex', flexDirection: 'column',justifyContent: 'center',alignItems :'center'}} >
+      <Box sx={{ display : 'flex', flexDirection: 'column',justifyContent: 'center',alignItems :'center',marginTop:"107px"}} >
         <h2>Status: {data?.payment_intent?.status ?? 'loading...'}</h2>
          {
           (data?.payment_intent.status === 'succeeded') && <PurchaseSuccess/>
