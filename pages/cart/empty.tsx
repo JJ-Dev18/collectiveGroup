@@ -44,7 +44,7 @@ const EmptyPage = () => {
                 <Typography>You Cart is empty</Typography>
                 <NextLink href='/' passHref legacyBehavior>
                     <Link typography="h5" color='secondary'>
-                        Regresar
+                        Back
                     </Link>
                 </NextLink>
             </Box>

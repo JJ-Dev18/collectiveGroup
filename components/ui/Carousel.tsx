@@ -1,11 +1,13 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import Carousel from "react-material-ui-carousel";
 
 export const CarouselComponent = () => {
   return (
-    <Carousel height="673px" sx={{width:'100vw'}}> 
+    <Carousel height="673px" sx={{width:'100vw',position:'relative'}}> 
+
+         
            <Box
          
          

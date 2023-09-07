@@ -91,7 +91,9 @@ export const darkTheme = createTheme({
             {
               props: { about: "title" },
               style: {
-                 borderBottom : `1px solid #1EAEA8`,
+                borderBottom : `4px solid #1EAEA8`,
+               fontSize: '30px',
+               fontWeight:'400'
               },
               
             },
@@ -101,22 +103,22 @@ export const darkTheme = createTheme({
             h1: {
               fontSize: 26,
               fontWeight: 600,
-              fontFamily: 'helbet'
+              fontFamily: 'Heebo'
             },
             h2: {
               fontSize: 20,
               fontWeight: 400,
-              fontFamily: 'helbet'
+              fontFamily: 'Heebo'
             },
             h3:{
               fontSize: 16,
               fontWeight: 400,
-              fontFamily: 'helbet'
+              fontFamily: 'Heebo'
             },
             subtitle1: {
               fontSize: 18,
               fontWeight: 600,
-              fontFamily: 'helbet'
+              fontFamily: 'Heebo'
             }
           }
         },
@@ -138,12 +140,27 @@ export const darkTheme = createTheme({
               //   backgroundColor: 'rgba(0,0,0,0.05)',
               //   transition: 'all 0.3s ease-in-out'
               // }
-            fontWeight: '700'
+            fontWeight: '700',
+            fontFamily : "Heebo"
 
+            },
+
+          }
+        },
+        MuiCardHeader :{
+          styleOverrides:{
+            root:{
+  
+            },
+            title:{
+              fontFamily :'Heebo'
+            },
+            subheader : {
+              fontFamily :'Heebo'
+              
             }
           }
         },
-    
     
         MuiCard: {
           variants: [

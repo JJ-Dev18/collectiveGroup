@@ -33,6 +33,11 @@ export async function seed(knex: Knex): Promise<void> {
     { benefitId:'10', productId: '2' },
     { benefitId:'11', productId: '2' },
 
+    { benefitId:'5', productId: '3' },
+    { benefitId:'6', productId: '3' },
+    { benefitId:'7', productId: '3' },
+    { benefitId:'9', productId: '3' },
+    { benefitId:'10', productId: '3' },
     { benefitId:'13', productId: '3' },
     { benefitId:'14', productId: '3' },
     { benefitId:'15', productId: '3' },

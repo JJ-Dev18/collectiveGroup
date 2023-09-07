@@ -1,6 +1,7 @@
 import { Height } from '@mui/icons-material';
 import { createTheme } from '@mui/material';
 import { grey,red } from '@mui/material/colors'
+import zIndex from '@mui/material/styles/zIndex';
 
 export let lightTheme = createTheme({
     palette :{
@@ -49,7 +50,7 @@ export let lightTheme = createTheme({
               backgroundColor: '#1F4452',
               color : 'white'
            },
-            padding: '10px',
+            // padding: '10px',
             fontSize : '16px',
             fontFamily: 'Heebo'
           },
@@ -76,14 +77,15 @@ export let lightTheme = createTheme({
  
       MuiTypography: {
         defaultProps: {
-          fontFamily:'helbet'
+          fontFamily:'Heebo'
         },
         variants: [
           {
             props: { about: "title" },
             style: {
-               borderBottom : `1px solid #1EAEA8`,
-               color : 'red'
+               borderBottom : `4px solid #1EAEA8`,
+               fontSize: '30px',
+               fontWeight:'400'
             },
             
           },
@@ -93,23 +95,23 @@ export let lightTheme = createTheme({
           h1: {
             fontSize: 26,
             fontWeight: 600,
-            fontFamily: 'helbet'
+            fontFamily: 'Heebo'
           },
           h2: {
             fontSize: 20,
             fontWeight: 400,
-            fontFamily: 'helbet'
+            fontFamily: 'Heebo'
           },
           h3:{
             fontSize: 16,
             fontWeight: 400,
-            fontFamily: 'helbet'
+            fontFamily: 'Heebo'
           },
          
           subtitle1: {
             fontSize: 18,
             fontWeight: 600,
-            fontFamily: 'helbet'
+            fontFamily: 'Heebo'
           }
         }
       },
@@ -127,12 +129,27 @@ export let lightTheme = createTheme({
             fontWeight: '700',
             // height: '60px',
             // width:'190px',
-            borderRadius:'40px'
+            // borderRadius:'40px',
+            fontFamily : "Heebo"
 
           }
         }
       },
-  
+      
+      MuiCardHeader :{
+        styleOverrides:{
+          root:{
+
+          },
+          title:{
+            fontFamily :'Heebo'
+          },
+          subheader : {
+            fontFamily :'Heebo'
+            
+          }
+        }
+      },
      
       MuiCard: {
  
@@ -141,12 +158,12 @@ export let lightTheme = createTheme({
             props: { content : "product" },
             style: {
                width:'100%',
-               height:'400px'
+               height:'400px',
+               padding : '0',
+                  
             },
-            
-          },
          
-          
+          }
         ],
         defaultProps: {
           elevation: 4
@@ -158,7 +175,7 @@ export let lightTheme = createTheme({
             borderRadius: '10px',
             border :'0px solid #f6f5f3',
             width: '340px',
-            padding: '10px',
+            padding : "10px",
             fontSize : '16px',
             fontFamily: 'Heebo'
      

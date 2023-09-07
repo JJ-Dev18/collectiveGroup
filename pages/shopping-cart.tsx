@@ -71,8 +71,8 @@ const DonatePage: NextPage = () => {
   
   return (
     <Layout title="Shopping Cart | Next.js + TypeScript Example" >
-         <CarouselComponent/>
-         <Typography variant="h1" textAlign="center" color="inherit" marginTop={6}  about='title'>Products </Typography>
+         {/* <CarouselComponent/> */}
+         <Typography  textAlign="center" color="inherit" marginTop={16}  about='title'>Products </Typography>
          <Grid container  alignItems="center" justifyContent="center" marginTop={6}>     
               <TableProducts loading={loading} columns={columns} products={products} handleCheckout={handleCheckout}/>            
          </Grid> 

@@ -55,7 +55,7 @@ export default async function handler(
     
       // Create Checkout Sessions from body params.
       const params: Stripe.Checkout.SessionCreateParams = {
-        submit_type: 'pay',
+        // submit_type: 'pay',
         payment_method_types: ['card'],
         billing_address_collection: 'auto',
         shipping_address_collection: {
@@ -65,7 +65,7 @@ export default async function handler(
         line_items,
         success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/shopping-cart`,
-        mode: 'payment',
+        mode: 'subscription',
       }
 
       const checkoutSession: Stripe.Checkout.Session =

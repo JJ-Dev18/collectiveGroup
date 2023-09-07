@@ -113,7 +113,7 @@ function ResponsiveAppBar() {
          
           <NextLink href='/' passHref legacyBehavior>
           <Link>
-          <Image src='/logo.svg' width={100} height={100} alt="logo" className="mr-10 text-white" priority/>
+          <Image src='/logo.svg' width={180} height={100} alt="logo" className="mr-10 text-white" priority/>
           </Link>
           </NextLink>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } , justifyContent:'center'}}>

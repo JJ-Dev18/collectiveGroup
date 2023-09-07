@@ -49,9 +49,9 @@ export const TableProducts: FC<Props> = ({columns,products,handleCheckout,loadin
     <TableContainer className='mb-36'>
     <Table  aria-label="customized table">
       <TableHead sx={{border: 'none'}}>
-        <TableRow >
-        <StyledTableCell align="left" sx={{fontSize:'18px',fontWeight:'700'}}>
-           Benefits
+        <TableRow  >
+        <StyledTableCell  component="th" scope="row" align="left" sx={{fontSize:'18px',fontWeight:'700'}}>
+          <Typography variant="h1" color="inherit" sx={{marginTop :{ xs: '0', lg: '370px' } }}> Benefits</Typography>
         </StyledTableCell>
           {
             products.map( product => (
@@ -85,9 +85,9 @@ export const TableProducts: FC<Props> = ({columns,products,handleCheckout,loadin
           }
          
         </TableRow>
-        <TableRow >
+        {/* <TableRow >
 
-        </TableRow>
+        </TableRow> */}
       </TableHead>
       <TableBody>
         

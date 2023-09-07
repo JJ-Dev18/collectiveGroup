@@ -22,3 +22,20 @@ ul{
     -webkit-backdrop-filter: blur(50px);
     backdrop-filter: blur(50px);
 }
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  z-index: 1;
+  align-items: flex-end;
+  text-align: center;
+  transition: 0.5s ease-in-out;
+  border : 1px solid #5bc0eb;
+}
