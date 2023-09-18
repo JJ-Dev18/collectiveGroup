@@ -15,7 +15,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       react: EmailTemplate(req.body),
       text: 'Thanks for the payment',
     });
-   console.log(data, " data")
     res.status(200).json(data);
   } catch (error) {
     res.status(400).json(error);

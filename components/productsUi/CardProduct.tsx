@@ -31,10 +31,11 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
    };
    const handleClose = () => {
      setAnchorEl(null);
+    
    };
    const router = useRouter()
    const productToAdd:ItemInterface = { ... product , 
-     id :'product000'+ product.id.toString() ,
+     id :product.id.toString() ,
      price :  Number(product.price * 100),
     }
    const imageLocation =product.name.split(" ")[0]
@@ -64,7 +65,9 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
     
 
     <Card component={motion.div} content="product"  
-    
+    initial={{ opacity: 0 }}
+  whileInView={{ opacity: 1 }}
+    transition={{ ease: "easeOut", duration: 2 }}
     
     // animate={hover ? "hoverCard" : "closed"}
     // variants={variants}
@@ -89,7 +92,7 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Brochure</MenuItem>
+        <MenuItem onClick={()=> window.open(product.brochure, '_blank', 'noreferrer')}  >Brochure</MenuItem>
        
       </Menu>
         
@@ -97,7 +100,7 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
         component="img"
         height="200px"
         width="200px"
-        image={`/${imageLocation}/${imageLocation}-5-1024x673.jpg`}
+        image={`/${imageLocation}/${imageLocation}-5-1024x673.jpg` || `/${imageLocation}/logo.png`}
         alt="Image product"
       />
      

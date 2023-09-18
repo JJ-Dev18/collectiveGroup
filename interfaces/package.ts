@@ -11,6 +11,7 @@ export interface ItemInterface {
     description?: string;
     price:        number;
     currency? : string;
+    brochure? : string;
     comments?:   string;
     createdAt:   string;
     updatedAt?:   null;

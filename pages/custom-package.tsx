@@ -4,6 +4,7 @@ import { CreateBoard } from 'fleed/components/packagesUi/customPackage/CreateBoa
 import { useCheckout } from 'fleed/hooks/useCheckout'
 import { useServices } from 'fleed/hooks/useServices'
 import { fetchGetJSON } from 'fleed/utils/api-helpers'
+import { motion } from 'framer-motion'
 import React from 'react'
 
 const CustomPage = () => {
@@ -14,7 +15,7 @@ const CustomPage = () => {
   return (
     <Layout title="Create Custom Package">
         <Box sx={{ display : 'flex', flexDirection: 'column',justifyContent: 'center',alignItems :'center',width: '100%',marginTop:'120px',marginBottom:"10px"}} >
-            <Typography variant="h1" color="inherit"  about="title">Drag and drop services you want</Typography>
+            <Typography component={motion.h1} animate={{scale : [1,1.3,1]}} variant="h1" color="inherit"  about="title">Drag and drop services you want</Typography>
             <CreateBoard services={services} handleCheckout={handleCheckout} loading={loading}/>
         </Box>
     </Layout>

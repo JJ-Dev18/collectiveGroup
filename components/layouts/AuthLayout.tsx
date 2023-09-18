@@ -28,19 +28,23 @@ export const AuthLayout: FC<Props> = ({ children, title  }) => {
           }}
         >
            <Carousel height="100vh" navButtonsAlwaysVisible={false}   navButtonsAlwaysInvisible={true} indicators={false}> 
-            <Image src="/Fleet/fleet-4-1024x673.jpg"  layout='fill'
+            <Image src="/auth/1.webp"  fill
     objectFit='cover' alt='logo'/>
             
-      <Image src="/Fleet/fleet-5-1024x673.jpg" layout='fill'
+      <Image src="/auth/2.webp" fill
     objectFit='cover' alt='logo'/>
-    <Image src="/Forklift/forklift-2-1024x673.jpg"  layout='fill'
+    <Image src="/auth/3.webp" fill
+    objectFit='cover' alt='logo'/>
+    <Image src="/auth/4.webp" fill
+    objectFit='cover' alt='logo'/>
+    {/* <Image src="/Forklift/forklift-2-1024x673.jpg"  layout='fill'
     objectFit='cover' alt='logo'/>
       <Image src="/Forklift/forklift-4-1024x673.jpg"  layout='fill'
     objectFit='cover' alt='logo'/>
     <Image src="/Forklift/forklift-5-1024x673.jpg"  layout='fill'
     objectFit='cover' alt='logo'/>
     <Image src="/Forklift/forklift-6-1024x673.jpg"  layout='fill'
-    objectFit='cover' alt='logo'/>
+    objectFit='cover' alt='logo'/> */}
 
             </Carousel>
         </Grid>
@@ -48,7 +52,7 @@ export const AuthLayout: FC<Props> = ({ children, title  }) => {
           <Box
             sx={{
               my: 0,
-              mx: 4,
+              mx: 10,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -56,7 +60,7 @@ export const AuthLayout: FC<Props> = ({ children, title  }) => {
             }}
           >
            
-            <Image src="/logo.svg"  width={200} height={200} alt='logo'/>
+            <Image src="/logo.svg"  width={200} height={200} alt='logo' objectFit='contain'/>
            
             {children}
           </Box>

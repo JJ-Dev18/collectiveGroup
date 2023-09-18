@@ -26,8 +26,8 @@ export const getInventory = async( req: NextApiRequest, res :NextApiResponse) =>
     try {
      
       const inventoryProducts  = await prisma.product.findMany()
-      const inventoryPackages = await prisma.package.findMany()
-      res.status(200).json([...inventoryProducts,...inventoryPackages])
+      // const inventoryPackages = await prisma.package.findMany()
+      res.status(200).json(inventoryProducts)
     } catch (error) {
       console.log(error)
     }

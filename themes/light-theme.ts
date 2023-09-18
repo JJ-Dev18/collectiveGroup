@@ -12,6 +12,7 @@ export let lightTheme = createTheme({
       primary:{
         main : '#1EAEA8'
       },
+      
       secondary: {
         main : '#1F4452'
       },

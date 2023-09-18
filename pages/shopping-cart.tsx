@@ -24,6 +24,8 @@ import { CreateBoard } from 'fleed/components/packagesUi/customPackage/CreateBoa
 import { useData } from 'fleed/hooks/useData';
 import { UiContext } from 'fleed/context/ui';
 import { CarouselComponent } from 'fleed/components/ui/Carousel';
+import { motion, transform } from "framer-motion"
+import { useSubscribe } from 'fleed/hooks/useSubscribe';
 
 const DonatePage: NextPage = () => {
 
@@ -42,6 +44,7 @@ const DonatePage: NextPage = () => {
   const { benefits ,products , packages , services } = useData({
     fetcher : fetchGetJSON
   })
+  const { handleCheckoutSubscribe,loading }  = useSubscribe()
   const { showInfoAlert , showSuccessAlert} = useContext(UiContext)
   const { isLoggedIn } = useContext(AuthContext)
   
@@ -67,21 +70,41 @@ const DonatePage: NextPage = () => {
   return data
   }, [benefits,products])
  
-  const { handleCheckout, loading } = useCheckout()
+  const { handleCheckout } = useCheckout()
   
   return (
     <Layout title="Shopping Cart | Next.js + TypeScript Example" >
-         {/* <CarouselComponent/> */}
-         <Typography  textAlign="center" color="inherit" marginTop={16}  about='title'>Products </Typography>
+         <CarouselComponent/>
+         <Typography
+         initial={{ x: -1000 }}
+         animate={{ x: 0 }}
+         transition={{
+          type: "tween",
+          duration: 2,
+          delay: 1
+      }}
+
+         component={motion.h1} textAlign="center" color="inherit" marginTop={14}  about='title'>Products </Typography>
          <Typography variant="h1" color="inherit"></Typography>
          <Grid container  alignItems="center" justifyContent="center" marginTop={6}>     
               <TableProducts loading={loading} columns={columns} products={products} handleCheckout={handleCheckout}/>            
          </Grid> 
-            <Typography variant="h1" textAlign="center" color="inherit" about="title">Packages </Typography>
+            <Typography 
+             initial={{ x: -1000 }}
+             transition={{
+              type: "tween",
+              duration: 2,
+              delay: 1
+            }}
+             
+            animate={{ x: 0 }}
+             // animate={{x: 20, y: -20}} 
+            component={motion.h1}
+            variant="h1" textAlign="center" color="inherit" about="title">Packages </Typography>
           <Grid container  alignItems="center" justifyContent="center" marginTop={6} >
           { packages.map(pack => {
              if(pack.id != "4") {
-              return <Package  isLoggedIn={isLoggedIn}  loading={loading} key={pack.id} handleCheckout={handleCheckout} packageInfo={pack} showSuccessAlert={showSuccessAlert} />
+              return <Package isLoggedIn={isLoggedIn}  loading={loading} key={pack.id} handleCheckoutSubscribe={handleCheckoutSubscribe} packageInfo={pack}  />
              } else{
                return  <CustomPackage key={pack.id}/>
              }

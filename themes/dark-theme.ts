@@ -18,6 +18,10 @@ export const darkTheme = createTheme({
         error : {
           main : red.A400
         },
+        text:{
+          primary : '#d1d5db'
+        }
+        // #d1d5db
        
       },
       components: {

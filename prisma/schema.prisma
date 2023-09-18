@@ -19,6 +19,7 @@ model User {
   image          String?
   hashedPassword String?
   Sales          Sale[]
+  Subscriptions  Subscription[]
   createdAt      DateTime  @default(now())
   updatedAt      DateTime? @updatedAt
 }
@@ -33,6 +34,7 @@ model Product {
   name      String
   price     Int
   currency  String
+  brochure  String?
   benefits  BenefitOnProducts[]
   ventas    SaleDetailProduct[]
   createdAt DateTime
@@ -66,7 +68,7 @@ model Package {
   comments    String
   createdAt   DateTime           @default(now())
   services    ServiceOnPackage[]
-  ventas SaleDetailPackage[]
+  subscriptions SubscriptionDetailPackage[]
   updatedAt   DateTime?
 }
 
@@ -93,7 +95,6 @@ model Sale {
   id        Int          @id @default(autoincrement())
   user      User         @relation(fields: [clienteId], references: [id])
   saleProducts      SaleDetailProduct[]
-  salePackages    SaleDetailPackage[]
   shippingAddress String?
   paymentResult   String?
   isPaid          Boolean @default(false)
@@ -118,12 +119,27 @@ model SaleDetailProduct {
  
 }
 
-model SaleDetailPackage {
+model Subscription {
+  id        Int          @id @default(autoincrement())
+  user      User         @relation(fields: [clienteId], references: [id])
+  subscriptionPackage      SubscriptionDetailPackage[]
+  shippingAddress String?
+  paymentResult   String?
+  isPaid          Boolean @default(false)
+  paidAt          String?
+  transactionId   String?
+  city            String?
+  country         String?
+  clienteId Int
+  createdAt DateTime     @default(now())
+}
+
+model SubscriptionDetailPackage {
    id              Int     @id @default(autoincrement())
   package         Package @relation(fields: [packageId], references: [id])
   packageId       Int
-  sale            Sale    @relation(fields: [saleId], references: [id])
-  saleId          Int
+  subscription   Subscription @relation(fields: [subscriptionId],references: [id])
+  subscriptionId Int
   quantity        Int
   price            Int
   subtotal        Decimal

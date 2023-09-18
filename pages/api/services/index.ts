@@ -22,6 +22,5 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
  const getServices = async( req: NextApiRequest, res :NextApiResponse)=> {
 
     const data = await prisma.service.findMany()
-    console.log(data)
     res.status(200).json(data)
  }

@@ -6,6 +6,7 @@ import { CssBaseline, Theme, ThemeProvider } from "@mui/material";
 import { customTheme, darkTheme, lightTheme } from "fleed/themes";
 import { toast } from "react-toastify";
 import { ToastContainer } from 'react-toastify';
+import { StripeError } from "@stripe/stripe-js";
 
 type Alert = {
   state : boolean
@@ -56,8 +57,9 @@ export const UiProvider: FC<Props> = ({ children }) => {
     toast.error(msg);
   }
 
-  const showPromiseAlert = async (promise:Promise<void>) =>{
+  const showPromiseAlert = async (promise:Promise<{ error: StripeError}> | undefined) =>{
     dispatch({type : 'Show Alert Promise'})
+    if(promise)
     await toast.promise(promise,{
       pending: 'Redirecting to payment gateway',
       success: 'Done !  👌',

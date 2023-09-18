@@ -23,7 +23,6 @@ export const CartList: FC<Props> = ({handleCheckout}) => {
  
   const productsInCart:CartEntry[] = Object.values(cartDetails as CartEntry)
   
-  console.log(productsInCart, cartDetails)
 
   return (
     <Box  sx={{ flexDirection: { xs: 'column', sm: 'row' }}}>

@@ -60,7 +60,6 @@ export const CreateBoard:FC <Props>= ({services,loading,handleCheckout}) => {
   const onDragEnd = (e: DragEndEvent) => {
     const container = e.over?.id;
     
-    console.log(e)
     const name: string = e.active.data.current?.name || "";
     const id = e.active.data.current?.id || 0;
     const description = e.active.data.current?.description || 0;
@@ -86,7 +85,6 @@ export const CreateBoard:FC <Props>= ({services,loading,handleCheckout}) => {
 
     
   };
-  console.log(serviceCustom,"Service Custom")
 
   const onDragStart = (e:DragStartEvent)=>{
     
@@ -94,7 +92,6 @@ export const CreateBoard:FC <Props>= ({services,loading,handleCheckout}) => {
     setActiveService(e.active.data?.current as IService);
   }
   
-  console.log(activeService,"Active service")
 
   return (
     <DndContext

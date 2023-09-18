@@ -55,7 +55,7 @@ export const TableProducts: FC<Props> = ({columns,products,handleCheckout,loadin
         </StyledTableCell>
           {
             products.map( product => (
-            <StyledTableCell align="center" > 
+            <StyledTableCell align="center" key={product.id}> 
                 <div className='hidden lg:flex align-center justify-center'>
                 <CardProduct 
                 product={product}
@@ -93,8 +93,8 @@ export const TableProducts: FC<Props> = ({columns,products,handleCheckout,loadin
         
         {columns?.map((benefit,index) => (
           <StyledTableRow key={index}  >
-            { Object.values(benefit).map( value => (
-            <StyledTableCell component="th" scope="row" align={ typeof value === 'string' ? 'left' : 'center'} itemType={ typeof value === 'string' ? 'default' : 'product'}>
+            { Object.values(benefit).map( (value,index) => (
+            <StyledTableCell key={index} component="th" scope="row" align={ typeof value === 'string' ? 'left' : 'center'} itemType={ typeof value === 'string' ? 'default' : 'product'}>
                 { typeof value === 'string' ? value : (value) ? <DoneAllSharpIcon color='success'/> : <DoDisturbOnSharpIcon color='error'/>}
             </StyledTableCell>
              )) }

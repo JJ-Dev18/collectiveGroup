@@ -20,6 +20,7 @@ export async function up(knex: Knex): Promise<void> {
         table.string('name', 255).notNullable();
         table.integer('price').notNullable();
         table.string('currency', 255)
+        table.string('brochure', 255)
         table.timestamp('createdAt').defaultTo(knex.fn.now()).index();
         table.timestamp('updatedAt')
 
@@ -76,7 +77,20 @@ export async function up(knex: Knex): Promise<void> {
         table.boolean('isPaid ').defaultTo(false)
         table.timestamp('createdAt').defaultTo(knex.fn.now()).index();      
 
-    }).createTable('SaleDetailProduct', function(table){
+    }).createTable('Subscription', function(table){
+        table.increments('id').primary();
+        table.integer('clienteId').unsigned()
+        table.string('shippingAddress', 255)
+        table.string('paymentResult', 255)
+        table.string('paidAt', 255)
+        table.string('transactionId', 255)
+        table.string('city', 255)
+        table.string('country', 255)
+        table.boolean('isPaid ').defaultTo(false)
+        table.timestamp('createdAt').defaultTo(knex.fn.now()).index();      
+
+    })
+    .createTable('SaleDetailProduct', function(table){
         table.increments('id').primary();
         table.integer('productId').unsigned()
         table.integer('saleId').unsigned()
@@ -86,10 +100,10 @@ export async function up(knex: Knex): Promise<void> {
         table.timestamp('createdAt').defaultTo(knex.fn.now()).index();      
        
 
-    }).createTable('SaleDetailPackage', function(table){
+    }).createTable('SubscriptionDetailPackage', function(table){
         table.increments('id').primary();
         table.integer('packageId').unsigned()
-        table.integer('saleId').unsigned()
+        table.integer('subscriptionId').unsigned()
         table.integer('quantity').notNullable();
         table.decimal('price').notNullable();
         table.decimal('subtotal').notNullable();
@@ -99,14 +113,18 @@ export async function up(knex: Knex): Promise<void> {
     .table('Sale', function(table){
         table.foreign("clienteId").references("id").inTable("User")
     })
+    .table('Subscription', function(table){
+        table.foreign("clienteId").references("id").inTable("User")
+    })
     .table('SaleDetailProduct', function(table){
         table.foreign("productId").references("id").inTable("Product")
         table.foreign("saleId").references("id").inTable("Sale")
 
     })
-    .table('SaleDetailPackage', function(table){
+    .table('SubscriptionDetailPackage', function(table){
         table.foreign("packageId").references("id").inTable("Package")
-        table.foreign("saleId").references("id").inTable("Sale")
+        table.foreign("subscriptionId").references("id").inTable("Subscription")
+
 
     })
 }
@@ -116,7 +134,8 @@ export async function down(knex: Knex): Promise<void> {
     return knex.schema
     .dropTable("BenefitOnProducts")
     .dropTable("SaleDetailProduct")
-    .dropTable("SaleDetailPackage")
+    .dropTable("SubscriptionDetailPackage")
+    .dropTable("Subscription")
     .dropTable("Sale")
     .dropTable("Product")
     .dropTable("User")

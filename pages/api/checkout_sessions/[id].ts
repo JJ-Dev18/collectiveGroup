@@ -14,7 +14,7 @@ export default async function handler(
   const id: string = req.query.id as string
   try {
     if (!id.startsWith('cs_')) {
-      throw Error('Incorrect CheckoutSession ID.')
+      throw Error('Incorrect CheckoutSession ID. ')
     }
     const checkout_session: Stripe.Checkout.Session =
       await stripe.checkout.sessions.retrieve(id, {

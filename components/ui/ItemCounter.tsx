@@ -12,7 +12,6 @@ interface Props {
 export const ItemCounter:FC<Props> = ({id,quantity}) => {
     const { incrementItem , decrementItem, } = useShoppingCart()
 
-    console.log(id)
   return (
     <Box display='flex' alignItems='center'>
         <IconButton onClick={()=> decrementItem(id)}>

@@ -8,9 +8,10 @@ export default function Document() {
           name="description"
           content="Collective Intelligence | Forklift Telematics | Fleet Management Systems | Improve efficiency &amp; safety with our systems"
         />
-        <link rel="preconnect" href="https://fonts.googleapis.com"/>
-        <link rel="preconnect" href="https://fonts.gstatic.com"/>
-        <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+   
+        <link rel="preload" href="https://fonts.googleapis.com"/>
+        <link rel="preload" href="https://fonts.gstatic.com"/>
+        <link  href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
         <link
           rel="canonical"
           href="https://thecollectiveintelligencegroup.com/"
@@ -54,6 +55,7 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
+        
       </body>
     </Html>
   );

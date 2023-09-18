@@ -29,29 +29,13 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     try {
-      const inventory = await dbProducts.getInventory() as ItemInterface[]  
+      const inventory = await dbProducts.getInventory() as ItemInterface[]
       const saleId: string = req.query.saleId as string
       const { products , custom } = req.body 
       // Validate the cart details that were sent from the client.
-      let line_items = [];
-      if(custom){
-        const customPackage:CartEntry[] = Object.values(products as CartEntry)
-        console.log(customPackage,"custom package")
-         line_items = [ {
-          quantity: 1,
-          price_data: {
-            currency: customPackage[0].currency,
-            product_data: {
-              name: 'Custom Package',
-            },
-            unit_amount: customPackage[0].price,
-          },
-        },]
-        
-      }else{
-        line_items = validateCartItems(inventory , products)
-      }
-      console.log(line_items)
+      
+      const  line_items = validateCartItems(inventory , products)
+   
     
       // Create Checkout Sessions from body params.
       const params: Stripe.Checkout.SessionCreateParams = {
@@ -65,9 +49,12 @@ export default async function handler(
         line_items,
         success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/shopping-cart`,
-        mode: 'subscription',
+        mode: 'payment',
       }
-
+   
+      
+      // Pass the appearance object to the Elements instance
+    
       const checkoutSession: Stripe.Checkout.Session =
         await stripe.checkout.sessions.create(params)
       res.status(200).json(checkoutSession)

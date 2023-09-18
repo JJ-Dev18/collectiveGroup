@@ -28,12 +28,12 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
 
  const getSales = async( req: NextApiRequest, res :NextApiResponse)=> {
 
-    const data = await prisma.saleDetailPackage.findMany({
+    const data = await prisma.saleDetailProduct.findMany({
         select: {
             quantity: true,
             price:true,
             subtotal : true,
-            package: {
+            product: {
               select :{
                 name: true,
                 price: true
@@ -72,14 +72,11 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
             }
             
         });
-        console.log(newSale)
-        console.log(products)
         products.forEach(async (product) => {
-            let type = product.id.slice(0,7)
+            // let type = product.id.slice(0,7)
             let id = Number(product.id.slice(7))
-            console.log(type,"type")
-            console.log(id,"id")
-            if(type == 'product'){
+            // console.log(type,"type")
+           
                   await prisma.saleDetailProduct.create({
                    data : {
                     saleId : newSale.id,
@@ -89,17 +86,7 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
                     price : product.price
                    }
                 })
-            }else{
-                 await prisma.saleDetailPackage.create({
-                    data : {
-                        saleId : newSale.id,
-                        packageId : id,
-                        quantity : product.quantity,
-                        subtotal : product.value || product.price,
-                        price : product.price
-                       }
-                })
-            }
+          
         });
        res.status(200).json(newSale)
 

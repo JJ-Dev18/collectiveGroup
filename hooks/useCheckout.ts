@@ -23,24 +23,20 @@ export const useCheckout = () => {
     cartEntry: ItemInterface | undefined | CartEntry
   ) => {
     setLoading(true);
-    console.log("se cambio el loading")
     setErrorMessage("");
     let data = cartDetails;
     let productsInCart:CartEntry[] = Object.values(cartDetails as CartEntry)
-    let custom = false 
     if (cartEntry) {
       data = {
         [cartEntry.id]: { ...cartEntry, quantity: 1 },
       } as CartEntry;
-     if(cartEntry.id == 'package0004'){
-        custom = true
-     }
+     
       productsInCart = [{ ...cartEntry, quantity: 1 } as CartEntry]
     }
     
     const { data : saleCreate } = await fleetshopApi.post('/sales-product',{clienteId : user?.id ,products : productsInCart})
     
-    const response = await fetchPostJSON(`/api/checkout_sessions/cart?saleId=${saleCreate.id}`, {products : data , custom});
+    const response = await fetchPostJSON(`/api/checkout_sessions/cart?saleId=${saleCreate.id}`, {products : data });
     
     if (response.statusCode > 399) {
       console.error(response.message);

@@ -8,19 +8,20 @@ import { useCheckout } from 'fleed/hooks/useCheckout';
 import {  ToastContainer, toast } from 'react-toastify';
 import { UiContext } from 'fleed/context/ui';
 import { useRouter } from 'next/router';
+import { motion } from 'framer-motion';
 type Props = {
-  handleCheckout  : (packagetoAdd:ItemInterface) => void 
+  handleCheckoutSubscribe  : (packagetoAdd:ItemInterface) => void 
   loading : boolean
   packageInfo : ItemInterface
-  showSuccessAlert : (msg:string) => void
   isLoggedIn : boolean
+  
 }
 
-export const Package:FC<Props> = React.memo(({handleCheckout,packageInfo,loading,showSuccessAlert,isLoggedIn}) => {
+export const Package:FC<Props> = React.memo(({handleCheckoutSubscribe,packageInfo,loading,isLoggedIn}) => {
   const { addItem, removeItem ,cartDetails, redirectToCheckout,clearCart,} = useShoppingCart();
   const router = useRouter()
   const packageToAdd :ItemInterface= { ... packageInfo , 
-     id :'package000'+ packageInfo.id.toString() ,
+     id : packageInfo.id.toString() ,
       price : Number(packageInfo.price),
      }
 
@@ -30,7 +31,7 @@ export const Package:FC<Props> = React.memo(({handleCheckout,packageInfo,loading
       router.replace('/auth/login')
     }else{
       clearCart()
-      handleCheckout(packageToAdd)
+      handleCheckoutSubscribe(packageToAdd)
     }
   }
    
@@ -38,7 +39,11 @@ export const Package:FC<Props> = React.memo(({handleCheckout,packageInfo,loading
   
 
   return (
-    <Card variant="elevation" className='mb-5 sm:mr-5 xl:w-3/12' >
+    <Card component={motion.div}
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    transition={{ ease: "easeOut", duration: 2 }}
+    variant="elevation" className='mb-5 sm:mr-5 xl:w-3/12' >
         <CardHeader
         sx={{color: 'secondary'}}
         title={packageInfo.name}
@@ -63,18 +68,9 @@ export const Package:FC<Props> = React.memo(({handleCheckout,packageInfo,loading
         {packageInfo.comments}
         </CardContent>
         <CardActions className='flex justify-center'>
-        
-        <Button variant='outlined'
-          
-          
-          color="primary" sx={{fontWeight:'600'}}  onClick={() => {
-          addItem(packageToAdd)
-          showSuccessAlert("Package Add to cart")
-          }} >
-          Add To Cart
-        </Button>
+
         <Button variant='contained' color='secondary' sx={{fontWeight:'600'}} onClick={buyNow} disabled={loading}>
-          Buy Now
+          Subscribe
         </Button>
       </CardActions>
      

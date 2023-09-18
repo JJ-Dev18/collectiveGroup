@@ -9,7 +9,7 @@ export async function seed(knex: Knex): Promise<void> {
 
     // Inserts seed entries
     await knex("User").insert([
-        { role: "USER",name: 'Juan', email: 'admin@google.com', hashedPassword: hash,},
+        { role: "ADMIN",name: 'Juan', email: 'admin@google.com', hashedPassword: hash,},
     ]);
 };
 

@@ -23,7 +23,9 @@ export async function middleware(req: NextRequest) {
     if (!validRoles.includes(session.user.role)) {
       return NextResponse.redirect(new URL("/", req.url));
     }
+    
   }
+
   if (req.nextUrl.pathname.startsWith('/api/admin')) {
     if (!validRoles.includes(session.user.role)) {
       return NextResponse.redirect(new URL('/api/auth/unauthorized', req.url));
