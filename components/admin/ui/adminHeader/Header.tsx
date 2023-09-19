@@ -5,7 +5,7 @@ import { FC } from 'react';
 // utils
 import MenuIcon from '@mui/icons-material/Menu';
 
-import { bgBlur } from '../../../utils/cssStyles';
+import { bgBlur } from '../../../../utils/cssStyles';
 import AccountPopover from './AccountPopover';
 // // components
 // import Iconify from '../../../components/iconify';

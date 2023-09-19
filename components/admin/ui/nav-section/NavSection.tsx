@@ -5,6 +5,7 @@ import { Box, List, ListItemText } from '@mui/material';
 //
 import { StyledNavItem, StyledNavItemIcon } from './styles';
 import { FC } from 'react';
+import { useRouter } from 'next/router';
 
 // ----------------------------------------------------------------------
 export interface Page{
@@ -38,7 +39,7 @@ type PropsNavItem = {
 const  NavItem:FC<PropsNavItem> = ({ item }) =>  {
 
   const { title, path, icon, info } = item;
-
+  const router = useRouter()
   return (
     <StyledNavItem
       sx={{
@@ -48,6 +49,7 @@ const  NavItem:FC<PropsNavItem> = ({ item }) =>  {
           fontWeight: 'fontWeightBold',
         },
       }}
+      onClick={()=> router.push(path)}
     >
       <StyledNavItemIcon>{icon && icon}</StyledNavItemIcon>
 

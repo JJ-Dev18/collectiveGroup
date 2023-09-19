@@ -7,9 +7,9 @@ import { useLocation } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material';
 import useResponsive from 'fleed/hooks/useResponsive';
-import ScrollBar from '../ui/scrollbar/ScrollBar';
+import ScrollBar from '../admin/ui/scrollbar/ScrollBar';
 import { Outlet } from 'react-router-dom';
-import Header from '../ui/adminHeader/Header';
+import Header from '../admin/ui/adminHeader/Header';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { AuthContext } from 'fleed/context/auth';
@@ -17,7 +17,7 @@ import FaceIcon from '@mui/icons-material/Face';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import NavSection from '../ui/nav-section/NavSection';
+import NavSection from '../admin/ui/nav-section/NavSection';
 import { IUser } from 'fleed/interfaces';
 
 const navConfig = [
@@ -27,12 +27,12 @@ const navConfig = [
     icon: <DashboardIcon/>,
   },
   {
-    title: 'user',
-    path: '/admin/user',
+    title: 'users',
+    path: '/admin/users',
     icon: <FaceIcon/>,
   },
   {
-    title: 'product',
+    title: 'products',
     path: '/admin/products',
     icon: <ShoppingBagIcon/>,
   },

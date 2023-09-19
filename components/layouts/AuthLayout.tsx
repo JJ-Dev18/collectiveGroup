@@ -27,16 +27,33 @@ export const AuthLayout: FC<Props> = ({ children, title  }) => {
            height:'100%'
           }}
         >
-           <Carousel height="100vh" navButtonsAlwaysVisible={false}   navButtonsAlwaysInvisible={true} indicators={false}> 
+           <Carousel height="100vh" navButtonsAlwaysVisible={false}   navButtonsAlwaysInvisible={true} indicators={false} > 
+           <div  style={{width: '100%', height: '100%', position: 'relative'}}>
             <Image src="/auth/1.webp"  fill
-    objectFit='cover' alt='logo'/>
-            
+            priority
+            sizes=" (min-width: 1200px) 100vw"
+            style={{objectFit : 'cover'}} alt='logo'/>
+           </div>
+           <div  style={{width: '100%', height: '100%', position: 'relative'}}>
       <Image src="/auth/2.webp" fill
-    objectFit='cover' alt='logo'/>
+       sizes=" (min-width: 1200px) 100vw"
+       style={{objectFit : 'cover'}} alt='logo'/>
+
+           </div>
+           <div  style={{width: '100%', height: '100%', position: 'relative'}}>
     <Image src="/auth/3.webp" fill
-    objectFit='cover' alt='logo'/>
+     sizes=" (min-width: 1200px) 100vw"
+     style={{objectFit : 'cover'}} alt='logo'/>
+            
+            </div>
+            <div  style={{width: '100%', height: '100%', position: 'relative'}}>
     <Image src="/auth/4.webp" fill
-    objectFit='cover' alt='logo'/>
+     sizes=" (min-width: 1200px) 100vw"
+     style={{objectFit : 'cover'}}
+     alt='logo'/>
+            
+            </div>
+            
     {/* <Image src="/Forklift/forklift-2-1024x673.jpg"  layout='fill'
     objectFit='cover' alt='logo'/>
       <Image src="/Forklift/forklift-4-1024x673.jpg"  layout='fill'
@@ -60,7 +77,7 @@ export const AuthLayout: FC<Props> = ({ children, title  }) => {
             }}
           >
            
-            <Image src="/logo.svg"  width={200} height={200} alt='logo' objectFit='contain'/>
+            <Image src="/logo.svg"  width={200} height={200} alt='logo'  style={{objectFit : 'contain'}}/>
            
             {children}
           </Box>

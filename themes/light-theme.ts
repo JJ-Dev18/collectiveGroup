@@ -7,7 +7,7 @@ export let lightTheme = createTheme({
     palette :{
       mode : 'light',
       background: {
-        default :'white'
+        default :'#fff'
       },
       primary:{
         main : '#1EAEA8'
@@ -64,7 +64,7 @@ export let lightTheme = createTheme({
              
             ":hover": {
                backgroundColor: '#1F4452',
-               color : 'white'
+               color : '#fff'
             },
             padding: '10px',
             fontSize : '16px',
@@ -164,6 +164,14 @@ export let lightTheme = createTheme({
                   
             },
          
+          },
+          {
+            props : {content :'dashboard'},
+            style :{
+              width: '200px',
+              position: 'relative',
+              zIndex: 0, // Fix Safari overflow: hidden with border radius
+            }
           }
         ],
         defaultProps: {
