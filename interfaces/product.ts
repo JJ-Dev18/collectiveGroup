@@ -1,13 +1,14 @@
-import { Benefits } from "./benefit";
+import { Benefits, Benefit } from './benefit';
 
 
 export interface IProduct {
   id: number
   name: string
   price: number
+  brochure? : string
   createdAt: Date
   updatedAt: string | null
-  benefits?: Benefits[]
+  benefits?: Benefits[]  | Benefit[]
 }
 
 

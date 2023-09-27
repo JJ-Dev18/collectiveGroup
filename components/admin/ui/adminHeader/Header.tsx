@@ -75,7 +75,7 @@ const Header:FC<Props> = ( { onOpenNav ,logout}) => {
           }}
         >
           {/* <LanguagePopover />
-          <NotificationsPopover /> */}
+          <NotificationsPopover />  */}
           <AccountPopover logout={logout}/>
         </Stack>
       </StyledToolbar>
