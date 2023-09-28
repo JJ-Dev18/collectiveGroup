@@ -1,81 +1,130 @@
+import React, { useState, useEffect, useContext } from "react";
+import { Grid, Container, Typography, Select, MenuItem, Chip, Box } from "@mui/material";
+import fleedShopApi from "fleed/api/fleedShopApi";
+import useSWR from "swr";
+import { PeopleOutline } from "@mui/icons-material";
+import { ISales, IUser, SaleProduct } from "fleed/interfaces";
+import { DataGrid, GridActionsCellItem, GridColDef, GridRenderCellParams, GridValueGetterParams } from "@mui/x-data-grid";
+import AdminLayout from "fleed/components/layouts/AdminLayout";
+import { fetchGetJSON } from "fleed/utils/api-helpers";
+import { UiContext } from "fleed/context/ui";
+import DeleteIcon from '@mui/icons-material/Delete';
+import ScrollBar from "fleed/components/admin/ui/scrollbar/ScrollBar";
+import { StyledDataGrid } from "./styles";
 
-import { ConfirmationNumberOutlined } from '@mui/icons-material'
-import { Chip, Grid } from '@mui/material'
-import { DataGrid, GridColDef, GridRenderCellParams, GridValueGetterParams } from '@mui/x-data-grid';
-import useSWR from 'swr';
-
-import { IOrder, IUser } from '../../interfaces';
-import AdminLayout from 'fleed/components/layouts/AdminLayout';
+const users = () => {
 
 
-const columns:GridColDef[] = [
-    { field: 'id', headerName: 'Orden ID', width: 250 },
-    { field: 'email', headerName: 'Correo', width: 250 },
-    { field: 'name', headerName: 'Nombre Completo', width: 300 },
-    { field: 'total', headerName: 'Monto total', width: 300 },
-    {
-        field: 'isPaid',
-        headerName: 'Pagada',
-        renderCell: ({ row }:  GridRenderCellParams<any, number>) => {
-            return row.isPaid
-                ? ( <Chip variant='outlined' label="Pagada" color="success" /> )
-                : ( <Chip variant='outlined' label="Pendiente" color="error" /> )
-        }
-    },
-    { field: 'noProducts', headerName: 'No.Productos', align: 'center', width: 150 },
-    {
-        field: 'check',
-        headerName: 'Ver orden',
-        renderCell: ({ row }:  GridRenderCellParams<any, number>) => {
+  const { data, error } = useSWR<ISales[]>("/api/admin/sales", fetchGetJSON);
+
+  const [sales, setSales] = useState<ISales[]>([]);
+
+  const {  showErrorAlert, showSuccessAlert} = useContext(UiContext)
+
+  useEffect(() => {
+    if (data) {
+        setSales(data);
+    }
+  }, [data]);
+  console.log(users,"Data")
+ 
+  const deleteUser = async ( userId: number) => {
+    // const previosUsers = users.map((user) => ({ ...user }));
+    // const newUsers = users.filter(user => user.id != userId)
+    // setSales(newUsers)
+    // console.log(userId, " id del user ")
+    // try {
+    //     const data = await fleedShopApi.delete("/admin/users", {data:{
+    //         id: userId
+    //     } })
+    //     showSuccessAlert(data.data.message)
+    // } catch (error) {
+    //     setUsers(previosUsers);
+    //     console.log(error,"error");
+    //     showErrorAlert("error")
+    // } 
+
+   
+  }
+
+ 
+
+  const columns: GridColDef[] = [
+    { field: "transactionId", headerName: "Transaction", flex: 1 },
+    { field: "isPaid", headerName: "isPaid", flex : 1 },
+    { field: "user", headerName: "User", flex: 1  },
+    { field: "shippingaddress", headerName: "Adress", flex :1  },
+
+    { 
+        field: 'products', 
+        headerName: 'Products', 
+        flex: 3 ,
+        renderCell: ({row}: GridRenderCellParams<any, number>) => {
             return (
-                <a href={ `/admin/orders/${ row.id }` } target="_blank" rel="noreferrer" >
-                    Ver orden
-                </a>
+               <ScrollBar sx={{
+                height: 1,
+                '& .simplebar-content': { height: 1, display: 'flex', flexDirection: 'column' },
+               }}>
+               <Box sx={{overflowX:'scroll'}} >
+                 {
+                  row.products.map(( product:SaleProduct) => (
+                    <Chip  key={product.id} label={product.product.name} size='small'/>
+                  ))
+                 }
+               </Box>
+               </ScrollBar>
             )
         }
     },
-    { field: 'createdAt', headerName: 'Creada en', width: 300 },
 
-];
-
-
-
-
-const OrdersPage = () => {
-
-    const { data, error } = useSWR<Sale[]>('/api/admin/orders');
-
-    if ( !data && !error ) return (<></>);
     
-    const rows = data!.map( order => ({
-        id    : order._id,
-        email : (order.user as IUser).email,
-        name  : (order.user as IUser).name,
-        total : order.total,
-        isPaid: order.isPaid,
-        noProducts: order.numberOfItems,
-        createdAt: order.createdAt,
-    }));
+    {
+        field: 'actions',
+        // type: 'actions',
+        headerName: 'Actions',
+        width: 100,
+        cellClassName: 'actions',
+        renderCell: ({ row }: GridRenderCellParams<any, number>) => {
+            return(
+                <GridActionsCellItem
+                icon={<DeleteIcon />}
+                label="Delete"
+                onClick={()=> deleteUser(Number(row.id))}
+                color="error"
+              />
+            )
+        }
+      },
+  ];
+
+  const rows = sales.map((sales) => ({
+    id: sales.id,
+    isPaid: sales.isPaid,
+    user: sales.user.email,
+    shippingaddress: sales.shippingAddress,
+    products : sales.saleProducts
+  }));
 
 
   return (
-    <AdminLayout 
-        title={'Ordenes'} 
-       
-    >
-         <Grid container className='fadeIn'>
-            <Grid item xs={12} sx={{ height:650, width: '100%' }}>
-                <DataGrid 
-                    rows={ rows }
-                    columns={ columns }
-                    pageSizeOptions={[10]}
-                />
-
-            </Grid>
+    <AdminLayout title="Sales">
+        <Typography variant="h4" sx={{mb:3}}  textAlign="center">
+          Sales
+        </Typography>
+    <Container maxWidth="xl" sx={{ overflowX: "hidden" }}>
+      <Grid container >
+        <Grid item xs={12} sx={{ height: 'auto', width: "100%" }}>
+          <StyledDataGrid
+            rows={rows}
+            columns={columns}
+            // paginationModel={{ page: 1 , pageSize: 10 }}
+            pageSizeOptions={[10]}
+          />
         </Grid>
-        
+      </Grid>
+    </Container>
     </AdminLayout>
-  )
-}
+  );
+};
 
-export default OrdersPage
+export default users;

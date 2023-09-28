@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Grid, Container, Typography, Select, MenuItem } from "@mui/material";
+import { Grid, Container, Typography, Select, MenuItem,Link, Avatar } from "@mui/material";
 import fleedShopApi from "fleed/api/fleedShopApi";
 import useSWR from "swr";
 import { PeopleOutline } from "@mui/icons-material";
@@ -9,6 +9,9 @@ import AdminLayout from "fleed/components/layouts/AdminLayout";
 import { fetchGetJSON } from "fleed/utils/api-helpers";
 import { UiContext } from "fleed/context/ui";
 import DeleteIcon from '@mui/icons-material/Delete';
+import NextLink from 'next/link';
+import { StyledDataGrid } from "./styles";
+import { stringAvatar } from "fleed/utils/avatar";
 
 const users = () => {
 
@@ -52,13 +55,16 @@ const users = () => {
       ...user,
       role: userId === user.id ? newRole : user.role,
     }));
+    const user = users.find( user => user.id === userId)
 
     setUsers(updatedUsers);
     //success
     try {
-      const resp =   await fleedShopApi.put("/admin/users", { userId, role: newRole });
-      console.log(resp)
-      showSuccessAlert(resp.data.message)
+      if(user){
+        const resp =   await fleedShopApi.put("/admin/users", { userId, role: newRole, name : user.name, email : user.email });
+        console.log(resp)
+        showSuccessAlert(resp.data.message)
+      }
     } catch (error) {
       setUsers(previosUsers);
       console.log(error,"error");
@@ -67,8 +73,27 @@ const users = () => {
   };
 
   const columns: GridColDef[] = [
+    { field: "image", headerName: "Avatar",
+    renderCell: ({row}: GridRenderCellParams<any, number>) => {
+      console.log(row,"row")
+      return (
+          <>
+              {!row?.image ? <Avatar alt="Remy Sharp"  {...stringAvatar(row?.name || 'New Client')} /> : <Avatar alt="Remy Sharp"  src={row.image}/>}
+          </>
+      )
+  } },
     { field: "email", headerName: "Email", width: 250 },
-    { field: "name", headerName: "FullName", width: 200 },
+    { field: "name", headerName: "FullName",
+    renderCell: ({row}: GridRenderCellParams<any, number>) => {
+      return (
+          <NextLink href={`/admin/users/${ row.id }`} passHref>
+              <Link underline='always'>
+                  { row.name}
+              </Link>
+          </NextLink>
+      )
+  } },
+   
     {
       field: "role",
       headerName: "Role",
@@ -100,7 +125,7 @@ const users = () => {
                 icon={<DeleteIcon />}
                 label="Delete"
                 onClick={()=> deleteUser(Number(row.id))}
-                color="inherit"
+                color="error"
               />
             )
         }
@@ -109,6 +134,7 @@ const users = () => {
 
   const rows = users.map((user) => ({
     id: user.id,
+    image : user.image,
     email: user.email,
     name: user.name,
     role: user.role,
@@ -122,7 +148,7 @@ const users = () => {
     <Container maxWidth="xl" sx={{ overflowX: "hidden" }}>
       <Grid container >
         <Grid item xs={12} sx={{ height: 'auto', width: "100%" }}>
-          <DataGrid
+          <StyledDataGrid
             rows={rows}
             columns={columns}
             // paginationModel={{ page: 1 , pageSize: 10 }}

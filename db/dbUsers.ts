@@ -47,3 +47,19 @@ export const checkUserEmailPassword = async( email: string, password: string ) =
     }
 
 }
+
+export const getUserById = async( id: number ) => {
+
+  try {
+    
+    const user = await prisma.user.findUnique({
+      where:{
+        id : id
+      }
+    })
+    return user ;
+  } catch (error) {
+    console.log(error)
+  }
+
+}

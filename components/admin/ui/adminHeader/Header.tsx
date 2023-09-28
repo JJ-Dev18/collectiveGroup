@@ -7,6 +7,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import { bgBlur } from '../../../../utils/cssStyles';
 import AccountPopover from './AccountPopover';
+import DarkModeToggle from 'fleed/components/ui/DarkModeToggle';
+import Searchbar from './Searchbar';
+import LanguagePopover from './LanguagePopover';
 // // components
 // import Iconify from '../../../components/iconify';
 // //
@@ -63,7 +66,7 @@ const Header:FC<Props> = ( { onOpenNav ,logout}) => {
           <MenuIcon  />
         </IconButton>
 
-        {/* <Searchbar /> */}
+        <Searchbar />
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack
@@ -74,8 +77,10 @@ const Header:FC<Props> = ( { onOpenNav ,logout}) => {
             sm: 1,
           }}
         >
-          {/* <LanguagePopover />
-          <NotificationsPopover />  */}
+          <LanguagePopover />
+          
+          {/* <NotificationsPopover />   */}
+          <DarkModeToggle/>
           <AccountPopover logout={logout}/>
         </Stack>
       </StyledToolbar>

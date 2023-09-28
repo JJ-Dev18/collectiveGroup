@@ -1,10 +1,11 @@
 import {  createContext } from 'react';
-import { UiState } from './UiProvider';
+import { Language, UiState } from './UiProvider';
 import { StripeError } from '@stripe/stripe-js';
 
 interface ContextProps {
     state : UiState,
     setTheme : (theme:string) => void,
+    setLanguage : (language:Language) => void,
     showInfoAlert : (msg:string) => void,
     showErrorAlert : (msg:string) => void,
     showWarningAlert : (msg:string) => void,

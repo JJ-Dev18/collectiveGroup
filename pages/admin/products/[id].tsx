@@ -23,6 +23,7 @@ import {
   Radio,
   RadioGroup,
   TextField,
+  Typography,
 } from "@mui/material";
 import {
   DriveFileRenameOutline,
@@ -130,8 +131,11 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
   return (
     <AdminLayout title={"Producto"}>
         <FormProvider {...methods}>
-
+        <Typography variant="h1"  textAlign="center">
+           {product.id ? 'Edit Product' : 'Create Product'}
+        </Typography>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
+
         <Box display="flex" justifyContent="end" sx={{ mb: 1 }}>
 
           <Button

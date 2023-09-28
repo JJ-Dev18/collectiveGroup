@@ -12,6 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { UiContext } from 'fleed/context/ui';
 import fleedShopApi from 'fleed/api/fleedShopApi';
 import ScrollBar from 'fleed/components/admin/ui/scrollbar/ScrollBar';
+import { StyledDataGrid } from './styles';
 
 
 
@@ -124,7 +125,7 @@ const ProductsPage = () => {
                     icon={<DeleteIcon />}
                     label="Delete"
                     onClick={()=> deletePackage(Number(row.id))}
-                    color="inherit"
+                    color="error"
                   />
                 )
             }
@@ -152,8 +153,8 @@ const ProductsPage = () => {
         </Box>
 
          <Grid container className='fadeIn' sx={{ overflowX :'hidden'}}>
-            <Grid item xs={12} sx={{ height:650, width: '100%' }}>
-                <DataGrid 
+            <Grid item xs={12} sx={{ height:'auto', width: '100%' }}>
+                <StyledDataGrid 
                     rows={ rows }
                     columns={ columns }
                     // pageSizeOptions={[10]}

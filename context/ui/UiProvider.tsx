@@ -13,13 +13,26 @@ type Alert = {
   msg : string
   type : string
 }
+export interface Language  {
+  value : 'en' |'es',
+  label : string,
+  icon :string
+ 
+}
+
 export interface UiState {
   theme: Theme;
   alert : Alert
+  language :Language
 }
 
 const UI_INITIAL_STATE: UiState = {
   theme: lightTheme,
+  language :  {
+    value: 'en',
+    label: 'English',
+    icon: '/flags/US.svg',
+  },
   alert : {
     state : false,
     msg : '',
@@ -39,7 +52,10 @@ export const UiProvider: FC<Props> = ({ children }) => {
   const setTheme = (theme: string) => {
     dispatch({ type: "Set Theme", payload: (theme === 'light') ? lightTheme : darkTheme });
   };
-
+  
+  const setLanguage = (language:Language) => {
+    dispatch({type : 'Set Language',payload : language})
+  }
   const showInfoAlert = (msg : string) =>{
     dispatch({type : 'Show Alert Info', payload : msg})
     toast.info(msg);
@@ -88,11 +104,13 @@ export const UiProvider: FC<Props> = ({ children }) => {
       value={{
         state,
         setTheme,
+        setLanguage,
         showInfoAlert,
         showSuccessAlert,
         showWarningAlert,
         showErrorAlert,
-        showPromiseAlert
+        showPromiseAlert,
+
       }}
     >
       <ThemeProvider theme={state.theme}>

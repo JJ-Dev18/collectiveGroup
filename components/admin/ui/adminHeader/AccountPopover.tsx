@@ -1,7 +1,11 @@
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
+import { AuthContext } from 'fleed/context/auth';
+import { stringAvatar } from 'fleed/utils/avatar';
+import HomeIcon from '@mui/icons-material/Home';
+import { useRouter } from 'next/router';
 // mocks_
 
 // ----------------------------------------------------------------------
@@ -9,16 +13,10 @@ import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover 
 const MENU_OPTIONS = [
   {
     label: 'Home',
-    icon: 'eva:home-fill',
+    icon: <HomeIcon/>,
+    path : '/shopping-cart'
   },
-  {
-    label: 'Profile',
-    icon: 'eva:person-fill',
-  },
-  {
-    label: 'Settings',
-    icon: 'eva:settings-2-fill',
-  },
+ 
 ];
 
 // ----------------------------------------------------------------------
@@ -28,7 +26,8 @@ type Props = {
 
 const AccountPopover:FC<Props> = ({logout}) =>  {
   const [open, setOpen] = useState<HTMLElement | null>(null);
-
+  const { user } = useContext(AuthContext)
+  const router = useRouter()
   const handleOpen = (event:React.MouseEvent<HTMLElement>) => {
     setOpen(event.currentTarget);
   };
@@ -56,7 +55,8 @@ const AccountPopover:FC<Props> = ({logout}) =>  {
           }),
         }}
       >
-        <Avatar  alt="photoURL" />
+       { !user?.image ? <Avatar alt="Remy Sharp"  {...stringAvatar(user?.name || 'New Client')} /> : <Avatar alt="Remy Sharp"  src={user.image}/> }
+
       </IconButton>
 
       <Popover
@@ -80,22 +80,22 @@ const AccountPopover:FC<Props> = ({logout}) =>  {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {/* {account.displayName} */}
+            {user?.name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {/* {account.email} */}
+           {user?.email}
           </Typography>
         </Box>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        {/* <Stack sx={{ p: 1 }}>
+        <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
-            <MenuItem key={option.label} onClick={handleClose}>
+            <MenuItem key={option.label} onClick={()=> router.push(option.path)}>
               {option.label}
             </MenuItem>
           ))}
-        </Stack> */}
+        </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 

@@ -5,7 +5,7 @@ import { Input, Slide, Button, IconButton, InputAdornment, ClickAwayListener } f
 // utils
 import { bgBlur } from '../../../../utils/cssStyles';
 // component
-import Iconify from '../../../components/iconify';
+import SearchIcon from '@mui/icons-material/Search';
 
 // ----------------------------------------------------------------------
 
@@ -23,7 +23,7 @@ const StyledSearchbar = styled('div')(({ theme }) => ({
   alignItems: 'center',
   height: HEADER_MOBILE,
   padding: theme.spacing(0, 3),
-  boxShadow: theme.customShadows.z8,
+  
   [theme.breakpoints.up('md')]: {
     height: HEADER_DESKTOP,
     padding: theme.spacing(0, 5),
@@ -47,8 +47,8 @@ export default function Searchbar() {
     <ClickAwayListener onClickAway={handleClose}>
       <div>
         {!open && (
-          <IconButton onClick={handleOpen}>
-            <Iconify icon="eva:search-fill" />
+          <IconButton onClick={handleOpen} sx={{color : 'white'}}>
+            <SearchIcon />
           </IconButton>
         )}
 
@@ -61,7 +61,7 @@ export default function Searchbar() {
               placeholder="Search…"
               startAdornment={
                 <InputAdornment position="start">
-                  <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', width: 20, height: 20 }} />
+                  {/* <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', width: 20, height: 20 }} /> */}
                 </InputAdornment>
               }
               sx={{ mr: 1, fontWeight: 'fontWeightBold' }}

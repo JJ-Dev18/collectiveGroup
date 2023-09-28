@@ -6,22 +6,12 @@ import { FormProvider, useForm } from "react-hook-form";
 import {
   Box,
   Button,
-  capitalize,
-  Card,
-  CardActions,
-  CardMedia,
-  Checkbox,
-  Chip,
+
   Divider,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
+  MenuItem,
+  Select,
   Grid,
-  ListItem,
-  Paper,
-  Radio,
-  RadioGroup,
+
   TextField,
   Typography,
 } from "@mui/material";
@@ -31,8 +21,8 @@ import {
   UploadOutlined,
 } from "@mui/icons-material";
 
-import { Benefit, Benefits, IPackage, IProduct, IService, Services } from "fleed/interfaces";
-import { dbPackages, dbProducts } from "fleed/db";
+import { Benefit, Benefits, IProduct, IUser } from "fleed/interfaces";
+import { dbProducts, dbUsers } from "fleed/db";
 import AdminLayout from "fleed/components/layouts/AdminLayout";
 import fleedShopApi from "fleed/api/fleedShopApi";
 import MultipleSelect from "fleed/components/admin/ui/multipleSelect/MultipleSelect";
@@ -48,30 +38,40 @@ interface FormData {
   id?: number;
   name: string;
   price: number;
-  description? : string;
-  services: Services[];
+  brochure? : string;
+  benefits: Benefit[];
 }
 
 interface Props {
-  packaged: IPackage;
+  user: IUser;
 }
 
-const ProductAdminPage: FC<Props> = ({ packaged }) => {
+const ProductAdminPage: FC<Props> = ({ user }) => {
   const router = useRouter();
   const [isSaving, setIsSaving] = useState(false);
- 
-  const methods  = useForm<IPackage>({
-    defaultValues: packaged ,
+  const [role, setrole] = useState(user.role)
+  const methods  = useForm<IUser>({
+    defaultValues: user ,
   });
   const { showSuccessAlert , showErrorAlert} = useContext(UiContext)
-  const { data: services, error: errorBenefits } = useSWR<Benefit[]>(
-    `/api/services`,
-    fetchGetJSON
-  );
+ 
 
+  const onRoleUpdated = async (userId: number, newRole: string) => {
+    
+
+      setrole(newRole)
+    //success
+    // try {
+    //   const resp =   await fleedShopApi.put("/admin/users", { userId, role: newRole });
+    //   console.log(resp)
+    //   showSuccessAlert(resp.data.message)
+    // } catch (error) {
+    //   console.log(error,"error");
+    //   showErrorAlert("error")
+    // }
+  };
   
-  
-  const onSubmit = async (form: IPackage) => {
+  const onSubmit = async (form: IUser) => {
     setIsSaving(true);
 
 
@@ -79,25 +79,25 @@ const ProductAdminPage: FC<Props> = ({ packaged }) => {
 
     try {
       const { data } = await fleedShopApi({
-        url: "/admin/packages",
+        url: "/admin/users",
         method: form.id ? "PUT" : "POST", // si tenemos un _id, entonces actualizar, si no crear
         data: {
           id : form.id ?  form.id : 1,
           name : form.name,
-          description : form.description,
-          price : Number(form.price)  ,
-          services : form.services
+          role : form.role,
+          email : form.email
+         
         },
       });
       console.log({ data });
       if (!form.id) {
-        showSuccessAlert("Package Created Succesfull")
-        router.replace(`/admin/packages/${form.id}`);
+        showSuccessAlert("User Created Succesfull")
+        router.replace(`/admin/users/${form.id}`);
       } else {
  
         showSuccessAlert(data.message)
         setIsSaving(false);
-        router.replace(`/admin/packages`);
+        router.replace(`/admin/users`);
 
       }
     } catch (error) {
@@ -108,10 +108,10 @@ const ProductAdminPage: FC<Props> = ({ packaged }) => {
   };
 
   return (
-    <AdminLayout title={"Packages"}>
+    <AdminLayout title={`User ${user.email}`}>
         <FormProvider {...methods}>
-        <Typography variant="h1"  textAlign="center">
-           {packaged.id ? 'Edit Package' : 'Create Package'}
+        <Typography    variant="h1"  textAlign="center">
+           {user.id ? 'Edit User' : 'Create User'}
         </Typography>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <Box display="flex" justifyContent="end" sx={{ mb: 1 }}>
@@ -147,38 +147,35 @@ const ProductAdminPage: FC<Props> = ({ packaged }) => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              label="Price"
-              type="number"
+              label="Email"
               variant="filled"
               fullWidth
               sx={{ mb: 1 }}
-              {...methods.register("price", {
+              {...methods.register("email", {
                 required: "This field is required",
-                min: { value: 0, message: "Min value 0" },
+               
               })}
-              error={!!methods.formState.errors.price}
-              helperText={methods.formState.errors.price?.message}
+              error={!!methods.formState.errors.email}
+              helperText={methods.formState.errors.email?.message}
             />
 
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Description"
-              variant="filled"
-              fullWidth
-              sx={{ mb: 1 }}
-              {...methods.register("description", {
+          <Grid item xs={12}>
+          <Select
+            {...methods.register("role", {
                 required: "This field is required",
-             
-              })}
-              error={!!methods.formState.errors.description}
-              helperText={methods.formState.errors.description?.message}
-            />
+            
+            })}
+            value={role}
+            label="Rol"
+            onChange={({ target }) =>  onRoleUpdated( user.id, target.value )}
+            sx={{ width: "300px" }}
+          >
+            <MenuItem value="ADMIN"> Admin </MenuItem>
+            <MenuItem value="USER"> Client </MenuItem>
+          
+          </Select>
 
-          </Grid>
-
-          <Grid item xs={12} sm={12}>
-            <MultipleSelect list={services} itemList={packaged.services as IService[]} name="services"/>
           </Grid>
 
           <Divider sx={{ my: 2 }} />
@@ -193,30 +190,15 @@ const ProductAdminPage: FC<Props> = ({ packaged }) => {
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const { id = "" } = query;
 
-  let packaged;
-  if (id === "new") {
-    const temPackaged = {
-      name: "",
-      price: 0,
-    };
+ 
+  let user = (await dbUsers.getUserById(Number(id))) ;
+  
 
-    packaged = temPackaged;
-  } else {
-    packaged = (await dbPackages.getPackageById(Number(id))) ;
-  }
-
-  if (!packaged) {
-    return {
-      redirect: {
-        destination: "/admin/packages",
-        permanent: false,
-      },
-    };
-  }
+  
 
   return {
     props: {
-      packaged: JSON.parse(JSON.stringify(packaged)),
+      user: JSON.parse(JSON.stringify(user)),
     },
   };
 };

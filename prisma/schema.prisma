@@ -38,7 +38,7 @@ model Product {
   benefits  BenefitOnProducts[]
   ventas    SaleDetailProduct[]
   createdAt DateTime
-  updatedAt DateTime?
+  updatedAt DateTime? @updatedAt
 }
 
 model BenefitOnProducts {
@@ -55,7 +55,7 @@ model Benefit {
   name        String
   description String?
   createdAt   DateTime            @default(now())
-  updatedAt   DateTime?
+  updatedAt   DateTime?           @updatedAt
   products    BenefitOnProducts[]
 }
 
@@ -69,7 +69,7 @@ model Package {
   createdAt   DateTime           @default(now())
   services    ServiceOnPackage[]
   subscriptions SubscriptionDetailPackage[]
-  updatedAt   DateTime?
+  updatedAt   DateTime?          @updatedAt
 }
 
 model ServiceOnPackage {
@@ -87,8 +87,8 @@ model Service {
   description String?
   price        Int
   createdAt   DateTime           @default(now())
-  updatedAt   DateTime?
-  packages    ServiceOnPackage[]
+  updatedAt   DateTime?           @updatedAt
+  packages    ServiceOnPackage[] 
 }
 
 model Sale {

@@ -1,9 +1,10 @@
-import { UiState } from "./UiProvider";
+import { Language, UiState } from "./UiProvider";
 
 import { Theme } from "@mui/material";
 
 type UiAction =
   | { type: "Set Theme"; payload: Theme }
+  | { type : 'Set Language', payload : Language}
   | { type: "Show Alert Info"; payload: string }
   | { type: "Show Alert Error"; payload: string }
   | { type: "Show Alert Warning"; payload: string }
@@ -17,6 +18,11 @@ export const uiReducer = (state: UiState, action: UiAction): UiState => {
         ...state,
         theme: action.payload,
       };
+      case 'Set Language':
+        return {
+          ...state,
+          language: action.payload,
+        };  
     case "Show Alert Info":
       return {
         ...state,

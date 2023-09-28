@@ -27,7 +27,7 @@ const DarkSwitch = styled(Switch)(({ theme }) => ({
       },
       '& + .MuiSwitch-track': {
         opacity: 1,
-        backgroundColor: theme.palette.mode === 'dark' ? '#1EAEA8' : '#1EAEA8',
+        backgroundColor: theme.palette.mode === 'dark' ? '#FFFFFF' : '#FFFFFF',
       },
     },
   },

@@ -28,9 +28,9 @@ export default function handler(
 ) {
   switch (req.method) {
     case "POST":
-      return registerUser(req, res);
+      return createSale(req, res);
     case 'GET': 
-      return getUsers(req,res)
+      return getSales(req,res)
     case 'PUT':
         return updatedUser(req,res)  
     case 'DELETE':
@@ -56,11 +56,20 @@ const deleteUser = async ( req: NextApiRequest, res: NextApiResponse) => {
     return res.status(200).json({ message: 'User Deleted' });
 }
 
-const getUsers = async ( req: NextApiRequest, res: NextApiResponse) => {
+const getSales = async ( req: NextApiRequest, res: NextApiResponse) => {
 
- const users = await prisma.user.findMany()
+ const sales = await prisma.sale.findMany({
+    include:{
+        saleProducts :{
+            include: {
+                product : true
+            }
+        },
+        user : true
+    }
+ })
  
- return res.status(200).json(users);
+ return res.status(200).json(sales);
 
 }
 
@@ -70,10 +79,8 @@ const updatedUser = async ( req: NextApiRequest, res: NextApiResponse) => {
     const {
         id = 1,
         role = 'ADMIN',
-        name = '',
-        email= ''
        
-      } = req.body as { id: number; role: Role | undefined , name : string,email : string};
+      } = req.body as { id: number; role: Role | undefined };
 
    
 
@@ -86,10 +93,7 @@ const updatedUser = async ( req: NextApiRequest, res: NextApiResponse) => {
             id: id,
           },
           data:{
-            role : role,
-            name : name,
-            email : email,
-         
+            role : role
           }
     })
     if ( !user ) {
@@ -102,7 +106,7 @@ const updatedUser = async ( req: NextApiRequest, res: NextApiResponse) => {
    }
 
 
-const registerUser = async (
+const createSale = async (
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) => {

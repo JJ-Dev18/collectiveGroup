@@ -176,6 +176,14 @@ export const darkTheme = createTheme({
               },
               
             },
+            {
+              props : {content :'dashboard'},
+              style :{
+                width: '200px',
+                position: 'relative',
+                zIndex: 0, // Fix Safari overflow: hidden with border radius
+              }
+            }
            
             
           ],
