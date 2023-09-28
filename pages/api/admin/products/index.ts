@@ -2,6 +2,7 @@ import { Benefit } from '@prisma/client';
 import prisma from 'fleed/db/db';
 import { ItemInterface } from 'fleed/interfaces';
 import { IProduct } from 'fleed/interfaces/product';
+import { comparatorArray } from 'fleed/utils/arrayComparator';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data =  {message: string} | IProduct[] | [];
@@ -81,44 +82,65 @@ const deleteProduct = async( req: NextApiRequest, res :NextApiResponse)=> {
  
  const updateProduct =  async( req: NextApiRequest, res :NextApiResponse)=> {
  
-  const data = req.body as  IProduct
-
-  // console.log(data)
-  const subscriptionUpdated =  await prisma.product.update({
-    where :{
-        id : data.id
+  const {
+    name= '',
+    price = 1,
+    id = 1 ,
+    brochure ='',
+    benefits= []
+  } = req.body as  {id:number, name: string;brochure: string, price: number; benefits:Benefit[] };
+  
+  try {
+    
+    const productUpdated =  await prisma.product.update({
+      where :{
+          id : id
+      },
+      data : { 
+        name : name,
+        price : price,
+        brochure : brochure || ''
+      }
+   })
+   const benefitsProduct = await prisma.benefitOnProducts.findMany({
+    where : {
+      productId : id 
     },
-    data : { 
-      name : data.name,
-      price : data.price,
-      brochure : data?.brochure || ''
+    select: {
+      benefit: true
     }
- })
+  })
 
- const benefitsProduct = await prisma.benefitOnProducts.findMany({
-  where : {
-    productId : data.id
-  },
-  select: {
-    benefit: true
-  }
-})
+  let benefitsBefore = benefitsProduct.sort((a,b)=> a.benefit.id - b.benefit.id).map( benefit => {
+     return benefit.benefit
+  })
+  
+  let newBenefits = comparatorArray(benefits,benefitsBefore)
+  let oldBenefits = comparatorArray(benefitsBefore,benefits)
 
-let benefits = benefitsProduct.map( benefit => {
-   return benefit.benefit
-})
+  newBenefits.forEach( async (benefit)=> {
+    await prisma.benefitOnProducts.create({
+                    data : {
+                      benefitId : benefit.id,
+                      productId : id       
+                    }
+                  })
+  })
 
- const difference = benefits.filter( (benefit:any) => data.benefits?.includes(benefit) )
- console.log(difference,data.benefits,"difference")
-//  const benefitsProductUpdated = await prisma.benefitOnProducts.updateMany({
-//   where :{
-//     productId : data.id
-// },
-//   data : { 
-
-//   }
-//  })
+  oldBenefits.forEach( async (benefit) => {
+   await prisma.benefitOnProducts.delete({
+     where:{
+        productId_benefitId :{productId : id , benefitId : benefit.id}
+     }
+   })
+ })  
+  
   res.status(200).json({message : 'Product updated'})
+  } catch (error) {
+    console.log(error)
+    console.log(typeof error)
+  }
+
 
  }
 

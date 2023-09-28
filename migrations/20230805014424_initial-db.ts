@@ -31,9 +31,10 @@ export async function up(knex: Knex): Promise<void> {
         table.timestamp('createdAt').defaultTo(knex.fn.now()).index();
         table.timestamp('updatedAt')
     }).createTable('BenefitOnProducts', function (table) {
-        table.increments('id').primary();
+        
         table.integer('productId').unsigned()
         table.integer('benefitId').unsigned()
+        table.unique(['productId', 'benefitId']);
     }).createTable("Service", function(table){
         table.increments('id').primary();
         table.string('name', 255).notNullable();
@@ -53,9 +54,10 @@ export async function up(knex: Knex): Promise<void> {
         table.timestamp('updatedAt')
     })
     .createTable("ServiceOnPackage", function(table){
-        table.increments('id').primary();
+        
         table.integer('serviceId').unsigned()
         table.integer('packageId').unsigned()
+        table.unique(['serviceId', 'packageId']);
     })
     .table("BenefitOnProducts", function(table){
         

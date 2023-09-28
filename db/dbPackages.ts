@@ -20,27 +20,27 @@ export const getInventory = async() => {
 
 }
 
-export const getProductById = async (id:number)=> {
+export const getPackageById = async (id:number)=> {
   try {
-    const product = await prisma.product.findUnique({
+    const packaged = await prisma.package.findUnique({
       where : {
        id : id
       },
     })
-    const benefitsProduct = await prisma.benefitOnProducts.findMany({
+    const serviceOnPackage = await prisma.serviceOnPackage.findMany({
       where : {
-        productId : id 
+        packageId : id 
       },
       select: {
-        benefit: true
+        service: true
       }
     })
 
-    let benefits = benefitsProduct.sort((a,b)=> a.benefit.id - b.benefit.id).map( benefit => {
-       return benefit.benefit
+    let services = serviceOnPackage.sort((a,b)=> a.service.id - b.service.id).map( service => {
+       return service.service
     })
     
-    return {...product, benefits}
+    return {...packaged, services}
 
   } catch (error) {
      console.log(error)

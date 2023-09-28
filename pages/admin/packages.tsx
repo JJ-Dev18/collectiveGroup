@@ -5,7 +5,7 @@ import { DataGrid, GridColDef, GridValueGetterParams, GridRenderCellParams, Grid
 import useSWR from 'swr';
 import React, { useState, useEffect, useContext } from "react";
 import AdminLayout from 'fleed/components/layouts/AdminLayout';
-import { IProduct } from 'fleed/interfaces';
+import { IPackage, IProduct, ItemInterface, Services } from 'fleed/interfaces';
 import { fetchGetJSON } from 'fleed/utils/api-helpers';
 import { Benefit, Benefits } from '../../interfaces/benefit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -21,9 +21,9 @@ import ScrollBar from 'fleed/components/admin/ui/scrollbar/ScrollBar';
 
 const ProductsPage = () => {
 
-    const { data, error } = useSWR<IProduct[]>('/api/admin/products',fetchGetJSON);
+    const { data, error } = useSWR<IPackage[]>('/api/admin/packages',fetchGetJSON);
 
-    const [products, setProducts] = useState<IProduct[]>([]);
+    const [packages , setPackages] = useState<IPackage[]>([]);
 
     const {  showErrorAlert, showSuccessAlert} = useContext(UiContext)
    
@@ -31,35 +31,36 @@ const ProductsPage = () => {
     
     useEffect(() => {
       if (data) {
-        setProducts(data);
+        setPackages(data);
       }
     }, [data]);
 
-    const rows = products!.map( product => ({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        brochure : product.brochure,
-        benefits : product.benefits
+    const rows = packages!.map( packaged => ({
+        id: packaged.id,
+        description: packaged.description,
+        name: packaged.name,
+        price: packaged.price,
+        comments : packaged.comments,
+        services : packaged.services
     }));
   
    
   //   if (!data && !error) return <></>;
    
-    const deleteProduct = async ( productId: number) => {
-      const previosProduct = products.map((user) => ({ ...user }));
-      const newProduct = products.filter(user => user.id != productId)
+    const deletePackage = async ( packageId: number) => {
+      const previousPackage = packages.map((packaged) => ({ ...packaged }));
+      const newPackage = packages.filter(packaged => packaged.id != packageId)
       
-      setProducts(newProduct)
+      setPackages(newPackage)
 
-      console.log(productId, " id del product ")
+ 
       try {
-          const data = await fleedShopApi.delete("/admin/products", {data:{
-              id: productId
+          const data = await fleedShopApi.delete("/admin/packages", {data:{
+              id: packageId
           } })
           showSuccessAlert(data.data.message)
       } catch (error) {
-        setProducts(previosProduct);
+        setPackages(previousPackage);
           console.log(error,"error");
           showErrorAlert("error")
       } 
@@ -75,7 +76,7 @@ const ProductsPage = () => {
             flex: 1 ,
             renderCell: ({row}: GridRenderCellParams<any, number>) => {
                 return (
-                    <NextLink href={`/admin/products/${ row.id }`} passHref>
+                    <NextLink href={`/admin/packages/${ row.id }`} passHref>
                         <Link underline='always'>
                             { row.name}
                         </Link>
@@ -84,11 +85,15 @@ const ProductsPage = () => {
             }
         },
         { field: 'price', headerName: 'Precio',  flex: 1 , },
-        { field: 'brochure', headerName: 'Brochure',  flex: 1 , },
+        { field: 'description', headerName: 'Description',  flex: 1 , },
+        { field: 'comments', headerName: 'Comments',  flex: 1 , },
+
+
+        // { field: 'brochure', headerName: 'Brochure',  flex: 1 , },
 
         { 
-            field: 'benefits', 
-            headerName: 'Benefits', 
+            field: 'services', 
+            headerName: 'Services', 
             flex: 3 ,
             renderCell: ({row}: GridRenderCellParams<any, number>) => {
                 return (
@@ -98,8 +103,8 @@ const ProductsPage = () => {
                    }}>
                    <Box sx={{overflowX:'scroll'}} >
                      {
-                      row.benefits.map(( benefit:Benefits) => (
-                        <Chip  key={benefit.benefit.id} label={benefit.benefit.name} size='small'/>
+                      row.services.map(( service:Services) => (
+                        <Chip  key={service.service.id} label={service.service.name} size='small'/>
                       ))
                      }
                    </Box>
@@ -118,7 +123,7 @@ const ProductsPage = () => {
                     <GridActionsCellItem
                     icon={<DeleteIcon />}
                     label="Delete"
-                    onClick={()=> deleteProduct(Number(row.id))}
+                    onClick={()=> deletePackage(Number(row.id))}
                     color="inherit"
                   />
                 )
@@ -134,15 +139,15 @@ const ProductsPage = () => {
         
     >
         <Typography variant="h4" sx={{mb : 3}} textAlign="center" >
-          Products
+          Packages
         </Typography>
         <Box display='flex' justifyContent='end' sx={{ mb: 2 }}>
             <Button
                 startIcon={ <AddOutlined /> }
                 color="secondary"
-                href="/admin/products/new"
+                href="/admin/packages/new"
             >
-                Create Product
+               Create Package
             </Button>
         </Box>
 

@@ -116,6 +116,9 @@ const users = () => {
 
   return (
     <AdminLayout title="users">
+        <Typography variant="h4" sx={{mb:3}}  textAlign="center">
+          Users
+        </Typography>
     <Container maxWidth="xl" sx={{ overflowX: "hidden" }}>
       <Grid container >
         <Grid item xs={12} sx={{ height: 'auto', width: "100%" }}>

@@ -30,8 +30,8 @@ import {
   UploadOutlined,
 } from "@mui/icons-material";
 
-import { Benefit, Benefits, IProduct } from "fleed/interfaces";
-import { dbProducts } from "fleed/db";
+import { Benefit, Benefits, IPackage, IProduct, IService, Services } from "fleed/interfaces";
+import { dbPackages, dbProducts } from "fleed/db";
 import AdminLayout from "fleed/components/layouts/AdminLayout";
 import fleedShopApi from "fleed/api/fleedShopApi";
 import MultipleSelect from "fleed/components/admin/ui/multipleSelect/MultipleSelect";
@@ -47,51 +47,30 @@ interface FormData {
   id?: number;
   name: string;
   price: number;
-  brochure? : string;
-  benefits: Benefit[];
+  description? : string;
+  services: Services[];
 }
 
 interface Props {
-  product: IProduct;
+  packaged: IPackage;
 }
 
-const ProductAdminPage: FC<Props> = ({ product }) => {
+const ProductAdminPage: FC<Props> = ({ packaged }) => {
   const router = useRouter();
   const [isSaving, setIsSaving] = useState(false);
  
-  const methods  = useForm<IProduct>({
-    defaultValues: product ,
+  const methods  = useForm<IPackage>({
+    defaultValues: packaged ,
   });
   const { showSuccessAlert , showErrorAlert} = useContext(UiContext)
-  const { data: benefits, error: errorBenefits } = useSWR<Benefit[]>(
-    `/api/benefits`,
+  const { data: services, error: errorBenefits } = useSWR<Benefit[]>(
+    `/api/services`,
     fetchGetJSON
   );
 
-  // useEffect(() => {
-  //   const subscription = methods.watch((value, { name, type }) => {
-  //     if (name === "name") {
-  //       const newId =
-  //         value.name
-  //           ?.trim()
-  //           .replaceAll(" ", "_")
-  //           .replaceAll("'", "")
-  //           .toLocaleLowerCase() || "";
-
-  //       methods.setValue("id", Number(newId));
-  //     }
-  //   });
-  //   return () => subscription.unsubscribe();
-  // }, [methods.watch, methods.setValue]);
-
-  // useEffect(() => {
-  //   const subscription = methods.watch((value, { name, type }) =>
-  //     console.log(value, name, type)
-  //   )
-  //   return () => subscription.unsubscribe()
-  // }, [methods.watch])
   
-  const onSubmit = async (form: IProduct) => {
+  
+  const onSubmit = async (form: IPackage) => {
     setIsSaving(true);
 
 
@@ -99,25 +78,25 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
 
     try {
       const { data } = await fleedShopApi({
-        url: "/admin/products",
+        url: "/admin/packages",
         method: form.id ? "PUT" : "POST", // si tenemos un _id, entonces actualizar, si no crear
         data: {
           id : form.id ?  form.id : 1,
           name : form.name,
-          brochure : form.brochure,
+          description : form.description,
           price : Number(form.price)  ,
-          benefits : form.benefits
+          services : form.services
         },
       });
       console.log({ data });
       if (!form.id) {
-        showSuccessAlert("Product Created Succesfull")
-        router.replace(`/admin/products/${form.id}`);
+        showSuccessAlert("Package Created Succesfull")
+        router.replace(`/admin/packages/${form.id}`);
       } else {
  
         showSuccessAlert(data.message)
         setIsSaving(false);
-        router.replace(`/admin/products`);
+        router.replace(`/admin/packages`);
 
       }
     } catch (error) {
@@ -128,7 +107,7 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
   };
 
   return (
-    <AdminLayout title={"Producto"}>
+    <AdminLayout title={"Packages"}>
         <FormProvider {...methods}>
 
       <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -165,7 +144,7 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              label="Precio"
+              label="Price"
               type="number"
               variant="filled"
               fullWidth
@@ -181,22 +160,22 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              label="Brochure"
+              label="Description"
               variant="filled"
               fullWidth
               sx={{ mb: 1 }}
-              {...methods.register("brochure", {
+              {...methods.register("description", {
                 required: "This field is required",
              
               })}
-              error={!!methods.formState.errors.brochure}
-              helperText={methods.formState.errors.brochure?.message}
+              error={!!methods.formState.errors.description}
+              helperText={methods.formState.errors.description?.message}
             />
 
           </Grid>
 
           <Grid item xs={12} sm={12}>
-            <MultipleSelect list={benefits} itemList={product.benefits as Benefit[]} name="benefits"/>
+            <MultipleSelect list={services} itemList={packaged.services as IService[]} name="services"/>
           </Grid>
 
           <Divider sx={{ my: 2 }} />
@@ -211,22 +190,22 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const { id = "" } = query;
 
-  let product;
+  let packaged;
   if (id === "new") {
-    const tempProduct = {
+    const temPackaged = {
       name: "",
       price: 0,
     };
 
-    product = tempProduct;
+    packaged = temPackaged;
   } else {
-    product = (await dbProducts.getProductById(Number(id))) ;
+    packaged = (await dbPackages.getPackageById(Number(id))) ;
   }
 
-  if (!product) {
+  if (!packaged) {
     return {
       redirect: {
-        destination: "/admin/products",
+        destination: "/admin/packages",
         permanent: false,
       },
     };
@@ -234,7 +213,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   return {
     props: {
-      product: JSON.parse(JSON.stringify(product)),
+      packaged: JSON.parse(JSON.stringify(packaged)),
     },
   };
 };
