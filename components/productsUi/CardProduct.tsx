@@ -11,6 +11,8 @@ import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
+import { useTranslation } from 'next-i18next'
+
 
 type Props = {
     product : ItemInterface,
@@ -24,6 +26,7 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
 
    const { addItem, clearCart } = useShoppingCart()
    const [hover, sethover] = useState(false)
+   const { t } = useTranslation('common')
    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
    const open = Boolean(anchorEl);
    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -144,10 +147,10 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
              addItem(productToAdd)
              showSuccessAlert("Product Add to cart")
           }}>
-                 Add  to cart
+                 {t('button-add')}
             </Button>
             <Button variant="contained" color="secondary"  size='small' onClick={toBuy} disabled={loading}>
-                 Buy now
+            {t('button-buy')}
             </Button>
         </CardActions>
     </Card>

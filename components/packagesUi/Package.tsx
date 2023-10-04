@@ -9,6 +9,7 @@ import {  ToastContainer, toast } from 'react-toastify';
 import { UiContext } from 'fleed/context/ui';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'next-i18next'
 type Props = {
   handleCheckoutSubscribe  : (packagetoAdd:ItemInterface) => void 
   loading : boolean
@@ -19,6 +20,9 @@ type Props = {
 
 export const Package:FC<Props> = React.memo(({handleCheckoutSubscribe,packageInfo,loading,isLoggedIn}) => {
   const { addItem, removeItem ,cartDetails, redirectToCheckout,clearCart,} = useShoppingCart();
+
+  const { t } = useTranslation('common')
+
   const router = useRouter()
   const packageToAdd :ItemInterface= { ... packageInfo , 
      id : packageInfo.id.toString() ,
@@ -54,7 +58,7 @@ export const Package:FC<Props> = React.memo(({handleCheckoutSubscribe,packageInf
             {packageInfo.price /100} USD
            </Typography>
            <Typography variant="subtitle1" color="primary">
-            Per truck/month
+            {t('subscription')}
            </Typography>
         </Box>
         <CardContent>
@@ -70,7 +74,7 @@ export const Package:FC<Props> = React.memo(({handleCheckoutSubscribe,packageInf
         <CardActions className='flex justify-center'>
 
         <Button variant='contained' color='secondary' sx={{fontWeight:'600'}} onClick={buyNow} disabled={loading}>
-          Subscribe
+          {t('bttn-subscribe')}
         </Button>
       </CardActions>
      

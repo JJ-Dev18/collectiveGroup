@@ -18,6 +18,9 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useShoppingCart } from 'use-shopping-cart';
 import { UiContext } from 'fleed/context/ui';
 import { AuthContext } from 'fleed/context/auth';
+
+import { useTranslation } from 'next-i18next'
+
 const StyledTableCell = styled(TableCell)`
 
 
@@ -43,6 +46,7 @@ type Props = {
 export const TableProducts: FC<Props> = ({columns,products,handleCheckout,loading}) => {
   
   const { addItem } = useShoppingCart()
+  const { t } = useTranslation("common")
   const { showSuccessAlert } = useContext(UiContext)
   const { isLoggedIn} = useContext(AuthContext)
   return (
@@ -51,7 +55,7 @@ export const TableProducts: FC<Props> = ({columns,products,handleCheckout,loadin
       <TableHead sx={{border: 'none'}}>
         <TableRow  >
         <StyledTableCell  component="th" scope="row" align="left" sx={{fontSize:'18px',fontWeight:'700'}}>
-          <Typography variant="h1" color="inherit" sx={{marginTop :{ xs: '0', lg: '370px' } }}> Benefits</Typography>
+          <Typography variant="h1" color="inherit" sx={{marginTop :{ xs: '0', lg: '370px' } }}> {t('title-benefits')}</Typography>
         </StyledTableCell>
           {
             products.map( product => (

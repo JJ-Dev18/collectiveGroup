@@ -3,10 +3,13 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import React from 'react'
 import {useState} from 'react';
+import { useTranslation } from 'next-i18next'
 
 export const CustomPackage = () => {
 
  const router = useRouter()
+ const { t } = useTranslation('common')
+ 
   return (
     <Card 
     component={motion.div}
@@ -21,10 +24,11 @@ export const CustomPackage = () => {
        
         <Box display="flex" justifyContent="space-around" flexDirection="column" alignItems="center">
            <Typography variant="subtitle2" color="secondary" textAlign="center" fontWeight={600}>
-            PRICING VARIES BASED ON SERVICES
+            {t('package-custom.text')}
            </Typography>
            <Button variant="contained" color="secondary" className='mt-5' onClick={()=> router.push('/custom-package')}>
-             Build your Service Package
+           {t('package-custom.button')}
+
            </Button>
         </Box>
         

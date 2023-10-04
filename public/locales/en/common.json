@@ -1,0 +1,76 @@
+{
+    "title-products": "Products",
+    "button-add":"add to cart",
+    "button-options" : "options",
+    "button-buy":"buy now",
+    "cart-empty":"Your cart is empty",
+    "product-add": "Product Add to cart",
+    "package-add" : "Package Add to cart",
+    "subscription" : "Per truck/month",
+    "package-custom" : {
+      "text":"PRICING VARIES BASED ON SERVICES",
+      "button":"Build your service package"
+    },
+    "back" : "Back",
+    "menu" : {
+       "dashboard": "Dashboard",
+       "home" : "Home",
+       "account" : "My Account",
+       "purchase" : "My purchases",
+       "logout" : "Logout"
+    },
+    "button-lng" : "language",
+    "button-profile":"Profile",
+    "button-cart":"View Shopping Cart",
+    "button-dark": "Mode",
+    "title-benefits": "Benefits",
+    "title-packages": "Packages",
+    "bttn-subscribe": "subscribe",
+    "mission": "Our mission is to integrate information technology with human activities to make better workplaces",
+    "phone": "phone",
+    "cellphone": "cellphone",
+    "e-mail": "E-mail",
+    "blog": {
+      "appDir": {
+        "question": "Verwendest du das neue Next.js 13 mit app directory?",
+        "answer": "Dann schau dir <1>diesen Blogbeitrag</1> an.",
+        "link": "https://locize.com/blog/next-13-app-dir-i18n/"
+      },
+      "optimized": {
+        "question": "Möchtest du einige Superkräfte entfesseln, um für alle Seiten optimierte Übersetzungen zu haben?",
+        "answer": "Dann schaue dir vielleicht <1>diesen Blogbeitrag</1> an.",
+        "link": "https://locize.com/blog/next-i18next-de/"
+      },
+      "ssg": {
+        "question": "Möchtest du SSG (next export) verwenden?",
+        "answer": "Dann schaue dir vielleicht <1>diesen Blogbeitrag</1> an.",
+        "link": "https://locize.com/blog/next-i18n-statisch/"
+      }
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

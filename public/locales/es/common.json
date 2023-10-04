@@ -1,0 +1,75 @@
+{
+  "title-products": "Productos",
+  "button-add":"Agregar al carrito",
+  "button-options" : "Opciones",
+  "button-buy":"Comprar ahora",
+  "cart-empty":"Tu carrito esta vacio",
+  "product-add": "Producto agregado al carrito",
+  "package-add" : "Paquete agregado al carrito",
+  "subscription" : "Camion / mes",
+  "back" : "Atras",
+  "package-custom" : {
+    "text":"EL PRECIO VARIA SEGUN LOS SERVICIOS",
+    "button":"Construye tu paquete de servicios"
+  },
+  "menu" : {
+     "dashboard": "Panel",
+     "home" : "Inicio",
+     "account" : "Mi cuenta",
+     "purchase" : "Mis compras",
+     "logout" : "Cerrar Sesion"
+  },
+  "button-lng" : "Idioma",
+  "button-profile":"Perfil",
+  "button-cart":"Ver carrito",
+  "button-dark": "Modo",
+  "title-benefits": "Beneficios",
+  "title-packages": "Paquetes",
+  "bttn-subscribe": "Suscribirse",
+  "mission": "Nuestra misión es integrar la tecnología de la información con las actividades humanas para crear mejores lugares de trabajo",
+  "phone": "Telefono",
+  "cellphone": "Celular",
+  "e-mail": "Correo",
+  "blog": {
+    "appDir": {
+      "question": "Verwendest du das neue Next.js 13 mit app directory?",
+      "answer": "Dann schau dir <1>diesen Blogbeitrag</1> an.",
+      "link": "https://locize.com/blog/next-13-app-dir-i18n/"
+    },
+    "optimized": {
+      "question": "Möchtest du einige Superkräfte entfesseln, um für alle Seiten optimierte Übersetzungen zu haben?",
+      "answer": "Dann schaue dir vielleicht <1>diesen Blogbeitrag</1> an.",
+      "link": "https://locize.com/blog/next-i18next-de/"
+    },
+    "ssg": {
+      "question": "Möchtest du SSG (next export) verwenden?",
+      "answer": "Dann schaue dir vielleicht <1>diesen Blogbeitrag</1> an.",
+      "link": "https://locize.com/blog/next-i18n-statisch/"
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

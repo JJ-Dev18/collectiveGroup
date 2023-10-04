@@ -18,15 +18,17 @@ import DarkModeToggle from "./DarkModeToggle";
 import { AuthContext } from "fleed/context/auth";
 import Image from "next/image";
 
-import { Badge, Divider, Link, Popover } from "@mui/material";
+import { Badge, Divider, Link, Popover, PropTypes } from "@mui/material";
 import { SearchOutlined, ShoppingCartOutlined } from "@mui/icons-material";
 import { useShoppingCart } from "use-shopping-cart";
 import { stringAvatar } from "fleed/utils/avatar";
 import LanguagePopover from "../admin/ui/adminHeader/LanguagePopover";
 // import { AuthContext } from "@/context";
+import { useTranslation } from 'next-i18next'
 
 const pages = ["Login", "Register"];
-function ResponsiveAppBar() {
+
+function ResponsiveAppBar({color = "transparent"}:{color? : PropTypes.Color | 'transparent'}) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -36,14 +38,20 @@ function ResponsiveAppBar() {
   const { user, isLoggedIn, logout } = React.useContext(AuthContext);
   const { cartCount } = useShoppingCart();
   const router = useRouter();
-  console.log(user)
+  const { t } = useTranslation("common")
+
+  console.log(user,"uiser")
+  
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
   const settings = [
-    { label: "My Account", action: handleCloseUserMenu },
-    { label: "My Purchase", action: handleCloseUserMenu },
-    { label: "Logout", action: logout },
+    { label: t('menu.home'), action: () => router.push('/') },
+    { label:  t('menu.account'), action: () => router.push('/user/my-account') },
+    { label:  t('menu.purchase'), action:() => router.push({
+      pathname : '/user/my-purchase',
+    }) },
+    { label: t('menu.logout'), action: logout },
   ];
   // const pages = [
   //   { label: "Login", action: handleCloseUserMenu },
@@ -69,7 +77,7 @@ function ResponsiveAppBar() {
     <AppBar
       position="absolute"
       // sx={{ background-color: 'hsla(0,0%,100%,.11);' }}
-      color="transparent"
+      color={color}
       sx={{ boxShadow: "none", outline: "none",
       // backgroundColor: 'hsla(0,0%,100%,.11)',backdropFilter:'blur(50px);'
      }}
@@ -175,7 +183,7 @@ function ResponsiveAppBar() {
               className="mr-1"
             >
               <Link>
-                <Tooltip title="View Shopping cart">
+                <Tooltip title={t('button-cart')}>
                   <IconButton>
                     <Badge
                       badgeContent={cartCount?.toString()}
@@ -189,7 +197,7 @@ function ResponsiveAppBar() {
             </NextLink>
             {isLoggedIn && (
               <>
-                <Tooltip title="Profile">
+                <Tooltip title={t('button-profile')}>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     { !user?.image ? <Avatar alt="Remy Sharp"  {...stringAvatar(user?.name || 'New Client')} /> : <Avatar alt="Remy Sharp"  src={user.image}/> }
                   </IconButton>
@@ -232,7 +240,7 @@ function ResponsiveAppBar() {
                     user?.role === 'ADMIN' && 
                     <MenuItem  onClick={() => router.push('/admin/dashboard')}>
                     <Typography textAlign="center">
-                      Dashboard
+                     {t('menu.dashboard')}
                     </Typography>
                   </MenuItem>
                   }

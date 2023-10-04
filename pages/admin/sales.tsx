@@ -51,9 +51,9 @@ const users = () => {
 
   const columns: GridColDef[] = [
     { field: "transactionId", headerName: "Transaction", flex: 1 },
-    { field: "isPaid", headerName: "isPaid", flex : 1 },
+    { field: "isPaid", headerName: "Is paid ? ", flex : 1 },
     { field: "user", headerName: "User", flex: 1  },
-    { field: "shippingaddress", headerName: "Adress", flex :1  },
+    { field: "shippingaddress", headerName: "Address", flex :1  },
 
     { 
         field: 'products', 
@@ -99,7 +99,7 @@ const users = () => {
 
   const rows = sales.map((sales) => ({
     id: sales.id,
-    isPaid: sales.isPaid,
+    isPaid: sales.isPaid ? 'Yes' : 'No',
     user: sales.user.email,
     shippingaddress: sales.shippingAddress,
     products : sales.saleProducts

@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+const { i18n } = require('./next-i18next.config')
 const nextConfig = {
  
   transpilePackages: [
@@ -54,5 +55,6 @@ module.exports = {
   //   websocketPort: 3007,
   // },
   output: "standalone",
+  i18n
   // distDir :'dist'
 };

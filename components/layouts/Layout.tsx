@@ -9,6 +9,7 @@ import LanguagePopover from "../admin/ui/adminHeader/LanguagePopover";
 interface Props {
   title?: string;
   children?: React.ReactNode;
+  
 }
 
 const Layout: FC<Props> = ({ title = "Shop", children }) => {

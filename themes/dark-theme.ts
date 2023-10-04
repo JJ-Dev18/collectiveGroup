@@ -183,6 +183,13 @@ export const darkTheme = createTheme({
                 position: 'relative',
                 zIndex: 0, // Fix Safari overflow: hidden with border radius
               }
+            },
+            {
+              props : {content :'user'},
+              style :{
+                width: '100%',
+                
+              }
             }
            
             

@@ -178,7 +178,7 @@ const ProductAdminPage: FC<Props> = ({ packaged }) => {
           </Grid>
 
           <Grid item xs={12} sm={12}>
-            <MultipleSelect list={services} itemList={packaged.services as IService[]} name="services"/>
+            <MultipleSelect list={services} itemList={packaged.services as IService[]} name="Services"/>
           </Grid>
 
           <Divider sx={{ my: 2 }} />

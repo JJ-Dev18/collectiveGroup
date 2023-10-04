@@ -3,10 +3,12 @@ import { useContext, useState } from 'react';
 import { alpha } from '@mui/material/styles';
 import { Box, MenuItem, Stack, IconButton, Popover } from '@mui/material';
 import { Language, UiContext } from 'fleed/context/ui';
+import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router';
 
 // ----------------------------------------------------------------------
 
-const LANGS = [
+export const LANGS:Language[] = [
   {
     value: 'en',
     label: 'English',
@@ -25,7 +27,7 @@ const LANGS = [
 export default function LanguagePopover() {
   const [open, setOpen] = useState<HTMLElement | null>(null);
   const { setLanguage , state : { language} }  = useContext(UiContext)
-
+  const router = useRouter()
   const handleOpen = (event:React.MouseEvent<HTMLElement>) => {
     setOpen(event.currentTarget);
     console.log(event)
@@ -38,6 +40,9 @@ export default function LanguagePopover() {
   };
 
   const changeLanguage = (language:Language) => {
+  
+      router.replace(router.pathname, router.pathname, { locale: language.value })
+   
     setLanguage(language)
     handleClose()
   }

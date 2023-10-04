@@ -1,4 +1,4 @@
-import { NextPage } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
 
 import { AuthContext } from 'fleed/context/auth'
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
@@ -26,8 +26,9 @@ import { UiContext } from 'fleed/context/ui';
 import { CarouselComponent } from 'fleed/components/ui/Carousel';
 import { motion, transform } from "framer-motion"
 import { useSubscribe } from 'fleed/hooks/useSubscribe';
+import { useTranslation } from 'next-i18next'
 
-const DonatePage: NextPage = () => {
+const DonatePage: NextPage = (_props: InferGetStaticPropsType<typeof getStaticProps>) => {
 
   // const { products, isLoading : isLoadinProducts } = useProducts('/products',{
   //   fetcher : fetchGetJSON
@@ -40,6 +41,9 @@ const DonatePage: NextPage = () => {
   // const { benefits, isLoading : isLoadingBenefits} = useBenefits('/benefits',{
   //   fetcher : fetchGetJSON
   // });
+  const { t ,i18n} = useTranslation('common')
+
+  console.log(i18n.language,"lang")
 
   const { benefits ,products , packages , services } = useData({
     fetcher : fetchGetJSON
@@ -84,8 +88,8 @@ const DonatePage: NextPage = () => {
           delay: 1
       }}
 
-         component={motion.h1} textAlign="center" color="inherit" marginTop={14}  about='title'>Products </Typography>
-         <Typography variant="h1" color="inherit"></Typography>
+         component={motion.h1} textAlign="center" color="inherit" marginTop={14}  about='title'>{t('title-products')} </Typography>
+        
          <Grid container  alignItems="center" justifyContent="center" marginTop={6}>     
               <TableProducts loading={loading} columns={columns} products={products} handleCheckout={handleCheckout}/>            
          </Grid> 
@@ -100,7 +104,7 @@ const DonatePage: NextPage = () => {
             animate={{ x: 0 }}
              // animate={{x: 20, y: -20}} 
             component={motion.h1}
-            variant="h1" textAlign="center" color="inherit" about="title">Packages </Typography>
+            variant="h1" textAlign="center" color="inherit" about="title">{t('title-packages')} </Typography>
           <Grid container  alignItems="center" justifyContent="center" marginTop={6} >
           { packages.map(pack => {
              if(pack.id != "4") {
@@ -118,3 +122,19 @@ const DonatePage: NextPage = () => {
 
 export default DonatePage
 
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { GetStaticProps,InferGetStaticPropsType ,InferGetServerSidePropsType } from 'next'
+
+export const getStaticProps:GetStaticProps = async ({ locale }) => {
+
+  console.log(locale , "locale")
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? 'en', [
+        'common',
+       
+      ])),
+      // Will be passed to the page component as props
+    },
+  }
+}

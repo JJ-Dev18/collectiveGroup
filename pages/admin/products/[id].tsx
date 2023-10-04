@@ -200,7 +200,7 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
           </Grid>
 
           <Grid item xs={12} sm={12}>
-            <MultipleSelect list={benefits} itemList={product.benefits as Benefit[]} name="benefits"/>
+            <MultipleSelect list={benefits} itemList={product.benefits as Benefit[]} name="Benefits"/>
           </Grid>
 
           <Divider sx={{ my: 2 }} />

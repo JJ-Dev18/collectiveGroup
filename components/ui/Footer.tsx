@@ -1,8 +1,12 @@
 import React, { FC, ReactElement } from "react";
 import { Box, Container, Grid, Typography, ListItem,List } from '@mui/material';
 import Image from "next/image";
+import { useTranslation } from 'next-i18next'
 
 export const Footer: FC = (): ReactElement => {
+
+  const { t } = useTranslation('common')
+
   return (
     <Box
       sx={{
@@ -19,20 +23,20 @@ export const Footer: FC = (): ReactElement => {
         <Grid container direction="row" alignItems="center" >
           <Grid item xs={12} md={6} lg={6} padding={5}>
             <Typography color="white" variant="h2">
-             "Our mission is to integrate information technology with human activities to make better workplaces"
+             "{t('mission')}"
             </Typography>
             <List>
               <ListItem>
                <Typography variant="h2" color="primary"> Colombia</Typography>
               </ListItem>
               <ListItem>
-               <Typography variant="h2" color="white"> Phone : (8) 269 2798</Typography>
+               <Typography variant="h2" color="white"> {t('phone')} : (8) 269 2798</Typography>
               </ListItem>
               <ListItem>
-               <Typography variant="h2" color="white"> CellPhone : (+57) 316 454 2799</Typography>
+               <Typography variant="h2" color="white"> {t('cellphone')}: (+57) 316 454 2799</Typography>
               </ListItem>
               <ListItem>
-               <Typography variant="h2" color="white"> E-mail : contacto@tolintelligence.com</Typography>
+               <Typography variant="h2" color="white"> {t('e-mail')} : contacto@tolintelligence.com</Typography>
               </ListItem>
             </List>
           </Grid>

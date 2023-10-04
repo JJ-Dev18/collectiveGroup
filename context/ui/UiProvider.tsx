@@ -7,6 +7,9 @@ import { customTheme, darkTheme, lightTheme } from "fleed/themes";
 import { toast } from "react-toastify";
 import { ToastContainer } from 'react-toastify';
 import { StripeError } from "@stripe/stripe-js";
+import { useTranslation } from 'next-i18next'
+import { useRouter } from "next/router";
+import { LANGS } from "fleed/components/admin/ui/adminHeader/LanguagePopover";
 
 type Alert = {
   state : boolean
@@ -48,12 +51,13 @@ interface Props {
 export const UiProvider: FC<Props> = ({ children }) => {
 
   const [state, dispatch] = useReducer(uiReducer, UI_INITIAL_STATE);
-
+  const router = useRouter()
   const setTheme = (theme: string) => {
     dispatch({ type: "Set Theme", payload: (theme === 'light') ? lightTheme : darkTheme });
   };
-  
+ 
   const setLanguage = (language:Language) => {
+    // console.log(language.value,"language")
     dispatch({type : 'Set Language',payload : language})
   }
   const showInfoAlert = (msg : string) =>{
@@ -85,6 +89,10 @@ export const UiProvider: FC<Props> = ({ children }) => {
   
   useEffect(() => { 
     const cookieTheme = Cookies.get("theme") || 'light'
+    const language = LANGS.find(lang => lang.value === router.locale) 
+    if(language){
+      setLanguage(language)
+    }
     const selectedTheme = cookieTheme === 'light'
       ? lightTheme
       : (cookieTheme === 'dark')
