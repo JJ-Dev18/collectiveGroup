@@ -74,6 +74,7 @@ export async function up(knex: Knex): Promise<void> {
         table.string('paymentResult', 255)
         table.string('paidAt', 255)
         table.string('transactionId', 255)
+        table.decimal('totalPrice').notNullable();
         table.string('city', 255)
         table.string('country', 255)
         table.boolean('isPaid ').defaultTo(false)

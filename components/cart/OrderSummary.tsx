@@ -1,16 +1,17 @@
 import { Grid, Typography } from "@mui/material"
 import { useShoppingCart } from "use-shopping-cart";
+import { useTranslation } from 'next-i18next'
 
 
 export const OrderSummary = () => {
 
   const { addItem, removeItem ,cartDetails ,cartCount ,formattedTotalPrice } = useShoppingCart();
-
+  const { t } = useTranslation("common")
   return (
     <Grid container>
         
         <Grid item xs={6}>
-            <Typography>No. Products</Typography>
+            <Typography>{t('cart-page.purchase.amount')}</Typography>
         </Grid>
         <Grid item xs={6} display='flex' justifyContent='end'>
             <Typography>{cartCount} items</Typography>

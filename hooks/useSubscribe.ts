@@ -24,8 +24,10 @@ export const useSubscribe = () => {
     try {
         setLoading(true);
         setErrorMessage("");
-        const STRIPE_PK = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!;
-        const stripe = await loadStripe(STRIPE_PK) ;
+        const ID_PK = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!;
+        const STRIPE_PK = process.env.STRIPE_SECRET_KEY
+        console.log(STRIPE_PK)
+        const stripe = await loadStripe(`${ID_PK}`) ;
         const appearance = {
           theme: 'night',
           labels: 'floating'

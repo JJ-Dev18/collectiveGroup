@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Grid, Container, Typography, Select, MenuItem, Chip, Box } from "@mui/material";
+import { Grid, Container, Typography, Select, MenuItem, Chip, Box, Stack } from "@mui/material";
 import fleedShopApi from "fleed/api/fleedShopApi";
 import useSWR from "swr";
 import { PeopleOutline } from "@mui/icons-material";
@@ -11,11 +11,13 @@ import { UiContext } from "fleed/context/ui";
 import DeleteIcon from '@mui/icons-material/Delete';
 import ScrollBar from "fleed/components/admin/ui/scrollbar/ScrollBar";
 import { StyledDataGrid } from "./styles";
+import LinearProgress from '@mui/material/LinearProgress';
+import { DataGridCustom } from "fleed/components/admin/ui/datagrid/DataGridCustom";
 
 const users = () => {
 
 
-  const { data, error } = useSWR<ISales[]>("/api/admin/sales", fetchGetJSON);
+  const { data, error, isLoading } = useSWR<ISales[]>("/api/admin/sales", fetchGetJSON);
 
   const [sales, setSales] = useState<ISales[]>([]);
 
@@ -26,7 +28,7 @@ const users = () => {
         setSales(data);
     }
   }, [data]);
-  console.log(users,"Data")
+  console.log(data,"Data")
  
   const deleteUser = async ( userId: number) => {
     // const previosUsers = users.map((user) => ({ ...user }));
@@ -50,15 +52,17 @@ const users = () => {
  
 
   const columns: GridColDef[] = [
-    { field: "transactionId", headerName: "Transaction", flex: 1 },
-    { field: "isPaid", headerName: "Is paid ? ", flex : 1 },
-    { field: "user", headerName: "User", flex: 1  },
-    { field: "shippingaddress", headerName: "Address", flex :1  },
+    { field: "transactionId", headerName: "Transaction", width:150 },
+    { field: "isPaid", headerName: "Is paid ? ", width:50},
+    { field: "user", headerName: "User",width:200  },
+    { field: "city", headerName: "City",width:200  },
+    { field: "country", headerName: "Country",width:200  },
+
 
     { 
         field: 'products', 
         headerName: 'Products', 
-        flex: 3 ,
+        width:300 ,
         renderCell: ({row}: GridRenderCellParams<any, number>) => {
             return (
                <ScrollBar sx={{
@@ -99,9 +103,11 @@ const users = () => {
 
   const rows = sales.map((sales) => ({
     id: sales.id,
+    transactionId : sales.transactionId,
     isPaid: sales.isPaid ? 'Yes' : 'No',
     user: sales.user.email,
-    shippingaddress: sales.shippingAddress,
+    city: sales.city,
+    countr : sales.country,
     products : sales.saleProducts
   }));
 
@@ -114,11 +120,10 @@ const users = () => {
     <Container maxWidth="xl" sx={{ overflowX: "hidden" }}>
       <Grid container >
         <Grid item xs={12} sx={{ height: 'auto', width: "100%" }}>
-          <StyledDataGrid
+          <DataGridCustom
             rows={rows}
             columns={columns}
-            // paginationModel={{ page: 1 , pageSize: 10 }}
-            pageSizeOptions={[10]}
+            isLoading={isLoading}
           />
         </Grid>
       </Grid>

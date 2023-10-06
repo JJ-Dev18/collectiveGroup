@@ -102,6 +102,7 @@ model Sale {
   transactionId   String?
   city            String?
   country         String?
+  totalPrice      Int
   clienteId Int
   createdAt DateTime     @default(now())
 }

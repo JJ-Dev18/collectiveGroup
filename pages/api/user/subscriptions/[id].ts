@@ -40,14 +40,15 @@ const getSales = async (
     
   } = req.query ;
   if(idUser !== undefined){
-    const sales = await prisma.sale.findMany({
+    const subscription = await prisma.subscription.findMany({
       include:{
-          saleProducts :{
-              include: {
-                  product : true
-              }
-          },
-          user : true
+        
+         subscriptionPackage :{
+            include:{
+              
+                package : true
+            }
+         }
       },
       where:{
           user: {
@@ -58,8 +59,8 @@ const getSales = async (
         createdAt : "asc"
       }
    })
- 
-   return res.status(200).json(sales)
+   
+   return res.status(200).json(subscription)
   }
 
 };

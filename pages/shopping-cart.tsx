@@ -127,7 +127,6 @@ import { GetStaticProps,InferGetStaticPropsType ,InferGetServerSidePropsType } f
 
 export const getStaticProps:GetStaticProps = async ({ locale }) => {
 
-  console.log(locale , "locale")
   return {
     props: {
       ...(await serverSideTranslations(locale ?? 'en', [

@@ -5,6 +5,7 @@ import { useShoppingCart } from "use-shopping-cart";
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import { CartEntry } from "use-shopping-cart/core";
+import { useTranslation } from 'next-i18next'
 
 
 
@@ -15,7 +16,7 @@ interface Props {
 
 export const ItemCart: FC<Props> = ({product,handleCheckout}) => {
     const { incrementItem , decrementItem,removeItem , clearCart} = useShoppingCart()
-    
+    const { t } = useTranslation('common')
     const buyNow =  () => {
         // clearCart()
         handleCheckout(product)
@@ -37,10 +38,10 @@ export const ItemCart: FC<Props> = ({product,handleCheckout}) => {
             </Box>
             <Box display="flex" justifyContent="space-around">
               <Button variant="text" color="primary" onClick={()=> removeItem(product.id)}>
-                Delete
+              {t('cart-page.bttn-delete')}
               </Button>
               <Button variant="text" color="secondary" onClick={buyNow}>
-                Buy Now
+              {t('cart-page.bttn-buy')}
               </Button>
             </Box>
           </Stack>

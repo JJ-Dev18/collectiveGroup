@@ -62,25 +62,31 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
   
     const {
         clienteId= 0,
-        products = []
+        products = [],
+        totalPrice = 0
        
-      } = req.body as { clienteId: number, products : Array<CartEntry> };
+      } = req.body as { clienteId: number, products : Array<CartEntry> , totalPrice : number};
     try {
         const newSale = await prisma.sale.create({
             data:{
-                 clienteId : clienteId
+                 clienteId : clienteId,
+                 totalPrice 
+
+                 
             }
             
         });
+
         products.forEach(async (product) => {
             // let type = product.id.slice(0,7)
-            let id = Number(product.id.slice(7))
+            console.log(Number(product.id)) 
+            // let id = Number(product.id.slice(7))
             // console.log(type,"type")
            
                   await prisma.saleDetailProduct.create({
                    data : {
                     saleId : newSale.id,
-                    productId : id,
+                    productId : Number(product.id),
                     quantity : product.quantity,
                     subtotal : product.value || product.price,
                     price : product.price

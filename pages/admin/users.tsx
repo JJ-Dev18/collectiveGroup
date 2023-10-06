@@ -12,11 +12,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import NextLink from 'next/link';
 import { StyledDataGrid } from "./styles";
 import { stringAvatar } from "fleed/utils/avatar";
+import { DataGridCustom } from "fleed/components/admin/ui/datagrid/DataGridCustom";
 
 const users = () => {
 
 
-  const { data, error } = useSWR<IUser[]>("/api/admin/users", fetchGetJSON);
+  const { data, error, isLoading } = useSWR<IUser[]>("/api/admin/users", fetchGetJSON);
 
   const [users, setUsers] = useState<IUser[]>([]);
 
@@ -78,7 +79,7 @@ const users = () => {
       console.log(row,"row")
       return (
           <>
-              {!row?.image ? <Avatar alt="Remy Sharp"  {...stringAvatar(row?.name || 'New Client')} /> : <Avatar alt="Remy Sharp"  src={row.image}/>}
+              {!row?.image ? <Avatar alt="Remy Sharp"  {...stringAvatar('New Client')} /> : <Avatar alt="Remy Sharp"  src={row.image}/>}
           </>
       )
   } },
@@ -148,11 +149,12 @@ const users = () => {
     <Container maxWidth="xl" sx={{ overflowX: "hidden" }}>
       <Grid container >
         <Grid item xs={12} sx={{ height: 'auto', width: "100%" }}>
-          <StyledDataGrid
+          <DataGridCustom
+            isLoading={isLoading}
             rows={rows}
             columns={columns}
             // paginationModel={{ page: 1 , pageSize: 10 }}
-            pageSizeOptions={[10]}
+            // pageSizeOptions={[10]}
           />
         </Grid>
       </Grid>

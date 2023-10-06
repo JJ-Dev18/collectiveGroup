@@ -5,6 +5,7 @@ import React, { FC, useState, useEffect, useMemo } from "react";
 import { ColumnContainer } from "./ColumnContainer";
 import { ServiceCard } from "./ServiceCard";
 import { formatAmountForDisplay, formatAmountForStripe, formatAmountFromStripe } from "fleed/utils/stripe-helpers";
+import { useTranslation } from 'next-i18next'
 
 type Props = {
     services  : IService[] | ServiceItemCreator[],
@@ -18,7 +19,7 @@ export interface ServiceItemCreator extends IService {
 
 export const CreateBoard:FC <Props>= ({services,loading,handleCheckout}) => {
   const [serviceCustom, setServiceCustom] = useState<ServiceItemCreator[]>([]);
-
+  const { t  } = useTranslation("common")
   const [servicesData, setServices] = useState<ServiceItemCreator[] | IService[]>(services)
   const [activeService, setActiveService] = useState<IService>();
   const [price, setprice] = useState(0)
@@ -26,7 +27,7 @@ export const CreateBoard:FC <Props>= ({services,loading,handleCheckout}) => {
    const servicesWithParents = useMemo(() => {
     const servicesWithParent = services.map((service: ServiceItemCreator) => {
         
-        service.parent = 'Services'
+        service.parent = t('custom-package.title-services')
         return service
     })
   
@@ -67,15 +68,15 @@ export const CreateBoard:FC <Props>= ({services,loading,handleCheckout}) => {
     const parent = e.active.data.current?.parent || ''
     
     if(parent !== container){
-      if(container == "Custom Package"){
+      if(container == t('custom-package.title-package')){
           const newServiceData = servicesData.filter(service => service.id !== id)
-          const newServiceCustom:ServiceItemCreator = { id, name, description, price ,parent : 'Custom Package'}
+          const newServiceCustom:ServiceItemCreator = { id, name, description, price ,parent : t('custom-package.title-package')}
           setServiceCustom([...serviceCustom, newServiceCustom]);
         
           setServices(newServiceData)
-      }else if(container == 'Services'){
+      }else if(container == t('custom-package.title-services')){
           const newServiceCustom = serviceCustom.filter(service => service.id !== id)
-          const newServiceData:ServiceItemCreator = { id, name, description, price, parent: 'Services' }
+          const newServiceData:ServiceItemCreator = { id, name, description, price, parent: t('custom-package.title-services') }
 
           
           setServices([...servicesData, newServiceData] );
@@ -109,8 +110,8 @@ export const CreateBoard:FC <Props>= ({services,loading,handleCheckout}) => {
     >
         {/* <Box sx={{display :'flex',justifyContent: 'space-around', width: '500px',height:'auto',overflowY:'scroll'}}> */}
         {/* <DragOverlay> */}
-          <ColumnContainer title="Services" services={servicesData} />
-          <ColumnContainer title="Custom Package" services={serviceCustom} />
+          <ColumnContainer title={t('custom-package.title-services')}services={servicesData} />
+          <ColumnContainer title={t('custom-package.title-package')} services={serviceCustom} />
           <DragOverlay>
         {activeService ? (
           <ServiceCard  {...activeService}/> 
@@ -122,11 +123,11 @@ export const CreateBoard:FC <Props>= ({services,loading,handleCheckout}) => {
     </div>
     <Paper sx={{ marginTop: {xs : '20px', md: '0'},marginLeft : { xs : '0', md : '20px'}, height:'180px',width : '80%'}}  >
             <CardContent>
-              <Typography variant="h1">Order Summary</Typography>
+              <Typography variant="h1">{t('custom-package.purchase.title')}</Typography>
               <Divider sx={{ my: 1 }} />
              
               <Box>
-                 <Typography variant="h2" color="inherit">Custom Package  </Typography>
+                 <Typography variant="h2" color="inherit">{t('custom-package.title-package')}</Typography>
                 <Typography variant="subtitle1" color="primary">{formatAmountForDisplay(price/100,'usd')} USD  </Typography>
               </Box>
               <Box >
@@ -137,7 +138,7 @@ export const CreateBoard:FC <Props>= ({services,loading,handleCheckout}) => {
                   disabled={loading || serviceCustom.length === 0}
                   onClick={buy}
                 >
-                  Checkout
+                  {t('custom-package.purchase.bttn')}
                 </Button>
               </Box>
             </CardContent>

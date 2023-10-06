@@ -17,6 +17,7 @@
        "home" : "Home",
        "account" : "My Account",
        "purchase" : "My purchases",
+       "subscription" : "My subscriptions",
        "logout" : "Logout"
     },
     "button-lng" : "language",
@@ -30,23 +31,67 @@
     "phone": "phone",
     "cellphone": "cellphone",
     "e-mail": "E-mail",
-    "blog": {
-      "appDir": {
-        "question": "Verwendest du das neue Next.js 13 mit app directory?",
-        "answer": "Dann schau dir <1>diesen Blogbeitrag</1> an.",
-        "link": "https://locize.com/blog/next-13-app-dir-i18n/"
-      },
-      "optimized": {
-        "question": "Möchtest du einige Superkräfte entfesseln, um für alle Seiten optimierte Übersetzungen zu haben?",
-        "answer": "Dann schaue dir vielleicht <1>diesen Blogbeitrag</1> an.",
-        "link": "https://locize.com/blog/next-i18next-de/"
-      },
-      "ssg": {
-        "question": "Möchtest du SSG (next export) verwenden?",
-        "answer": "Dann schaue dir vielleicht <1>diesen Blogbeitrag</1> an.",
-        "link": "https://locize.com/blog/next-i18n-statisch/"
+    "cart-page": {
+      "title": "Shopping Cart",
+      "bttn-delete": "Delete", 
+      "bttn-buy": "Buy now",
+      "purchase": {
+        "title":"Purchase",
+        "amount" : "No Products",
+        "bttn" : "Checkout"
       }
+    },
+    "custom-package": {
+      "title": "Drag and drop services you want",
+      "title-services": "Services", 
+      "title-package": "Custom Package",
+      "purchase": {
+        "title":"Order Summary",
+        "bttn" : "Checkout"
+      }
+    },
+    "result-shop": {
+      "title": "Status",
+      "loading":"Loading ... ",
+      "msg": "Your purchase has been successful !", 
+      "info": "An e-mail has been send you with all information",
+      "bttn" : "Continue Buying"   
+    },
+    "account": {
+      "menu":{
+        "title":"Account",
+        "profile": "Profile", 
+        "purchase": "My purchases",
+        "subscription" :"My subscriptions"
+        
+      },
+      "user":{
+        "title": "My Profile",
+        "subtitle": "Manage your account",
+        "name": "name",
+        "email":"Email",
+        "password":"Password",
+        "bttn-save": "Save",
+        "bttn-change": "Change",
+        "bttn-cancel" :"Cancel"
+
+      }
+      
+    },
+    "purchase":{
+      "title": "My purchases",
+      "date":"Date",
+      "paid":"Is paid?",
+      "products" :"Products",
+      "packages" :"Packages",
+      "subscriptions" :"Subscriptions"
+    },
+    "subscriptions":{
+      "title": "My subscriptions"
+     
     }
+
+
   }
   
   

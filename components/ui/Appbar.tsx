@@ -51,6 +51,9 @@ function ResponsiveAppBar({color = "transparent"}:{color? : PropTypes.Color | 't
     { label:  t('menu.purchase'), action:() => router.push({
       pathname : '/user/my-purchase',
     }) },
+    { label:  t('menu.subscription'), action:() => router.push({
+      pathname : '/user/my-subscription',
+    }) },
     { label: t('menu.logout'), action: logout },
   ];
   // const pages = [

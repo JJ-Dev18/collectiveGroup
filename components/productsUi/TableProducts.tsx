@@ -72,7 +72,7 @@ export const TableProducts: FC<Props> = ({columns,products,handleCheckout,loadin
                    <Paper                
                     onClick={()=> {
                     addItem({ ... product , 
-                      id :'product000'+ product.id.toString() ,
+                      id :product.id.toString() ,
                       price : Number(product.price),
                      })
                     showSuccessAlert("Product Add to cart")

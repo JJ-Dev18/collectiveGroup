@@ -28,6 +28,7 @@ export default function LanguagePopover() {
   const [open, setOpen] = useState<HTMLElement | null>(null);
   const { setLanguage , state : { language} }  = useContext(UiContext)
   const router = useRouter()
+  console.log(router)
   const handleOpen = (event:React.MouseEvent<HTMLElement>) => {
     setOpen(event.currentTarget);
     console.log(event)
@@ -41,8 +42,7 @@ export default function LanguagePopover() {
 
   const changeLanguage = (language:Language) => {
   
-      router.replace(router.pathname, router.pathname, { locale: language.value })
-   
+      router.replace(router.asPath, router.asPath, { locale: language.value })
     setLanguage(language)
     handleClose()
   }

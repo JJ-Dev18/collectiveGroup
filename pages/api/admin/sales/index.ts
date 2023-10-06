@@ -66,6 +66,9 @@ const getSales = async ( req: NextApiRequest, res: NextApiResponse) => {
             }
         },
         user : true
+    },
+    where:{
+      isPaid : true
     }
  })
  

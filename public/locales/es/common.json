@@ -17,7 +17,9 @@
      "home" : "Inicio",
      "account" : "Mi cuenta",
      "purchase" : "Mis compras",
-     "logout" : "Cerrar Sesion"
+     "logout" : "Cerrar Sesion",
+     "subscription" : "Mis suscripciones"
+
   },
   "button-lng" : "Idioma",
   "button-profile":"Perfil",
@@ -30,23 +32,67 @@
   "phone": "Telefono",
   "cellphone": "Celular",
   "e-mail": "Correo",
-  "blog": {
-    "appDir": {
-      "question": "Verwendest du das neue Next.js 13 mit app directory?",
-      "answer": "Dann schau dir <1>diesen Blogbeitrag</1> an.",
-      "link": "https://locize.com/blog/next-13-app-dir-i18n/"
-    },
-    "optimized": {
-      "question": "Möchtest du einige Superkräfte entfesseln, um für alle Seiten optimierte Übersetzungen zu haben?",
-      "answer": "Dann schaue dir vielleicht <1>diesen Blogbeitrag</1> an.",
-      "link": "https://locize.com/blog/next-i18next-de/"
-    },
-    "ssg": {
-      "question": "Möchtest du SSG (next export) verwenden?",
-      "answer": "Dann schaue dir vielleicht <1>diesen Blogbeitrag</1> an.",
-      "link": "https://locize.com/blog/next-i18n-statisch/"
+  "cart-page": {
+    "title": "Carrito de compras",
+    "bttn-delete": "Eliminar", 
+    "bttn-buy": "Comprar Ahora",
+    "purchase": {
+      "title":"Compra",
+      "amount" : "No Productos",
+      "bttn" : "Verificar"
     }
+  },
+  "custom-package": {
+    "title": "Arrastra y suelta los servicios que desees",
+    "title-services": "Servicios", 
+    "title-package": "Paquete personalizado",
+    "purchase": {
+      "title":"Resumen de compra",
+      "bttn" : "Verificar"
+    }
+  },
+  "result-shop": {
+    "title": "Estado",
+    "loading":"Cargando ... ",
+    "msg": "Su compra ha sido exitosa !", 
+    "info": "Un correo ha sido enviado con toda la informacion",
+    "bttn" : "Continuar comprando"
+    
+  },
+  "account": {
+    "menu":{
+      "title":"Cuenta",
+      "profile": "Perfil", 
+      "purchase": "Mis compras",
+      "subscription" :"Mis suscripciones"
+      
+    },
+    "user":{
+      "title": "Mi Perfil",
+      "subtitle": "Administra tu cuenta",
+      "name": "Nombre",
+      "email":"Correo",
+      "password":"Contrasena",
+      "bttn-save": "Guardar",
+      "bttn-change": "Cambiar",
+      "bttn-cancel" :"Cancelar"
+
+
+    }
+    
+  },
+  "purchase":{
+    "title": "Mis compras",
+    "date":"Fecha",
+    "paid":"Esta paga?",
+    "products" :"Productos",
+    "packages" :"Packages"
+  },
+  "subscriptions":{
+    "title": "Mis suscripciones"
+   
   }
+
 }
 
 

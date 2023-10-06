@@ -16,6 +16,8 @@ import StarBorder from '@mui/icons-material/StarBorder';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import FaceIcon from '@mui/icons-material/Face';
 import InventoryIcon from '@mui/icons-material/Inventory';
+import { useTranslation } from 'next-i18next'
+
 interface Props {
   title?: string;
   children?: React.ReactNode;
@@ -27,13 +29,15 @@ const UserLayout: FC<Props> = ({ title = "User", children }) => {
   
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [open, setOpen] = useState(true);
+  const { t } = useTranslation("common")
   const theme = useTheme();
   const router = useRouter()
 
   
   const menus = [
-    { label: "Profile",path:'/user/my-account', icon : <FaceIcon/> },
-    { label: "My Purchase", path: '/user/my-purchase',icon : <InventoryIcon/>,  },
+    { label: t('account.menu.profile'),path:'/user/my-account', icon : <FaceIcon/> },
+    { label:  t('account.menu.purchase'), path: '/user/my-purchase',icon : <InventoryIcon/>,  },
+    { label:  t('account.menu.subscription'), path: '/user/my-subscription',icon : <InventoryIcon/>,  },
     
   ];
 
@@ -74,7 +78,7 @@ const UserLayout: FC<Props> = ({ title = "User", children }) => {
       
       <div
         
-        className="flex  min-h-screen mx-auto max-w-7xl my-28 relative"
+        className="flex  min-h-screen mx-auto max-w-7xl my-28 relative flex-wrap"
         //  style={{backgroundImage: `url(/background2.svg)`,backgroundRepeat:'no-repeat',backgroundPosition:'top',backgroundSize:'contain'}}
       >
       
@@ -84,7 +88,7 @@ const UserLayout: FC<Props> = ({ title = "User", children }) => {
         <ListItemIcon>
           <ManageAccountsIcon />
         </ListItemIcon>
-        <ListItemText primary="Account" />
+        <ListItemText primary={ t('account.menu.title')} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
@@ -112,7 +116,7 @@ const UserLayout: FC<Props> = ({ title = "User", children }) => {
 
         <Box  flex={3} sx={{padding:'10px'}}>
         
-          <Paper component="div" variant="elevation" className="flex  flex-col " >
+          <Paper component="div" variant="elevation" className="flex  flex-col" sx={{minWidth :'320px'}} >
             
             {children}
       

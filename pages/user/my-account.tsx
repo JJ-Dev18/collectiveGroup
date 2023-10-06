@@ -9,6 +9,7 @@ import { AuthContext } from 'fleed/context/auth';
 import { IUser } from 'fleed/interfaces';
 import fleedShopApi from 'fleed/api/fleedShopApi';
 import { UiContext } from 'fleed/context/ui';
+import { useTranslation } from 'next-i18next'
 
 const drawerWidth = 240;
 
@@ -22,6 +23,7 @@ type FormData = {
 const MyAccount = () => {
  
   const { user } = useContext(AuthContext)
+  const {  t  } = useTranslation("common")
   const { showSuccessAlert,showErrorAlert } =useContext(UiContext)
    const methods = useForm({
     defaultValues :{ name : user?.name, email : user?.email , password : ''},values  : user
@@ -56,8 +58,8 @@ const MyAccount = () => {
               
             </IconButton>
           }
-          title="My Profile"
-          subheader="Manage and protect your account"
+          title={t('account.user.title')}
+          subheader={t('account.user.subtitle')}
           
         />
         <Divider/>
@@ -70,7 +72,7 @@ const MyAccount = () => {
                     <Grid item xs={12} alignItems="center" display="flex">
                <FormControl fullWidth>
                 {/* <InputLabel htmlFor="my-input">Name</InputLabel> */}
-                <TextField id="my-input" aria-describedby="my-helper-text" defaultValue={user?.name} fullWidth  {...methods.register("name")} label="Name"/>
+                <TextField id="my-input" aria-describedby="my-helper-text" defaultValue={user?.name} fullWidth  {...methods.register("name")} label={t('account.user.name')}/>
                 {/* <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText> */}
                 </FormControl>
                     </Grid>
@@ -79,25 +81,25 @@ const MyAccount = () => {
                 {/* <InputLabel htmlFor="my-input">Email address</InputLabel> */}
                 <TextField id="my-input" aria-describedby="my-helper-text"  
                  disabled={disabledEmail}
-                 {...methods.register("email")} label="Email"/>
+                 {...methods.register("email")} label={t('account.user.email')}/>
                 </FormControl>
                   <Button variant="text" color="inherit" onClick={()=> setdisabledEmail(!disabledEmail)}>
-                     {disabledEmail ? 'Change' : 'Cancel'}
+                  {disabledEmail ? t('account.user.bttn-change') : t('account.user.bttn-cancel')}
                   </Button>
                     </Grid>
                     <Grid item xs={12} display="flex">
                 <FormControl fullWidth>
-                <TextField  type='password' id="my-input" aria-describedby="my-helper-text" label="password"
+                <TextField  type='password' id="my-input" aria-describedby="my-helper-text" label={t('account.user.password')}
                  disabled={disabledPassword}
                 {...methods.register("password")}/>
                 </FormControl>
                  <Button variant="text" color="inherit" onClick={()=> setdisabledPassword(!disabledPassword)}>
-                     {disabledPassword ? 'Change' : 'Cancel'}
+                     {disabledPassword ? t('account.user.bttn-change') : t('account.user.bttn-cancel')}
                   </Button>
                     </Grid>
                     <Grid item xs={12}>
                       <Button variant="outlined" color="primary" type='submit' disabled={loading}>
-                          Save
+                      {   t('account.user.bttn-save')}
                       </Button> 
                     </Grid>
                    
@@ -116,3 +118,19 @@ const MyAccount = () => {
 }
 
 export default MyAccount
+
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { GetStaticProps,InferGetStaticPropsType ,InferGetServerSidePropsType } from 'next'
+
+export const getStaticProps:GetStaticProps = async ({ locale }) => {
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? 'en', [
+        'common',
+       
+      ])),
+      // Will be passed to the page component as props
+    },
+  }
+}

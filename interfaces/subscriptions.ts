@@ -1,28 +1,25 @@
-import { IProduct, IUser } from "."
+import { IPackage } from "."
 
-export interface ISales {
+export interface ISubscription {
     id: number
     shippingAddress: any
     paymentResult: any
     isPaid: boolean
     paidAt: any
-    totalPrice : number,
     transactionId: any
     city: any
     country: any
     clienteId: number
     createdAt: string
-    saleProducts: SaleProduct[]
-    user: IUser
-}
-
-
-export interface SaleProduct {
+    subscriptionPackage: SubscriptionPackage[]
+  }
+  
+  export interface SubscriptionPackage {
     id: number
-    productId: number
-    saleId: number
+    packageId: number
+    subscriptionId: number
     quantity: number
     price: number
     subtotal: string
-    product: IProduct
+    package: IPackage
   }

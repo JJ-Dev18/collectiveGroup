@@ -12,11 +12,11 @@ import { CartDetails, CartEntry } from "use-shopping-cart/core";
 export const useCheckout = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const { cartDetails, cartCount, redirectToCheckout } = useShoppingCart();
+  const { cartDetails, cartCount, redirectToCheckout ,totalPrice} = useShoppingCart();
   const { showErrorAlert , showPromiseAlert} = useContext(UiContext)
   const { user } = useContext(AuthContext)
 
- 
+  console.log(totalPrice,"Cart")
   
 
   const handleCheckout = async (
@@ -33,21 +33,30 @@ export const useCheckout = () => {
      
       productsInCart = [{ ...cartEntry, quantity: 1 } as CartEntry]
     }
-    
-    const { data : saleCreate } = await fleetshopApi.post('/sales-product',{clienteId : user?.id ,products : productsInCart})
-    
-    const response = await fetchPostJSON(`/api/checkout_sessions/cart?saleId=${saleCreate.id}`, {products : data });
-    
-    if (response.statusCode > 399) {
-      console.error(response.message);
-      setErrorMessage(response.message);
-      setLoading(false);
+    console.log(cartDetails,productsInCart)
+   
+    try {
+      
+      const { data : saleCreate } = await fleetshopApi.post('/sales-product',{clienteId : user?.id ,products : productsInCart,totalPrice})
+      const response = await fetchPostJSON(`/api/checkout_sessions/cart?saleId=${saleCreate.id}`, {products : data });
+      
+      if (response.statusCode > 399) {
+        console.error(response.message);
+        setErrorMessage(response.message);
+        setLoading(false);
+        showErrorAlert("Ops somethings is wrong... Please try later")
+        return;
+      }
+      // console.log(saleCreate)
+      // console.log(response, "response");
+       showPromiseAlert( redirectToCheckout(response.id))
+    } catch (error) {
+      console.log(Error)
       showErrorAlert("Ops somethings is wrong... Please try later")
-      return;
+
     }
-    // console.log(saleCreate)
-    // console.log(response, "response");
-     showPromiseAlert( redirectToCheckout(response.id))
+    
+    
   };
 
 

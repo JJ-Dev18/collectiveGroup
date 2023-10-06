@@ -23,15 +23,16 @@ type Props = {
 }
 export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn,showSuccessAlert}) => {
    
-
    const { addItem, clearCart } = useShoppingCart()
    const [hover, sethover] = useState(false)
    const { t } = useTranslation('common')
    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
    const open = Boolean(anchorEl);
+   const imageLocation =product.name.split(" ")[0]
+   const [image, setimage] = useState(`/${imageLocation}/${imageLocation}-5-1024x673.jpg`)
    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
      setAnchorEl(event.currentTarget);
-   };
+    };
    const handleClose = () => {
      setAnchorEl(null);
     
@@ -41,7 +42,6 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
      id :product.id.toString() ,
      price :  Number(product.price * 100),
     }
-   const imageLocation =product.name.split(" ")[0]
   
     const toBuy =  () => { 
         if(!isLoggedIn){
@@ -103,7 +103,8 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
         component="img"
         height="200px"
         width="200px"
-        image={`/${imageLocation}/${imageLocation}-5-1024x673.jpg` || `/${imageLocation}/logo.png`}
+        image={image}
+        onError={(e)=> setimage('/coming.jpg')}
         alt="Image product"
       />
      
@@ -140,7 +141,7 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
             backgroundAttachment : 'initial',
             backgroundPosition: 'center',
           }}/> */}
-         <Typography variant="h5" color="secondary">{product.price /100} USD</Typography>
+         <Typography variant="h1" color="secondary">{product.price /100} USD</Typography>
        </CardContent>
         <CardActions className='flex justify-center'>
             <Button variant="outlined" color="primary" size='small' onClick={() => {

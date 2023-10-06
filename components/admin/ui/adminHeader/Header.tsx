@@ -59,7 +59,7 @@ const Header:FC<Props> = ( { onOpenNav ,logout}) => {
           onClick={onOpenNav}
           sx={{
             mr: 1,
-            color: 'text.primary',
+            color: '#fff',
             display: { lg: 'none' },
           }}
         >
@@ -77,7 +77,7 @@ const Header:FC<Props> = ( { onOpenNav ,logout}) => {
             sm: 1,
           }}
         >
-          <LanguagePopover />
+          {/* <LanguagePopover /> */}
           
           {/* <NotificationsPopover />   */}
           <DarkModeToggle/>

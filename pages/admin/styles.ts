@@ -1,11 +1,13 @@
 import { styled } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import { FC } from "react";
 
 
 
 export const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
     // border: '1px solid gray',
     padding : '40px',
+    minHeight:'350px',
     // borrder: 0,
     // borderRadius :'40px',
     boxShadow: '0px -25px 20px -20px rgba(0, 0, 0, 0.45), -25px 0 20px -20px rgba(0, 0, 0, 0.45)',
@@ -50,3 +52,4 @@ export const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
     },
    
   }));
+

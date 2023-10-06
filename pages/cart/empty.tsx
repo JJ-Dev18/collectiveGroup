@@ -6,10 +6,12 @@ import Layout from 'fleed/components/layouts/Layout';
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useCheckout } from '../../hooks/useCheckout';
+import { useTranslation } from 'next-i18next'
 
 const EmptyPage = () => {
     const router = useRouter();
     // // const { cartCount  } = useShoppingCart()
+    const { t } = useTranslation("common")
     // const { loading, errorMessage , handleCheckout, cartCount } = useCheckout()
     const [loadCard, setLoadCard] = useState(false)
     const [cantCard, setCantCard] = useState(0)
@@ -41,10 +43,10 @@ const EmptyPage = () => {
         >
             <RemoveShoppingCartOutlined sx={{ fontSize: 100 }} />
             <Box display='flex' flexDirection='column' alignItems='center'>
-                <Typography>You Cart is empty</Typography>
+                <Typography>{t('cart-empty')}</Typography>
                 <NextLink href='/' passHref legacyBehavior>
                     <Link typography="h5" color='secondary'>
-                        Back
+                       {t("back")}
                     </Link>
                 </NextLink>
             </Box>
@@ -56,3 +58,21 @@ const EmptyPage = () => {
 }
 
 export default EmptyPage
+
+
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { GetStaticProps,InferGetStaticPropsType ,InferGetServerSidePropsType } from 'next'
+
+export const getStaticProps:GetStaticProps = async ({ locale }) => {
+
+  
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? 'en', [
+        'common',
+       
+      ])),
+      // Will be passed to the page component as props
+    },
+  }
+}

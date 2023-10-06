@@ -7,6 +7,7 @@ import Cart from '../components/cart/CartProvider'
 import { fetchGetJSON } from '../utils/api-helpers'
 import useSWR from 'swr'
 import { useSearchParams } from 'next/navigation'
+import { useTranslation } from 'next-i18next'
 
 type Props={
   session_id : string ,
@@ -18,14 +19,16 @@ const ResultPage: FC <Props>= ({session_id,sale_id}) => {
   // Fetch CheckoutSession from static page via
   // https://nextjs.org/docs/basic-features/data-fetching#static-generation
   const { user, isLoggedIn, logout } = useContext(AuthContext);
+  const { t } = useTranslation("common")
   const { clearCart } = useShoppingCart()
+
   const { data, error } = useSWR(
     session_id
       ? `/api/checkout_sessions/${session_id}`
       : null,
     fetchGetJSON
   )
-
+ console.log(typeof session_id,"session")
   useEffect(() => {
     const sendEmail = async() =>{
       if(data?.payment_intent.status === 'succeeded'){
@@ -62,7 +65,7 @@ const ResultPage: FC <Props>= ({session_id,sale_id}) => {
   return (
     <Layout title="Checkout Payment Result | Next.js + TypeScript Example">
       <Box sx={{ display : 'flex', flexDirection: 'column',justifyContent: 'center',alignItems :'center',marginTop:"107px"}} >
-        <h2>Status: {data?.payment_intent?.status ?? 'loading...'}</h2>
+        <h2>{t("result-shop.title")}: {data?.payment_intent?.status ?? t("result-shop.loading")}</h2>
          {
           (data?.payment_intent.status === 'succeeded') && <PurchaseSuccess/>
          }
@@ -83,14 +86,21 @@ import { Box, Container } from '@mui/material'
 import fleedShopApi from 'fleed/api/fleedShopApi'
 import { AuthContext } from 'fleed/context/auth'
 import { useShoppingCart } from 'use-shopping-cart'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { GetStaticProps,InferGetStaticPropsType ,InferGetServerSidePropsType } from 'next'
 
-export const getServerSideProps: GetServerSideProps = async ({query}) => {
+export const getServerSideProps: GetServerSideProps = async ({query,locale}) => {
   console.log(query)
 
   return {
     props: {
       session_id : query.session_id || '',
-      sale_id : query.saleId || ''
+      sale_id : query.saleId || '',
+      ...(await serverSideTranslations(locale ?? 'en', [
+        'common',
+       
+      ])),
     }
   }
 }
+

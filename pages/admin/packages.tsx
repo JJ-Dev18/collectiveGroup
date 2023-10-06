@@ -13,6 +13,8 @@ import { UiContext } from 'fleed/context/ui';
 import fleedShopApi from 'fleed/api/fleedShopApi';
 import ScrollBar from 'fleed/components/admin/ui/scrollbar/ScrollBar';
 import { StyledDataGrid } from './styles';
+import LinearProgress from '@mui/material/LinearProgress';
+import { DataGridCustom } from 'fleed/components/admin/ui/datagrid/DataGridCustom';
 
 
 
@@ -22,7 +24,7 @@ import { StyledDataGrid } from './styles';
 
 const ProductsPage = () => {
 
-    const { data, error } = useSWR<IPackage[]>('/api/admin/packages',fetchGetJSON);
+    const { data, error , isLoading} = useSWR<IPackage[]>('/api/admin/packages',fetchGetJSON);
 
     const [packages , setPackages] = useState<IPackage[]>([]);
 
@@ -74,7 +76,7 @@ const ProductsPage = () => {
         { 
             field: 'name', 
             headerName: 'Name', 
-            flex: 1 ,
+            width: 100 ,
             renderCell: ({row}: GridRenderCellParams<any, number>) => {
                 return (
                     <NextLink href={`/admin/packages/${ row.id }`} passHref>
@@ -85,9 +87,9 @@ const ProductsPage = () => {
                 )
             }
         },
-        { field: 'price', headerName: 'Precio',  flex: 1 , },
-        { field: 'description', headerName: 'Description',  flex: 1 , },
-        { field: 'comments', headerName: 'Comments',  flex: 1 , },
+        { field: 'price', headerName: 'Precio',  width: 100 , },
+        { field: 'description', headerName: 'Description',   width: 200, },
+        { field: 'comments', headerName: 'Comments',  width: 200,  },
 
 
         // { field: 'brochure', headerName: 'Brochure',  flex: 1 , },
@@ -95,7 +97,7 @@ const ProductsPage = () => {
         { 
             field: 'services', 
             headerName: 'Services', 
-            flex: 3 ,
+            width: 300,
             renderCell: ({row}: GridRenderCellParams<any, number>) => {
                 return (
                    <ScrollBar sx={{
@@ -117,7 +119,7 @@ const ProductsPage = () => {
             field: 'actions',
             // type: 'actions',
             headerName: 'Actions',
-            flex: .5,
+            width: 100,
             cellClassName: 'actions',
             renderCell: ({ row }: GridRenderCellParams<any, number>) => {
                 return(
@@ -154,7 +156,8 @@ const ProductsPage = () => {
 
          <Grid container className='fadeIn' sx={{ overflowX :'hidden'}}>
             <Grid item xs={12} sx={{ height:'auto', width: '100%' }}>
-                <StyledDataGrid 
+                <DataGridCustom 
+                 isLoading={isLoading}
                     rows={ rows }
                     columns={ columns }
                     // pageSizeOptions={[10]}

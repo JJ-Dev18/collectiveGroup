@@ -4,7 +4,7 @@ import { Divider, CardContent, CardHeader,Box ,Chip, Stack} from "@mui/material"
 import IconButton from '@mui/material/IconButton';
 import { DataGrid, GridActionsCellItem, GridColDef, GridRenderCellParams, GridValueGetterParams } from "@mui/x-data-grid";
 import useSWR from "swr";
-import { ISales, IUser, SaleProduct } from "fleed/interfaces";
+import { IPackage, ISales, IUser, SaleProduct } from "fleed/interfaces";
 import { fetchGetJSON } from "fleed/utils/api-helpers";
 import { UiContext } from "fleed/context/ui";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -20,19 +20,19 @@ const drawerWidth = 240;
 
 
    
-const MyPurchase:FC = () => {
+const MySubscription:FC = () => {
 
     const { user } = useContext(AuthContext)
-    const { data , error, isLoading } = useSWR<ISales[]>(`/api/user/sales/${user?.id}`,fetchGetJSON);
-     const [sales, setSales] = useState<ISales[]>([]);
-  const {  t  } = useTranslation("common")
+    const { data , error, isLoading } = useSWR<ISubscription[]>(`/api/user/subscriptions/${user?.id}`,fetchGetJSON);
+     const [subscriptions, setSubscriptions] = useState<ISubscription[]>([]);
+    const {  t  } = useTranslation("common")
     
-   
+    console.log(data)
     const router = useRouter()
     
     useEffect(() => {
         if (data) {
-            setSales(data);
+            setSubscriptions(data);
         }
       }, [data]);
 
@@ -47,8 +47,8 @@ const MyPurchase:FC = () => {
        
     
         { 
-            field: 'products', 
-            headerName:t('purchase.products'), 
+            field: 'packages', 
+            headerName:t('purchase.packages'), 
             flex: 3 ,
             renderCell: ({row}: GridRenderCellParams<any, number>) => {
                 return (
@@ -58,8 +58,8 @@ const MyPurchase:FC = () => {
                    }}>
                    <Box sx={{overflowX:'scroll'}} >
                      {
-                      row.products.map(( product:SaleProduct) => (
-                        <Chip  key={product.id} label={product.product.name} size='small'/>
+                      row.packages.map(( packaged:SubscriptionPackage) => (
+                        <Chip  key={packaged.id} label={packaged.package.name} size='small'/>
                       ))
                      }
                    </Box>
@@ -73,12 +73,12 @@ const MyPurchase:FC = () => {
        
       ];
     
-      const rows = sales?.map((sales) => ({
-        id: sales.id,
-        createdAt : sales.createdAt,
-        isPaid: sales.isPaid ? 'Yes' : 'No',
-        products : sales.saleProducts,
-        totalPrice : sales.totalPrice
+      const rows = subscriptions?.map((subscription) => ({
+        id: subscription.id,
+        createdAt : subscription.createdAt,
+        isPaid: subscription.isPaid ? 'Yes' : 'No',
+        packages : subscription.subscriptionPackage,
+        totalPrice : subscription.subscriptionPackage[0].subtotal
      
       }));
     
@@ -92,7 +92,7 @@ const MyPurchase:FC = () => {
               
             </IconButton>
           }
-          title={t('purchase.title')}
+          title={t('subscriptions.title')}
           
         />
         <Divider/>
@@ -112,12 +112,13 @@ const MyPurchase:FC = () => {
   )
 }
 
-export default MyPurchase
+export default MySubscription
 
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticProps,InferGetStaticPropsType ,InferGetServerSidePropsType } from 'next'
 import { DataGridCustom } from 'fleed/components/admin/ui/datagrid/DataGridCustom';
+import { ISubscription, SubscriptionPackage } from 'fleed/interfaces/subscriptions';
 
 export const getStaticProps:GetStaticProps = async ({ locale }) => {
 

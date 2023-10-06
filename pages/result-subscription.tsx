@@ -7,6 +7,7 @@ import Cart from '../components/cart/CartProvider'
 import { fetchGetJSON } from '../utils/api-helpers'
 import useSWR from 'swr'
 import { useSearchParams } from 'next/navigation'
+import { useTranslation } from 'next-i18next'
 
 type Props={
   session_id : string ,
@@ -19,6 +20,8 @@ const ResultSubscriptionPage: FC <Props>= ({session_id,sale_id}) => {
   // https://nextjs.org/docs/basic-features/data-fetching#static-generation
   const { user, isLoggedIn, logout } = useContext(AuthContext);
   const { clearCart } = useShoppingCart()
+  const { t } = useTranslation("common")
+
   const { data, error } = useSWR(
     session_id
       ? `/api/checkout_sessions/${session_id}`
@@ -61,7 +64,8 @@ const ResultSubscriptionPage: FC <Props>= ({session_id,sale_id}) => {
   return (
     <Layout title="Checkout Payment Result | Next.js + TypeScript Example">
       <Box sx={{ display : 'flex', flexDirection: 'column',justifyContent: 'center',alignItems :'center',marginTop:"107px"}} >
-        <h2>Status: {data?.status ?? 'loading...'}</h2>
+        <h2>  {t("result-shop.title")}: {data?.status ?? t("result-shop.loading")}</h2>
+      
          {
           (data?.status === 'complete') && <PurchaseSuccess/>
          }
@@ -81,14 +85,19 @@ import { PurchaseSuccess } from 'fleed/components/ui/PurchaseSuccess'
 import { Box, Container } from '@mui/material'
 import fleedShopApi from 'fleed/api/fleedShopApi'
 import { AuthContext } from 'fleed/context/auth'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useShoppingCart } from 'use-shopping-cart'
 
-export const getServerSideProps: GetServerSideProps = async ({query}) => {
+export const getServerSideProps: GetServerSideProps = async ({query,locale}) => {
 
   return {
     props: {
       session_id : query.session_id || '',
-      sale_id : query.saleId || ''
+      sale_id : query.saleId || '',
+      ...(await serverSideTranslations(locale ?? 'en', [
+        'common',
+       
+      ])),
     }
   }
 }
