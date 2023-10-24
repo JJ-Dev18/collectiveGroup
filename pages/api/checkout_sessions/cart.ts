@@ -31,15 +31,29 @@ export default async function handler(
     try {
       const inventory = await dbProducts.getInventory() as ItemInterface[]
       const saleId: string = req.query.saleId as string
-      const { products , custom } = req.body 
+      const { products , user } = req.body 
+      let customer;
+      const {data} = await stripe.customers.search({
+        query: `email:\'${user.email}\'`,
+      });
+     
+      if(data.length > 0 ){
+        customer = data[0]
+      }
+      else{
+         customer =  await stripe.customers.create({
+          email: user.email,
+          name : user.name
+        });
+      }
       // Validate the cart details that were sent from the client.
-      
       const  line_items = validateCartItems(inventory , products)
    
     
       // Create Checkout Sessions from body params.
       const params: Stripe.Checkout.SessionCreateParams = {
         // submit_type: 'pay',
+        customer : customer.id,
         payment_method_types: ['card'],
         billing_address_collection: 'auto',
         shipping_address_collection: {

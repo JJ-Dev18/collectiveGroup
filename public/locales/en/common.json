@@ -11,6 +11,10 @@
       "text":"PRICING VARIES BASED ON SERVICES",
       "button":"Build your service package"
     },
+    "pages": {
+     "login":"Login",
+     "register" : "Register"
+    },
     "back" : "Back",
     "menu" : {
        "dashboard": "Dashboard",

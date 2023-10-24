@@ -79,7 +79,7 @@ const users = () => {
       console.log(row,"row")
       return (
           <>
-              {!row?.image ? <Avatar alt="Remy Sharp"  {...stringAvatar('New Client')} /> : <Avatar alt="Remy Sharp"  src={row.image}/>}
+              {!row?.image ? <Avatar alt="Remy Sharp"  {...stringAvatar(row?.name || 'New Client')} /> : <Avatar alt="Remy Sharp"  src={row.image}/>}
           </>
       )
   } },

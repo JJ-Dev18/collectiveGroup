@@ -12,6 +12,10 @@
     "text":"EL PRECIO VARIA SEGUN LOS SERVICIOS",
     "button":"Construye tu paquete de servicios"
   },
+  "pages": {
+    "login":"Iniciar Sesion",
+    "register" : "Registrarse"
+   },
   "menu" : {
      "dashboard": "Panel",
      "home" : "Inicio",

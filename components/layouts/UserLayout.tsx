@@ -1,4 +1,4 @@
-import { Box, Drawer, Fab, List,ListItem,Toolbar,Collapse,ListItemButton,ListItemIcon,ListItemText, Paper } from "@mui/material";
+import { Box, Drawer, Fab, List,ListItem,Toolbar,Collapse,ListItemButton,ListItemIcon,ListItemText, Paper, Container, Grid } from "@mui/material";
 import Head from "next/head";
 import React, { FC, useEffect, useState } from "react";
 import ResponsiveAppBar from "../ui/Appbar";
@@ -75,8 +75,50 @@ const UserLayout: FC<Props> = ({ title = "User", children }) => {
       >
         <LanguagePopover />
       </Fab>
+      <Container maxWidth="xl" sx={{ overflowX: "hidden"  }} className="my-28">
+      <Grid container >
+        <Grid item xs={12} md={4} sx={{ height: 'auto', width: "100%" }}>
+        <List component="nav" aria-label="main mailbox folders">
+        <ListItemButton onClick={()=> setOpen(!open)}>
+        <ListItemIcon>
+          <ManageAccountsIcon />
+        </ListItemIcon>
+        <ListItemText primary={ t('account.menu.title')} />
+        {open ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+        {
+          menus.map( (menu,index) => (
+          <ListItemButton key={index} sx={{ pl: 4 }} 
+          selected={router.asPath === menu.path}
+          onClick={(event) => {
+            handleListItemClick(event, index)
+            router.push(menu.path)
+          } }>
+            <ListItemIcon>
+              {menu.icon}
+            </ListItemIcon>
+            <ListItemText primary={menu.label} />
+          </ListItemButton>
+
+          ))
+        }
+        </List>
+      </Collapse>
+        </List>
+        </Grid>
+        <Grid item xs={12} md={8}>
+        <Paper component="div" variant="elevation" className="flex  flex-col"  >
+            
+            {children}
       
-      <div
+            
+            </Paper>
+        </Grid>
+      </Grid>
+    </Container>
+      {/* <div
         
         className="flex  min-h-screen mx-auto max-w-7xl my-28 relative flex-wrap"
         //  style={{backgroundImage: `url(/background2.svg)`,backgroundRepeat:'no-repeat',backgroundPosition:'top',backgroundSize:'contain'}}
@@ -95,7 +137,7 @@ const UserLayout: FC<Props> = ({ title = "User", children }) => {
         <List component="div" disablePadding>
         {
           menus.map( (menu,index) => (
-          <ListItemButton sx={{ pl: 4 }} 
+          <ListItemButton key={index} sx={{ pl: 4 }} 
           selected={router.asPath === menu.path}
           onClick={(event) => {
             handleListItemClick(event, index)
@@ -116,14 +158,14 @@ const UserLayout: FC<Props> = ({ title = "User", children }) => {
 
         <Box  flex={3} sx={{padding:'10px'}}>
         
-          <Paper component="div" variant="elevation" className="flex  flex-col" sx={{minWidth :'320px'}} >
+          <Paper component="div" variant="elevation" className="flex  flex-col" sx={{minWidth :'320px', maxWidth:'1000px'}} >
             
             {children}
       
             
             </Paper>
         </Box>
-      </div>
+      </div> */}
       <Footer />
     </Box>
   );

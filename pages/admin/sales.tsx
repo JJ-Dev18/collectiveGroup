@@ -14,7 +14,7 @@ import { StyledDataGrid } from "./styles";
 import LinearProgress from '@mui/material/LinearProgress';
 import { DataGridCustom } from "fleed/components/admin/ui/datagrid/DataGridCustom";
 
-const users = () => {
+const sales = () => {
 
 
   const { data, error, isLoading } = useSWR<ISales[]>("/api/admin/sales", fetchGetJSON);
@@ -111,6 +111,7 @@ const users = () => {
     products : sales.saleProducts
   }));
 
+  console.log(rows,"rows de sale ")
 
   return (
     <AdminLayout title="Sales">
@@ -132,4 +133,20 @@ const users = () => {
   );
 };
 
-export default users;
+export default sales;
+
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { GetStaticProps,InferGetStaticPropsType ,InferGetServerSidePropsType } from 'next'
+
+export const getStaticProps:GetStaticProps = async ({ locale }) => {
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? 'en', [
+        'common',
+       
+      ])),
+      // Will be passed to the page component as props
+    },
+  }
+}

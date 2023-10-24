@@ -26,19 +26,29 @@ import LanguagePopover from "../admin/ui/adminHeader/LanguagePopover";
 // import { AuthContext } from "@/context";
 import { useTranslation } from 'next-i18next'
 
-const pages = ["Login", "Register"];
 
 function ResponsiveAppBar({color = "transparent"}:{color? : PropTypes.Color | 'transparent'}) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
-  const { user, isLoggedIn, logout } = React.useContext(AuthContext);
-  const { cartCount } = useShoppingCart();
-  const router = useRouter();
-  const { t } = useTranslation("common")
+    );
+    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+      null
+      );
+      const { user, isLoggedIn, logout } = React.useContext(AuthContext);
+      const { cartCount } = useShoppingCart();
+      const router = useRouter();
+      const { t } = useTranslation("common")
+      const pages = [
+        {
+          name :   t('pages.login'),
+          path : '/login'
+        }
+      , 
+      {
+        name :   t('pages.register'),
+        path : '/register'
+      }
+      ];
 
   console.log(user,"uiser")
   
@@ -120,9 +130,9 @@ function ResponsiveAppBar({color = "transparent"}:{color? : PropTypes.Color | 't
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page} onClick={() => navegar(page)}>
+                  <MenuItem key={page.name} onClick={() => navegar(page.path)}>
                     <Typography textAlign="center" color="secondary">
-                      {page}
+                      {page.name}
                     </Typography>
                   </MenuItem>
                 ))}
@@ -152,8 +162,8 @@ function ResponsiveAppBar({color = "transparent"}:{color? : PropTypes.Color | 't
             {!isLoggedIn &&
               pages.map((page) => (
                 <Button
-                  key={page}
-                  onClick={() => navegar(page)}
+                  key={page.name}
+                  onClick={() => navegar(page.path)}
                   // color="primary"
                   // variant="outlined"
                   sx={{
@@ -163,7 +173,7 @@ function ResponsiveAppBar({color = "transparent"}:{color? : PropTypes.Color | 't
                     color: "white",
                   }}
                 >
-                  {page}
+                  {page.name}
                 </Button>
               ))}
           </Box>

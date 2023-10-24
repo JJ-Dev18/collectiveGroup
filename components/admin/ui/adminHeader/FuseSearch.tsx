@@ -1,43 +1,71 @@
-import { useState , useRef, useReducer,useEffect, FC} from 'react';
-// @mui
+import React, { FC, useEffect,useReducer,useRef } from 'react'
+import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { styled } from '@mui/material/styles';
-import { Input, Slide, Button, IconButton, 
-  InputAdornment, ClickAwayListener,MenuItem ,Typography,
-  ListItemIcon,Icon,ListItemText,Popper,Paper
-} from '@mui/material';
-// utils
-import { bgBlur } from '../../../../utils/cssStyles';
+import Autosuggest from 'react-autosuggest';
+import IconButton from '@mui/material/IconButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import MenuItem from '@mui/material/MenuItem';
+import Paper from '@mui/material/Paper';
+import Popper from '@mui/material/Popper';
+import TextField from '@mui/material/TextField';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import _ from 'lodash';
-// component
+import { Router, useRouter } from 'next/router';
+import { Icon,InputAdornment,Input ,Slide} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import Autosuggest from 'react-autosuggest';
-import { useRouter } from 'next/router';
-// ----------------------------------------------------------------------
+import CloseIcon from '@mui/icons-material/Close';
+import zIndex from '@mui/material/styles/zIndex';
 
-const HEADER_MOBILE = 64;
-const HEADER_DESKTOP = 92;
+const Root = styled('div')(({ theme }) => ({
+  '& .FuseSearch-container': {
+    position: 'relative',
+  },
 
-const StyledSearchbar = styled('div')(({ theme }) => ({
-  ...bgBlur({ color: theme.palette.background.default }),
-  top: 0,
-  left: 0,
-  zIndex: 99,
-  width: '100%',
-  display: 'flex',
-  position: 'absolute',
-  alignItems: 'center',
-  height: HEADER_MOBILE,
-  padding: theme.spacing(0, 3),
-  
-  [theme.breakpoints.up('md')]: {
-    height: HEADER_DESKTOP,
-    padding: theme.spacing(0, 5),
+  '& .FuseSearch-suggestionsContainerOpen': {
+    position: 'absolute',
+    marginTop: theme.spacing(),
+    left: 0,
+    right: 0,
+    zIndex : 99999,
+  },
+
+  '& .FuseSearch-suggestion': {
+    display: 'block',
+  },
+
+  '& .FuseSearch-suggestionsList': {
+    margin: 0,
+    padding: 0,
+    listStyleType: 'none',
+  },
+
+  '& .FuseSearch-input': {
+    transition: theme.transitions.create(['background-color'], {
+      easing: theme.transitions.easing.easeInOut,
+      duration: '5s',
+    }),
+ 
   },
 }));
 
-// ----------------------------------------------------------------------
+function renderInputComponent(inputProps:any) {
+ console.log(inputProps, "inputprops ")
+  return (
+    <div className="w-full relative">  
+          <Input
+          {...inputProps}
+            fullWidth  
+            disableUnderline
+            sx={{padding: '10px', zIndex : 99999,}}
+          />
+     
+    </div>
+  );
+}
 
 function renderSuggestion(suggestion:Suggestion, { query, isHighlighted } : {query : string , isHighlighted : boolean}) {
   const matches = match(suggestion.title, query);
@@ -181,113 +209,117 @@ type ActionSearch =
 type Props = {
   navigation : Suggestion[]
 }
-
-const searchBar:FC<Props> = ({navigation})=>  {
-  const [open, setOpen] = useState(false);
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const router = useRouter()
-  const suggestionsNode =useRef<HTMLInputElement >(null);
-  const popperNode = useRef<HTMLInputElement>(null);
-  const buttonNode = useRef<HTMLInputElement>(null);
-  useEffect(() => {
-    dispatch({
-      type: 'setNavigation',
-      payload: navigation,
-    });
-  }, [navigation]);
-
-  function showSearch(event: React.MouseEvent<HTMLElement, MouseEvent>  ) {
-    event.stopPropagation();
-    dispatch({ type: 'open' });
-    document.addEventListener('keydown', escFunction as any , false);
-  }
-
-  function hideSearch() {
-    dispatch({ type: 'close' });
-    document.removeEventListener('keydown', escFunction as any, false);
-  }
-
-  function escFunction(event: React.KeyboardEvent<HTMLElement>) {
-    if (event.keyCode === 27) {
+const FuseSearch:FC<Props> = ({navigation}) =>  {
+    // const { navigation } = props;
+  
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const router = useRouter()
+    const suggestionsNode =useRef<HTMLInputElement >(null);
+    const popperNode = useRef<HTMLInputElement>(null);
+    const buttonNode = useRef<HTMLInputElement>(null);
+  
+    useEffect(() => {
+      dispatch({
+        type: 'setNavigation',
+        payload: navigation,
+      });
+    }, [navigation]);
+  
+    function showSearch(event: React.MouseEvent<HTMLElement, MouseEvent>  ) {
+      event.stopPropagation();
+      dispatch({ type: 'open' });
+      document.addEventListener('keydown', escFunction as any , false);
+    }
+  
+    function hideSearch() {
+      dispatch({ type: 'close' });
+      document.removeEventListener('keydown', escFunction as any, false);
+    }
+  
+    function escFunction(event: React.KeyboardEvent<HTMLElement>) {
+      if (event.keyCode === 27) {
+        hideSearch();
+      }
+    }
+  
+    function handleSuggestionsFetchRequested({ value }:{value : string}) {
+      dispatch({
+        type: 'updateSuggestions',
+        payload : value ,
+      });
+    }
+  
+    function handleSuggestionSelected(event: React.FormEvent<any> , { suggestion } : {suggestion : Suggestion}) {
+      event.preventDefault();
+      event.stopPropagation();
+      if (!suggestion.path) {
+        return;
+      }
+      
+      router.push(suggestion.path)
       hideSearch();
     }
-  }
-
-  function handleSuggestionsFetchRequested({ value }:{value : string}) {
-    dispatch({
-      type: 'updateSuggestions',
-      payload : value ,
-    });
-  }
-
-  function handleSuggestionSelected(event: React.FormEvent<any> , { suggestion } : {suggestion : Suggestion}) {
-    event.preventDefault();
-    event.stopPropagation();
-    if (!suggestion.path) {
-      return;
+  
+    function handleSuggestionsClearRequested() {
+      dispatch({
+        type: 'clearSuggestions',
+      });
     }
-    
-    router.push(suggestion.path)
-    hideSearch();
-  }
-
-  function handleSuggestionsClearRequested() {
-    dispatch({
-      type: 'clearSuggestions',
-    });
-  }
-
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    dispatch({
-      type: 'setSearchText',
-      payload: event.target.value,
-    });
-  }
-
-  function handleClickAway(event:  MouseEvent | TouchEvent) {
-    return (
-      state.opened &&
-      (!suggestionsNode.current || !suggestionsNode.current.contains(event.target as any)) &&
-      hideSearch()
-    );
-  }
-  const handleOpen = () => {
-    setOpen(!open);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const autosuggestProps = {
-    // renderInputComponent,
-    highlightFirstSuggestion: true,
-    suggestions: state.suggestions,
-    onSuggestionsFetchRequested: handleSuggestionsFetchRequested,
-    onSuggestionsClearRequested: handleSuggestionsClearRequested,
-    onSuggestionSelected: handleSuggestionSelected,
-    getSuggestionValue,
-    renderSuggestion,
-  };
-  return (
-    <ClickAwayListener onClickAway={handleClickAway}>
-      <div>
-        {!open && (
-          <IconButton onClick={handleOpen} sx={{color : 'white'}}>
+  
+    function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+      dispatch({
+        type: 'setSearchText',
+        payload: event.target.value,
+      });
+    }
+  
+    function handleClickAway(event:  MouseEvent | TouchEvent) {
+      return (
+        state.opened &&
+        (!suggestionsNode.current || !suggestionsNode.current.contains(event.target as any)) &&
+        hideSearch()
+      );
+    }
+    const autosuggestProps = {
+      renderInputComponent,
+      highlightFirstSuggestion: true,
+      suggestions: state.suggestions,
+      onSuggestionsFetchRequested: handleSuggestionsFetchRequested,
+      onSuggestionsClearRequested: handleSuggestionsClearRequested,
+      onSuggestionSelected: handleSuggestionSelected,
+      getSuggestionValue,
+      renderSuggestion,
+    };
+  
+    return(
+        <Root  >
+        <Tooltip title="Click to search" placement="bottom">
+          <div
+            onClick={showSearch}
+            onKeyDown={showSearch as any}
+            role="button"
+            tabIndex={0}
+            ref={buttonNode}
+          >
+           <IconButton  sx={{color : 'white'}}>
             <SearchIcon />
           </IconButton>
-        )}
-
-        <Slide direction="down" in={open} mountOnEnter unmountOnExit>
-          <StyledSearchbar>
-          <Autosuggest
+          </div>
+        </Tooltip>
+       
+        {state.opened && (
+          <ClickAwayListener onClickAway={handleClickAway}>
+            <Paper className="absolute left-0 right-0 top-0 h-full w-full z-9999 shadow-0" square>
+              <div className="flex items-center w-full h-full " ref={popperNode}>
+                <Autosuggest
                   
                   {...autosuggestProps}
                   inputProps={{
                     placeholder: 'Search ...',
                     value: state.searchText,
                     onChange: handleChange as any,
-                   
-                    autoFocus: true,
+                    
+                    // autoFocus: true,
                   }}
                   theme={{
                     container: 'flex flex-1 w-full',
@@ -298,6 +330,7 @@ const searchBar:FC<Props> = ({navigation})=>  {
                     <Popper
                       anchorEl={popperNode.current}
                       open={Boolean(options.children) || state.noSuggestions}
+                      // popperOptions={}
                       // popperOptions={{ positionFixed: true }}
                       className="z-9999"
                     >
@@ -318,26 +351,18 @@ const searchBar:FC<Props> = ({navigation})=>  {
                     </Popper>
                   )}
                 />
-            {/* <Input
-              autoFocus
-              fullWidth
-              disableUnderline
-              placeholder="Search…"
-              startAdornment={
-                <InputAdornment position="start">
-                  <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', width: 20, height: 20 }} />
-                </InputAdornment>
-              }
-              sx={{ mr: 1, fontWeight: 'fontWeightBold' }}
-            /> */}
-            <Button variant="contained" onClick={handleClose}>
-              Search
-            </Button>
-          </StyledSearchbar>
-        </Slide>
-      </div>
-    </ClickAwayListener>
-  );
-}
+                <IconButton onClick={hideSearch} className="mx-8" size="large">
+                  <CloseIcon/>
+                </IconButton>
+              </div>
+            </Paper>
+          </ClickAwayListener>
+        )}
+      </Root>
+    )
+   
 
-export default searchBar
+}
+  
+
+export default FuseSearch

@@ -65,6 +65,7 @@ const dashboard = () => {
               title="Sales"
               total={numberOfOrders}
               Icon={ShoppingBasketIcon}
+              color="secondary"
             />
           </Grid>
 

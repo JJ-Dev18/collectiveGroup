@@ -10,6 +10,8 @@ import AccountPopover from './AccountPopover';
 import DarkModeToggle from 'fleed/components/ui/DarkModeToggle';
 import Searchbar from './Searchbar';
 import LanguagePopover from './LanguagePopover';
+import FuseSearch from './FuseSearch';
+import { navConfig } from 'fleed/components/layouts/AdminLayout';
 // // components
 // import Iconify from '../../../components/iconify';
 // //
@@ -50,8 +52,13 @@ type Props ={
     onOpenNav : () => void
     logout : ()=> void
 }
+const navigation = [
 
+
+]
 const Header:FC<Props> = ( { onOpenNav ,logout}) => {
+
+  
   return (
     <StyledRoot>
       <StyledToolbar>
@@ -66,7 +73,8 @@ const Header:FC<Props> = ( { onOpenNav ,logout}) => {
           <MenuIcon  />
         </IconButton>
 
-        <Searchbar />
+        {/* <Searchbar navigation={navConfig}/> */}
+        <FuseSearch navigation={navConfig}/>
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack

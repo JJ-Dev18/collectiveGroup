@@ -12,14 +12,14 @@ import React from 'react'
 const CustomPage = () => {
 
   const { services , isLoading, isError} = useServices('/services',{fetcher : fetchGetJSON})
-  const { handleCheckout, loading } = useCheckout()
+  const { handleCheckoutSubscribe, loading } = useSubscribe()
   const { t  } = useTranslation("common")
   
   return (
     <Layout title="Create Custom Package">
         <Box sx={{ display : 'flex', flexDirection: 'column',justifyContent: 'center',alignItems :'center',width: '100%',marginTop:'120px',marginBottom:"10px"}} >
             <Typography component={motion.h1} animate={{scale : [1,1.3,1]}} variant="h1" color="inherit"  about="title">{t("custom-package.title")}</Typography>
-            <CreateBoard services={services} handleCheckout={handleCheckout} loading={loading}/>
+            <CreateBoard services={services} handleCheckoutSubscribe={handleCheckoutSubscribe} loading={loading}/>
         </Box>
     </Layout>
   )
@@ -29,6 +29,7 @@ export default CustomPage
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticProps,InferGetStaticPropsType ,InferGetServerSidePropsType } from 'next'
+import { useSubscribe } from 'fleed/hooks/useSubscribe'
 
 export const getStaticProps:GetStaticProps = async ({ locale }) => {
 

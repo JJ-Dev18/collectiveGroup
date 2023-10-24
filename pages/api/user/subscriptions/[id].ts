@@ -59,7 +59,7 @@ const getSales = async (
         createdAt : "asc"
       }
    })
-   
+   console.log(subscription)
    return res.status(200).json(subscription)
   }
 

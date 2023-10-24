@@ -7,7 +7,8 @@ import { FC } from "react";
 export const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
     // border: '1px solid gray',
     padding : '40px',
-    minHeight:'350px',
+    width:'100%',
+    minHeight:'300px',
     // borrder: 0,
     // borderRadius :'40px',
     boxShadow: '0px -25px 20px -20px rgba(0, 0, 0, 0.45), -25px 0 20px -20px rgba(0, 0, 0, 0.45)',

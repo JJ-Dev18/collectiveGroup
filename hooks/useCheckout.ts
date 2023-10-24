@@ -38,7 +38,7 @@ export const useCheckout = () => {
     try {
       
       const { data : saleCreate } = await fleetshopApi.post('/sales-product',{clienteId : user?.id ,products : productsInCart,totalPrice})
-      const response = await fetchPostJSON(`/api/checkout_sessions/cart?saleId=${saleCreate.id}`, {products : data });
+      const response = await fetchPostJSON(`/api/checkout_sessions/cart?saleId=${saleCreate.id}`, {products : data, user : user });
       
       if (response.statusCode > 399) {
         console.error(response.message);

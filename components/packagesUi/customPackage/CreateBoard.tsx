@@ -9,7 +9,7 @@ import { useTranslation } from 'next-i18next'
 
 type Props = {
     services  : IService[] | ServiceItemCreator[],
-    handleCheckout : (packageToAdd: ItemInterface) => void
+    handleCheckoutSubscribe  : (packagetoAdd:ItemInterface) => void 
     loading : boolean
 }
 
@@ -17,7 +17,7 @@ export interface ServiceItemCreator extends IService {
  parent? : string
 }
 
-export const CreateBoard:FC <Props>= ({services,loading,handleCheckout}) => {
+export const CreateBoard:FC <Props>= ({services,loading,handleCheckoutSubscribe}) => {
   const [serviceCustom, setServiceCustom] = useState<ServiceItemCreator[]>([]);
   const { t  } = useTranslation("common")
   const [servicesData, setServices] = useState<ServiceItemCreator[] | IService[]>(services)
@@ -35,9 +35,9 @@ export const CreateBoard:FC <Props>= ({services,loading,handleCheckout}) => {
    }, [services])
   
    const buy = ( )=> {
-    let packageToAdd : ItemInterface = { id: 'package0004',  name : 'Custom Package', price : price , createdAt : Date.now().toString(), updatedAt :null , currency : 'usd'}
+    let packageToAdd : ItemInterface = { id: '4',  name : 'SELF DRIVING', price : price , createdAt : Date.now().toString(), updatedAt :null , currency : 'usd'}
     
-    handleCheckout(packageToAdd)
+    handleCheckoutSubscribe(packageToAdd)
    }
 
   useEffect(() => {

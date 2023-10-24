@@ -12,7 +12,11 @@ export async function middleware(req: NextRequest) {
     const requestedPage = req.nextUrl.pathname;
     const url = req.nextUrl.clone();
     url.pathname = `/auth/login`;
-    if(requestedPage != '/result'){
+    let result:boolean = requestedPage != '/result'
+    let purchase:boolean =requestedPage != '/user/my-purchase'
+    let subscriptions:boolean =requestedPage != '/user/my-subscription'
+
+    if(result && purchase && subscriptions){
       url.search = `p=${requestedPage}`;
     }
     return NextResponse.redirect(url);

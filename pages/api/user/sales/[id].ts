@@ -39,7 +39,7 @@ const getSales = async (
     id:idUser ,
     
   } = req.query ;
-  if(idUser !== undefined){
+  
     const sales = await prisma.sale.findMany({
       include:{
           saleProducts :{
@@ -60,6 +60,6 @@ const getSales = async (
    })
  
    return res.status(200).json(sales)
-  }
+  
 
 };

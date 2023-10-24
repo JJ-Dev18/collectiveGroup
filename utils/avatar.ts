@@ -19,11 +19,22 @@ export function stringToColor(string: string) {
   }
   
  export  function stringAvatar(name: string) {
-    return {
-      sx: {
-        bgcolor: stringToColor(name),
-      },
-      children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
-    };
+    if(name.split(' ')[1]){
+      return {
+        sx: {
+          bgcolor: stringToColor(name),
+        },
+        children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+      };
+    }
+    else{
+      return {
+        sx: {
+          bgcolor: stringToColor(name),
+        },
+        children: `${name.split(' ')[0][0]}`,
+      };
+    }  
+
   }
   

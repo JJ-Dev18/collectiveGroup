@@ -76,9 +76,15 @@ const LoginPage = () => {
       console.log(error);
     }
   };
- const googleHandler = ()=> {
 
+
+ const googleHandler = async ()=> {
+  const signin = await signIn("google");
+
+  console.log(signin)
  }
+
+
   return (
     <AuthLayout title={"Log in"}>
       <form onSubmit={handleSubmit(onLoginUser)} noValidate>

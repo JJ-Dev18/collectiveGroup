@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 
 
-const StyledGridOverlay = styled('div')(({ theme }) => ({
+export const StyledGridOverlay = styled('div')(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -84,16 +84,17 @@ type Props = {
 }  
 export const DataGridCustom:FC<Props> = ({columns,rows,isLoading}) => {
   return (
-    <>
+   
     <StyledDataGrid
      rows={ rows }
      loading={isLoading}
      columns={ columns }
      slots={{
         loadingOverlay: LinearProgress,
+        noResultsOverlay : CustomNoRowsOverlay,
         noRowsOverlay: CustomNoRowsOverlay,
       }}
     />
-    </>
+   
   )
 }

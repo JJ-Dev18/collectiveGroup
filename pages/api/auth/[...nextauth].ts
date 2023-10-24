@@ -2,6 +2,7 @@ import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import Credentials from 'next-auth/providers/credentials';
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import { dbUsers } from 'fleed/db';
 // import { dbUsers } from '@/database';
 
@@ -11,6 +12,12 @@ export default NextAuth({
   // Configure one or more authentication providers
   
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      
+      // redirect_uri :' http://127.0.0.1:3000/api/auth/callback/google'
+    }),
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
       name: "Credentials",
@@ -46,15 +53,16 @@ export default NextAuth({
   },
   callbacks: {
 
-    async jwt({ token, account, user }) {
+    async jwt({ token, account, user,profile }) {
 
       if ( account ) {
+        console.log(user, "user")
         token.accessToken = account.access_token;
 
         switch( account.type ) {
 
           case 'oauth': 
-            // token.user = await dbUsers.oAUthToDbUser( user?.email || '', user?.name || '' );
+                token.user = await dbUsers.oAUthToDbUser( user?.email || '', user?.name || '', user?.image  || '');
           break;
 
           case 'credentials':

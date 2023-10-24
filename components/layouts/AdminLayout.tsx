@@ -20,7 +20,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import NavSection from '../admin/ui/nav-section/NavSection';
 import { IUser } from 'fleed/interfaces';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-const navConfig = [
+export const navConfig = [
   {
     title: 'dashboard',
     path: '/admin/dashboard',

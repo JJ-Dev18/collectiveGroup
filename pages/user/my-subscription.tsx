@@ -13,21 +13,26 @@ import { StyledDataGrid } from '../admin/styles';
 import { useRouter } from 'next/router';
 import { AuthContext } from 'fleed/context/auth';
 import { useTranslation } from 'next-i18next'
+import { DataGridCustom } from 'fleed/components/admin/ui/datagrid/DataGridCustom';
+
 
 
 const drawerWidth = 240;
 
 
-
+type Props = {
+  id : string 
+}
    
-const MySubscription:FC = () => {
+const MySubscription:FC<Props> = ({id}) => {
 
-    const { user } = useContext(AuthContext)
-    const { data , error, isLoading } = useSWR<ISubscription[]>(`/api/user/subscriptions/${user?.id}`,fetchGetJSON);
+    
+  console.log(id,'id del usuario')
+    const { data , error, isLoading } = useSWR<ISubscription[]>(`/api/user/subscriptions/${id}`,fetchGetJSON);
      const [subscriptions, setSubscriptions] = useState<ISubscription[]>([]);
     const {  t  } = useTranslation("common")
     
-    console.log(data)
+    console.log(data,"subscriptions")
     const router = useRouter()
     
     useEffect(() => {
@@ -49,7 +54,7 @@ const MySubscription:FC = () => {
         { 
             field: 'packages', 
             headerName:t('purchase.packages'), 
-            flex: 3 ,
+            width: 300 ,
             renderCell: ({row}: GridRenderCellParams<any, number>) => {
                 return (
                    <ScrollBar sx={{
@@ -73,7 +78,7 @@ const MySubscription:FC = () => {
        
       ];
     
-      const rows = subscriptions?.map((subscription) => ({
+      const rows = subscriptions.map((subscription) => ({
         id: subscription.id,
         createdAt : subscription.createdAt,
         isPaid: subscription.isPaid ? 'Yes' : 'No',
@@ -82,6 +87,7 @@ const MySubscription:FC = () => {
      
       }));
     
+      console.log(rows)
  
   return (
     <UserLayout title='User Account'>
@@ -96,7 +102,7 @@ const MySubscription:FC = () => {
           
         />
         <Divider/>
-        <CardContent sx={{}}>
+        <CardContent sx={{height:'350px'}}>
         <DataGridCustom
             rows={rows}
             columns={columns}
@@ -116,14 +122,15 @@ export default MySubscription
 
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { GetStaticProps,InferGetStaticPropsType ,InferGetServerSidePropsType } from 'next'
-import { DataGridCustom } from 'fleed/components/admin/ui/datagrid/DataGridCustom';
+import { GetStaticProps,InferGetStaticPropsType ,InferGetServerSidePropsType, GetServerSideProps } from 'next'
 import { ISubscription, SubscriptionPackage } from 'fleed/interfaces/subscriptions';
 
-export const getStaticProps:GetStaticProps = async ({ locale }) => {
+export const getServerSideProps:GetServerSideProps = async ({ locale,req }) => {
 
+   const cookies = req.cookies
   return {
     props: {
+      id : cookies.user,
       ...(await serverSideTranslations(locale ?? 'en', [
         'common',
        

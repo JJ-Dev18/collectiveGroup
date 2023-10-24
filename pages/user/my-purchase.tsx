@@ -19,16 +19,18 @@ const drawerWidth = 240;
 
 
 
+type Props = {
+  id : string
+}
    
-const MyPurchase:FC = () => {
+const MyPurchase:FC<Props> = ({id}) => {
 
-    const { user } = useContext(AuthContext)
-    const { data , error, isLoading } = useSWR<ISales[]>(`/api/user/sales/${user?.id}`,fetchGetJSON);
+    const { data , error, isLoading } = useSWR<ISales[]>(`/api/user/sales/${id}`,fetchGetJSON);
      const [sales, setSales] = useState<ISales[]>([]);
-  const {  t  } = useTranslation("common")
+     const router = useRouter()
+     const {  t  } = useTranslation("common")
     
    
-    const router = useRouter()
     
     useEffect(() => {
         if (data) {
@@ -49,7 +51,7 @@ const MyPurchase:FC = () => {
         { 
             field: 'products', 
             headerName:t('purchase.products'), 
-            flex: 3 ,
+            width:300 ,
             renderCell: ({row}: GridRenderCellParams<any, number>) => {
                 return (
                    <ScrollBar sx={{
@@ -73,7 +75,7 @@ const MyPurchase:FC = () => {
        
       ];
     
-      const rows = sales?.map((sales) => ({
+      const rows = sales.map((sales) => ({
         id: sales.id,
         createdAt : sales.createdAt,
         isPaid: sales.isPaid ? 'Yes' : 'No',
@@ -84,7 +86,7 @@ const MyPurchase:FC = () => {
     
  
   return (
-    <UserLayout title='User Account'>
+    <UserLayout title='My purchases'>
         <CardHeader
           sx={{textAlign:'left'}}
           action={
@@ -96,18 +98,20 @@ const MyPurchase:FC = () => {
           
         />
         <Divider/>
-        <CardContent sx={{}}>
-        <DataGridCustom
-            rows={rows}
-            columns={columns}
-            isLoading={isLoading}
-           
-           
+         <CardContent sx={{height:'350px'}}>
+              <DataGridCustom
+              
+              rows={ rows }
+              isLoading={isLoading}
+              columns={ columns }
+          
           />
+
+         </CardContent>
             
           
 
-        </CardContent>
+       
     </UserLayout>
   )
 }
@@ -115,14 +119,18 @@ const MyPurchase:FC = () => {
 export default MyPurchase
 
 
+import { DataGridCustom, StyledGridOverlay } from 'fleed/components/admin/ui/datagrid/DataGridCustom';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { GetStaticProps,InferGetStaticPropsType ,InferGetServerSidePropsType } from 'next'
-import { DataGridCustom } from 'fleed/components/admin/ui/datagrid/DataGridCustom';
+import { GetStaticProps,InferGetStaticPropsType ,InferGetServerSidePropsType, GetServerSideProps } from 'next'
+import Layout from 'fleed/components/layouts/Layout';
 
-export const getStaticProps:GetStaticProps = async ({ locale }) => {
+export const getServerSideProps:GetServerSideProps = async ({ locale,req }) => {
+ const cookies = req.cookies
+
 
   return {
     props: {
+       id : cookies.user,
       ...(await serverSideTranslations(locale ?? 'en', [
         'common',
        

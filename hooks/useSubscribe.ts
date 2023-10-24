@@ -43,12 +43,13 @@ export const useSubscribe = () => {
         const body ={
             name : cartEntry?.name,
             amount : cartEntry?.price,
+            user
             // customerId : user?.id
         }
         const { data : subscriptionCreate } = await fleetshopApi.post('/subscriptions',{clienteId : user?.id ,packageSub : cartEntry})
         
         const response = await fetchPostJSON(`/api/checkout_sessions/subscription?subscriptionId=${subscriptionCreate.id}`,body);
-        
+        console.log(response,"response de usesuscribe")
         if (response.statusCode > 399) {
           console.error(response.message);
           setErrorMessage(response.message);

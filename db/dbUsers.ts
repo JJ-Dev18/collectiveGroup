@@ -48,6 +48,33 @@ export const checkUserEmailPassword = async( email: string, password: string ) =
 
 }
 
+
+export const oAUthToDbUser = async( oAuthEmail: string, oAuthName: string, oAuthImage : string ) => {
+
+  const user = await prisma.user.findUnique({
+  where : {
+    email : oAuthEmail
+  }
+  })
+
+  if ( user ) {
+      
+      const { id, name, email, role, image  } = user;
+      return { id, name, email, role, image  };
+  }
+  const newUser =  await prisma.user.create({
+    data : {
+      email: oAuthEmail, name: oAuthName, hashedPassword: '@', role: 'USER' , image : oAuthImage
+    }
+  })
+  
+
+  const { id, name, email, role , image } = newUser;
+  return { id, name, email, role, image  };
+
+}
+
+
 export const getUserById = async( id: number ) => {
 
   try {
