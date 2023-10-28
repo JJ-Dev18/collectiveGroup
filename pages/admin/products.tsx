@@ -12,7 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { UiContext } from 'fleed/context/ui';
 import fleedShopApi from 'fleed/api/fleedShopApi';
 import ScrollBar from 'fleed/components/admin/ui/scrollbar/ScrollBar';
-import { StyledDataGrid } from './styles';
+import { StyledDataGrid } from '../../components/admin/ui/datagrid/styles';
 import LinearProgress from '@mui/material/LinearProgress';
 import { DataGridCustom } from 'fleed/components/admin/ui/datagrid/DataGridCustom';
 

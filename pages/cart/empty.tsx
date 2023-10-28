@@ -27,7 +27,7 @@ const EmptyPage = () => {
      if(loadCard && cantCard > 0 ){
            router.push('/cart')
      }
-    }, [loadCard])
+    }, [loadCard,cantCard,router])
   
     if ( !loadCard || cantCard === 0 ) {
         return (<></>);

@@ -48,7 +48,7 @@ const CartPage = () => {
    if(loadCard && cantCard == 0 || loadCard && cartCount == 0){
          router.replace('/cart/empty')
    }
-  }, [loadCard,cartCount])
+  }, [loadCard,cartCount,cantCard,router])
 
   if ( !loadCard || cartCount === 0 ) {
       return (<></>);

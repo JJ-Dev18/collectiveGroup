@@ -11,7 +11,6 @@ const bcrypt = require('bcrypt');
 import prisma from "fleed/db/db";
 import { validations , jwt } from "fleed/utils";
 import { IUser } from '../../../../interfaces/user';
-import { Role } from "@prisma/client";
 
 type Data =
   | { message: string }

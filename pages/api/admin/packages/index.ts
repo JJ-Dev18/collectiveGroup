@@ -1,4 +1,3 @@
-import { Benefit } from '@prisma/client';
 import prisma from 'fleed/db/db';
 import { IService, ItemInterface } from 'fleed/interfaces';
 import { IProduct } from 'fleed/interfaces/product';
@@ -9,7 +8,7 @@ type Data =  {message: string} | IProduct[] | [];
 
 
 
-export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
+export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
    
     switch (req.method) {
         case 'GET':
@@ -115,7 +114,7 @@ const deletePackage = async( req: NextApiRequest, res :NextApiResponse)=> {
     }
   })
 
-  let benefitsBefore = servicesPackage.sort((a,b)=> a.service.id - b.service.id).map( service => {
+  let benefitsBefore = servicesPackage.sort((a:any,b:any)=> a.service.id - b.service.id).map( (service:any) => {
      return service.service
   })
   

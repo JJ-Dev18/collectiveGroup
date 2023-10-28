@@ -1,6 +1,5 @@
-import { Benefit } from '@prisma/client';
 import prisma from 'fleed/db/db';
-import { ItemInterface } from 'fleed/interfaces';
+import { Benefit, ItemInterface } from 'fleed/interfaces';
 import { IProduct } from 'fleed/interfaces/product';
 import { comparatorArray } from 'fleed/utils/arrayComparator';
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -9,7 +8,7 @@ type Data =  {message: string} | IProduct[] | [];
 
 
 
-export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
+export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
    
     switch (req.method) {
         case 'GET':
@@ -111,7 +110,7 @@ const deleteProduct = async( req: NextApiRequest, res :NextApiResponse)=> {
     }
   })
 
-  let benefitsBefore = benefitsProduct.sort((a,b)=> a.benefit.id - b.benefit.id).map( benefit => {
+  let benefitsBefore = benefitsProduct.sort((a:any,b:any)=> a.benefit.id - b.benefit.id).map( (benefit:any) => {
      return benefit.benefit
   })
   

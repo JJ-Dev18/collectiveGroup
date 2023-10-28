@@ -182,7 +182,7 @@ type Props = {
   navigation : Suggestion[]
 }
 
-const searchBar:FC<Props> = ({navigation})=>  {
+const SearchBar:FC<Props> = ({navigation})=>  {
   const [open, setOpen] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
   const router = useRouter()
@@ -340,4 +340,4 @@ const searchBar:FC<Props> = ({navigation})=>  {
   );
 }
 
-export default searchBar
+export default SearchBar

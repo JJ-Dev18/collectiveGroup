@@ -33,6 +33,7 @@ function getStyles(id: number, benefitsIds: readonly Benefits[], theme: Theme) {
   };
 }
 
+
 type Props = {
   list: Benefit[] | undefined | IService[];
   itemList?: Benefit[] | IService[];
@@ -41,7 +42,7 @@ type Props = {
 
 const MultipleSelect: FC<Props> = ({ list = [], itemList = [] ,name}) => {
   const theme = useTheme();
-  const [listIds, setListIdS] = React.useState<Benefit[] | IService[]>(itemList);
+  const [listIds, setListIdS] = React.useState<any>(itemList);
   const [ listCharged , setListCharged ] = useState<Benefit[] | IService[]>([])
   const { register, control, setValue ,getValues} = useFormContext();
   
@@ -79,7 +80,7 @@ const MultipleSelect: FC<Props> = ({ list = [], itemList = [] ,name}) => {
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               {selected.map((value) => (
                 <Chip key={value.id} label={value.name} onDelete={() =>{
-                  const newValues = listIds.filter((item) => item !== value) as Benefit[]
+                  const newValues = listIds.filter((item:any) => item !== value) 
                   setListIdS(
                    newValues
                   )

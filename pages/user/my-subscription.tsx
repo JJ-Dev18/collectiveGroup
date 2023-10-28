@@ -9,7 +9,7 @@ import { fetchGetJSON } from "fleed/utils/api-helpers";
 import { UiContext } from "fleed/context/ui";
 import DeleteIcon from '@mui/icons-material/Delete';
 import ScrollBar from "fleed/components/admin/ui/scrollbar/ScrollBar";
-import { StyledDataGrid } from '../admin/styles';
+import { StyledDataGrid } from '../../components/admin/ui/datagrid/styles';
 import { useRouter } from 'next/router';
 import { AuthContext } from 'fleed/context/auth';
 import { useTranslation } from 'next-i18next'

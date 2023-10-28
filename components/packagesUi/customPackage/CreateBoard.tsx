@@ -32,7 +32,7 @@ export const CreateBoard:FC <Props>= ({services,loading,handleCheckoutSubscribe}
     })
   
     return servicesWithParent
-   }, [services])
+   }, [services,t])
   
    const buy = ( )=> {
     let packageToAdd : ItemInterface = { id: '4',  name : 'SELF DRIVING', price : price , createdAt : Date.now().toString(), updatedAt :null , currency : 'usd'}
@@ -55,7 +55,7 @@ export const CreateBoard:FC <Props>= ({services,loading,handleCheckoutSubscribe}
 
   useEffect(() => {
     setServices(servicesWithParents)
-  }, [services])
+  }, [services,servicesWithParents])
   
 
   const onDragEnd = (e: DragEndEvent) => {

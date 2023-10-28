@@ -1,6 +1,5 @@
 import { styled } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { FC } from "react";
 
 
 

@@ -83,3 +83,5 @@ export const Package:FC<Props> = React.memo(({handleCheckoutSubscribe,packageInf
 },
 () => false
 )
+
+Package.displayName = "Package"

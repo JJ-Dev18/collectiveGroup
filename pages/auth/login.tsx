@@ -22,6 +22,7 @@ import { useRouter } from "next/router";
 import { validations } from "fleed/utils";
 import { AuthLayout } from "fleed/components/layouts/AuthLayout";
 import { UiContext } from "fleed/context/ui";
+import Image from "next/image";
 
 
 type FormData = {
@@ -105,7 +106,7 @@ const LoginPage = () => {
               }}
             >
               <Box sx={{ mr: { xs: 1, sm: 2, width: 20 } }}>
-                <img
+                <Image
                   src='/icons/social-google.svg'
                   alt="google"
                   width={16}

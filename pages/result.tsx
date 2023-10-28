@@ -57,7 +57,7 @@ const ResultPage: FC <Props>= ({session_id,sale_id}) => {
       }
     }
     sendEmail()
-  }, [data])
+  }, [data,clearCart])
   
 
   if (error) return <div>failed to load</div>

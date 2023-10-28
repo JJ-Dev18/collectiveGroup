@@ -20,6 +20,7 @@ import { UiContext } from 'fleed/context/ui';
 import { AuthContext } from 'fleed/context/auth';
 
 import { useTranslation } from 'next-i18next'
+import { Product } from 'use-shopping-cart/core';
 
 const StyledTableCell = styled(TableCell)`
 
@@ -74,7 +75,7 @@ export const TableProducts: FC<Props> = ({columns,products,handleCheckout,loadin
                     addItem({ ... product , 
                       id :product.id.toString() ,
                       price : Number(product.price),
-                     })
+                     } as Product)
                     showSuccessAlert("Product Add to cart")
                    }}
                    sx={{display:'flex',flexDirection:'column',justifyContent:"center",alignItems:'center'}}>

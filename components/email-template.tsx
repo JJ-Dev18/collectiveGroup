@@ -63,10 +63,10 @@ export const EmailTemplate = (
         <Hr style={global.hr} />
         <Section style={message}>
         <Row>
-           <Heading style={global.heading}>We're on it.</Heading>
+           <Heading style={global.heading}>Were on it.</Heading>
           <Text style={adressTitle}>Hey {name} ,</Text>
-          <Text style={{ ...global.text, fontSize: 14 }}>This is just a quick email to say we've recieved your order</Text>
-          <Text style={track.number}>Once everything is confirmed and ready to ship, We'll send you a another email with the tracking details and any other information about your package</Text>
+          <Text style={{ ...global.text, fontSize: 14 }}>This is just a quick email to say weve recieved your order</Text>
+          <Text style={track.number}>Once everything is confirmed and ready to ship, Well send you a another email with the tracking details and any other information about your package</Text>
           
         </Row>
         </Section>
@@ -78,7 +78,7 @@ export const EmailTemplate = (
             alt="Collective intelligence"
             style={{ margin: 'auto' }}
           />
-          <Heading style={global.heading}>It's On Its Way.</Heading>
+          <Heading style={global.heading}>Its On Its Way.</Heading>
         </Section>
         <Hr style={global.hr} />
         <Section style={global.defaultPadding}>
@@ -173,7 +173,7 @@ export const EmailTemplate = (
           </Row>
           <Text style={{ ...footer.text, paddingTop: 30, paddingBottom: 30 }}>
             Please contact us if you have any questions. (If you reply to this
-            email, we won't be able to see it.)
+            email, we wont be able to see it.)
           </Text>
           <Text style={footer.text}>
             © 2023 Collective Intelligence Group

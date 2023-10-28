@@ -1,4 +1,4 @@
-import { StyledDataGrid } from 'fleed/pages/admin/styles'
+import { StyledDataGrid } from 'fleed/components/admin/ui/datagrid/styles'
 import React, { FC } from 'react'
 import LinearProgress from '@mui/material/LinearProgress';
 import { GridColDef } from '@mui/x-data-grid';

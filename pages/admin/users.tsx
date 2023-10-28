@@ -10,11 +10,11 @@ import { fetchGetJSON } from "fleed/utils/api-helpers";
 import { UiContext } from "fleed/context/ui";
 import DeleteIcon from '@mui/icons-material/Delete';
 import NextLink from 'next/link';
-import { StyledDataGrid } from "./styles";
+import { StyledDataGrid } from "../../components/admin/ui/datagrid/styles";
 import { stringAvatar } from "fleed/utils/avatar";
 import { DataGridCustom } from "fleed/components/admin/ui/datagrid/DataGridCustom";
 
-const users = () => {
+const Users = () => {
 
 
   const { data, error, isLoading } = useSWR<IUser[]>("/api/admin/users", fetchGetJSON);
@@ -163,4 +163,4 @@ const users = () => {
   );
 };
 
-export default users;
+export default Users;

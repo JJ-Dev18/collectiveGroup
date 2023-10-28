@@ -12,6 +12,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import { useTranslation } from 'next-i18next'
+import { Product } from 'use-shopping-cart/core';
 
 
 type Props = {
@@ -37,8 +38,9 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
      setAnchorEl(null);
     
    };
+
    const router = useRouter()
-   const productToAdd:ItemInterface = { ... product , 
+   const productToAdd:ItemInterface | IProduct = { ... product , 
      id :product.id.toString() ,
      price :  Number(product.price * 100),
     }
@@ -145,7 +147,7 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
        </CardContent>
         <CardActions className='flex justify-center'>
             <Button variant="outlined" color="primary" size='small' onClick={() => {
-             addItem(productToAdd)
+             addItem(productToAdd as Product)
              showSuccessAlert("Product Add to cart")
           }}>
                  {t('button-add')}

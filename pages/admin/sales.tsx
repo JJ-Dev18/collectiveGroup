@@ -10,11 +10,11 @@ import { fetchGetJSON } from "fleed/utils/api-helpers";
 import { UiContext } from "fleed/context/ui";
 import DeleteIcon from '@mui/icons-material/Delete';
 import ScrollBar from "fleed/components/admin/ui/scrollbar/ScrollBar";
-import { StyledDataGrid } from "./styles";
+import { StyledDataGrid } from "../../components/admin/ui/datagrid/styles";
 import LinearProgress from '@mui/material/LinearProgress';
 import { DataGridCustom } from "fleed/components/admin/ui/datagrid/DataGridCustom";
 
-const sales = () => {
+const Sales = () => {
 
 
   const { data, error, isLoading } = useSWR<ISales[]>("/api/admin/sales", fetchGetJSON);
@@ -133,7 +133,7 @@ const sales = () => {
   );
 };
 
-export default sales;
+export default Sales;
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticProps,InferGetStaticPropsType ,InferGetServerSidePropsType } from 'next'

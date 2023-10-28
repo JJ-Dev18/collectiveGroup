@@ -29,7 +29,7 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     try {
-      const inventory = await dbProducts.getInventory() as ItemInterface[]
+      const inventory = await dbProducts.getInventory() as Product[]
       const saleId: string = req.query.saleId as string
       const { products , user } = req.body 
       let customer;

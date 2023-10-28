@@ -1,14 +1,11 @@
 import { FC, useContext, useState } from 'react';
 import Head from 'next/head';
-import PropTypes from 'prop-types';
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+
 // @mui
 import { styled, alpha } from '@mui/material/styles';
 import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material';
 import useResponsive from 'fleed/hooks/useResponsive';
 import ScrollBar from '../admin/ui/scrollbar/ScrollBar';
-import { Outlet } from 'react-router-dom';
 import Header from '../admin/ui/adminHeader/Header';
 import Image from 'next/image';
 import NextLink from 'next/link';

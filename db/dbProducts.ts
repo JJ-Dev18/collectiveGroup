@@ -1,4 +1,4 @@
-import { ItemInterface } from "fleed/interfaces";
+import { IProduct, ItemInterface } from "fleed/interfaces";
 import prisma from "./db"
 
 
@@ -10,7 +10,7 @@ export const getInventory = async() => {
 
     
     try {
-      const inventoryProducts  = (await prisma.product.findMany()).map( product => {
+      const inventoryProducts  = (await prisma.product.findMany()).map( (product:any) => {
         return {...product,id : product.id.toString()}
      })
       return inventoryProducts as unknown
@@ -36,7 +36,7 @@ export const getProductById = async (id:number)=> {
       }
     })
 
-    let benefits = benefitsProduct.sort((a,b)=> a.benefit.id - b.benefit.id).map( benefit => {
+    let benefits = benefitsProduct.sort((a:any,b:any)=> a.benefit.id - b.benefit.id).map( (benefit:any) => {
        return benefit.benefit
     })
     

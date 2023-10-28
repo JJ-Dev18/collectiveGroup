@@ -16,7 +16,7 @@ import { IDashboard } from "fleed/interfaces";
 import useSWR from "swr";
 import { fetchGetJSON } from "fleed/utils/api-helpers";
 
-const dashboard = () => {
+const Dashboard = () => {
   const { data, error } = useSWR<IDashboard>(
     "/api/admin/dashboard",
     {
@@ -101,4 +101,4 @@ const dashboard = () => {
   );
 };
 
-export default dashboard;
+export default Dashboard;

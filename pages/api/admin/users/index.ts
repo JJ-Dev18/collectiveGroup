@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt');
 import prisma from "fleed/db/db";
 import { validations , jwt } from "fleed/utils";
 import { IUser } from '../../../../interfaces/user';
-import { Role } from "@prisma/client";
 
 type Data =
   | { message: string }
@@ -73,7 +72,7 @@ const updatedUser = async ( req: NextApiRequest, res: NextApiResponse) => {
         name = '',
         email= ''
        
-      } = req.body as { id: number; role: Role | undefined , name : string,email : string};
+      } = req.body as { id: number; role: "USER" | "ADMIN"| undefined , name : string,email : string};
 
    
 
