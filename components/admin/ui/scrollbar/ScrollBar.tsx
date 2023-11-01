@@ -3,7 +3,6 @@ import { FC, memo } from 'react';
 import { Box } from '@mui/material';
 import { StyledRootScrollbar, StyledScrollbar } from './styles';
 //
-// import { StyledRootScrollbar, StyledScrollbar } from './styles';
 
 // ----------------------------------------------------------------------
 

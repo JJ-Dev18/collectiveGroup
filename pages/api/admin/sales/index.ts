@@ -171,7 +171,7 @@ const createSale = async (
       },
     });
   } catch (error) {
-    console.log(error);
+    (error);
     return res.status(500).json({
       message: "Revisar logs del servidor",
     });

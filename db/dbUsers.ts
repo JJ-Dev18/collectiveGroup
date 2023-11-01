@@ -43,7 +43,7 @@ export const checkUserEmailPassword = async( email: string, password: string ) =
           name,
       }
     } catch (error) {
-      console.log(error)
+      (error)
     }
 
 }
@@ -86,7 +86,7 @@ export const getUserById = async( id: number ) => {
     })
     return user ;
   } catch (error) {
-    console.log(error)
+    (error)
   }
 
 }

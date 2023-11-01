@@ -1,9 +1,8 @@
 import { useContext, useState } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
-import { Box, MenuItem, Stack, IconButton, Popover } from '@mui/material';
+import { Box, MenuItem, Stack, IconButton, Popover, Avatar } from '@mui/material';
 import { Language, UiContext } from 'fleed/context/ui';
-import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router';
 
 // ----------------------------------------------------------------------
@@ -28,10 +27,10 @@ export default function LanguagePopover() {
   const [open, setOpen] = useState<HTMLElement | null>(null);
   const { setLanguage , state : { language} }  = useContext(UiContext)
   const router = useRouter()
-  console.log(router)
+ 
   const handleOpen = (event:React.MouseEvent<HTMLElement>) => {
     setOpen(event.currentTarget);
-    console.log(event)
+    (event)
     
   };
 
@@ -49,7 +48,7 @@ export default function LanguagePopover() {
 
   return (
     <>
-      <IconButton
+      <Avatar
         onClick={handleOpen}
         sx={{
           padding: 0,
@@ -60,8 +59,8 @@ export default function LanguagePopover() {
           }),
         }}
       >
-        <img src={language.icon} alt={language.label} />
-      </IconButton>
+        <img src={language.icon} alt={language.label} width="24px" height="24px"/>
+      </Avatar>
 
       <Popover
         open={Boolean(open)}

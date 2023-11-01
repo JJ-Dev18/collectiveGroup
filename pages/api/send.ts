@@ -4,7 +4,7 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.NEXT_PUBLIC_APIKEY_EMAIL);
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const post = async (req: NextApiRequest, res: NextApiResponse) => {
   const { email , city, country , quantity,price, subtotal, transactionId ,name, id, createdAt} = req.body
   try {
     const data = await resend.emails.send({
@@ -20,3 +20,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(400).json(error);
   }
 };
+
+export default post

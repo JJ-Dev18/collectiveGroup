@@ -1,10 +1,10 @@
-import { DndContext,DragEndEvent,DragStartEvent,rectIntersection ,  DragOverlay, } from "@dnd-kit/core";
-import { Box, Button, Card, CardContent, Container, Divider, Paper, Typography } from "@mui/material";
+import { DndContext,DragEndEvent,DragStartEvent,  DragOverlay, } from "@dnd-kit/core";
+import { Box, Button, CardContent,  Divider, Paper, Typography } from "@mui/material";
 import { IService, ItemInterface } from "fleed/interfaces";
 import React, { FC, useState, useEffect, useMemo } from "react";
 import { ColumnContainer } from "./ColumnContainer";
 import { ServiceCard } from "./ServiceCard";
-import { formatAmountForDisplay, formatAmountForStripe, formatAmountFromStripe } from "fleed/utils/stripe-helpers";
+import { formatAmountForDisplay } from "fleed/utils/stripe-helpers";
 import { useTranslation } from 'next-i18next'
 
 type Props = {

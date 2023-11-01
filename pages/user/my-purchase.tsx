@@ -1,17 +1,12 @@
 import UserLayout from 'fleed/components/layouts/UserLayout'
-import React, { useContext,useState, useEffect, FC } from 'react'
-import { Divider, CardContent, CardHeader,Box ,Chip, Stack} from "@mui/material";
+import React, { useState, useEffect, FC } from 'react'
+import { Divider, CardContent, CardHeader,Box ,Chip} from "@mui/material";
 import IconButton from '@mui/material/IconButton';
-import { DataGrid, GridActionsCellItem, GridColDef, GridRenderCellParams, GridValueGetterParams } from "@mui/x-data-grid";
+import {  GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import useSWR from "swr";
-import { ISales, IUser, SaleProduct } from "fleed/interfaces";
+import { ISales, SaleProduct } from "fleed/interfaces";
 import { fetchGetJSON } from "fleed/utils/api-helpers";
-import { UiContext } from "fleed/context/ui";
-import DeleteIcon from '@mui/icons-material/Delete';
 import ScrollBar from "fleed/components/admin/ui/scrollbar/ScrollBar";
-import { StyledDataGrid } from '../../components/admin/ui/datagrid/styles';
-import { useRouter } from 'next/router';
-import { AuthContext } from 'fleed/context/auth';
 import { useTranslation } from 'next-i18next'
 
 
@@ -27,7 +22,7 @@ const MyPurchase:FC<Props> = ({id}) => {
 
     const { data , error, isLoading } = useSWR<ISales[]>(`/api/user/sales/${id}`,fetchGetJSON);
      const [sales, setSales] = useState<ISales[]>([]);
-     const router = useRouter()
+    //  const router = useRouter()
      const {  t  } = useTranslation("common")
     
    
@@ -38,7 +33,7 @@ const MyPurchase:FC<Props> = ({id}) => {
         }
       }, [data]);
 
-  const {  showErrorAlert, showSuccessAlert} = useContext(UiContext)
+  // const {  showErrorAlert, showSuccessAlert} = useContext(UiContext)
 
  
 
@@ -119,10 +114,9 @@ const MyPurchase:FC<Props> = ({id}) => {
 export default MyPurchase
 
 
-import { DataGridCustom, StyledGridOverlay } from 'fleed/components/admin/ui/datagrid/DataGridCustom';
+import { DataGridCustom } from 'fleed/components/admin/ui/datagrid/DataGridCustom';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { GetStaticProps,InferGetStaticPropsType ,InferGetServerSidePropsType, GetServerSideProps } from 'next'
-import Layout from 'fleed/components/layouts/Layout';
+import { GetServerSideProps } from 'next'
 
 export const getServerSideProps:GetServerSideProps = async ({ locale,req }) => {
  const cookies = req.cookies

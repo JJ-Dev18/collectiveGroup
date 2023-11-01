@@ -79,9 +79,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 
         products.forEach(async (product) => {
             // let type = product.id.slice(0,7)
-            console.log(Number(product.id)) 
+            (Number(product.id)) 
             // let id = Number(product.id.slice(7))
-            // console.log(type,"type")
+            // (type,"type")
            
                   await prisma.saleDetailProduct.create({
                    data : {
@@ -97,7 +97,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
        res.status(200).json(newSale)
 
     } catch (error) {
-        console.log(error)
+        (error)
     } 
 
  }

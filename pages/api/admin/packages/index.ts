@@ -1,5 +1,5 @@
 import prisma from 'fleed/db/db';
-import { IService, ItemInterface } from 'fleed/interfaces';
+import { IService } from 'fleed/interfaces';
 import { IProduct } from 'fleed/interfaces/product';
 import { comparatorArray } from 'fleed/utils/arrayComparator';
 import type { NextApiRequest, NextApiResponse } from 'next'

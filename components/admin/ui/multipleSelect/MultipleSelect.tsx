@@ -1,4 +1,4 @@
-import React, { FC, use, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Theme, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -8,9 +8,8 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
 import { Benefit, Benefits, IService, Services } from "fleed/interfaces";
-import { Controller, useFormContext } from "react-hook-form";
+import {  useFormContext } from "react-hook-form";
 import CancelIcon from "@mui/icons-material/Cancel";
-import CheckIcon from "@mui/icons-material/Check";
 import { comparatorArray } from "fleed/utils/arrayComparator";
 
 const ITEM_HEIGHT = 48;

@@ -1,12 +1,9 @@
 import UserLayout from 'fleed/components/layouts/UserLayout'
 import React, { useContext,useState } from 'react'
-import { Divider, CardContent, CardHeader, Avatar, Grid, Stack, FormControl, InputLabel, Input, FormHelperText, TextField, Button } from "@mui/material";
+import { Divider, CardContent, CardHeader, Grid, FormControl, TextField, Button } from "@mui/material";
 import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from 'fleed/context/auth';
-import { IUser } from 'fleed/interfaces';
 import fleedShopApi from 'fleed/api/fleedShopApi';
 import { UiContext } from 'fleed/context/ui';
 import { useTranslation } from 'next-i18next'
@@ -45,7 +42,7 @@ const MyAccount = () => {
     showSuccessAlert("Update succesfull")
     setLoading(false)
    } catch (error) {
-     console.log(error)
+     (error)
    }
   }
 

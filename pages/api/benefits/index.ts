@@ -1,6 +1,5 @@
 import prisma from 'fleed/db/db';
 import { Benefit } from 'fleed/interfaces';
-import { IProduct } from 'fleed/interfaces/product';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data =  {message: string} | Benefit[] | [];

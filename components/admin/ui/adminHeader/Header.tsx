@@ -5,20 +5,13 @@ import { FC } from 'react';
 // utils
 import MenuIcon from '@mui/icons-material/Menu';
 
-import { bgBlur } from '../../../../utils/cssStyles';
+
 import AccountPopover from './AccountPopover';
 import DarkModeToggle from 'fleed/components/ui/DarkModeToggle';
-import Searchbar from './Searchbar';
-import LanguagePopover from './LanguagePopover';
 import FuseSearch from './FuseSearch';
 import { navConfig } from 'fleed/components/layouts/AdminLayout';
-// // components
-// import Iconify from '../../../components/iconify';
-// //
-// import Searchbar from './Searchbar';
-// import AccountPopover from './AccountPopover';
-// import LanguagePopover from './LanguagePopover';
-// import NotificationsPopover from './NotificationsPopover';
+
+
 
 // ----------------------------------------------------------------------
 

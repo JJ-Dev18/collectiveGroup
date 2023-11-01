@@ -63,10 +63,10 @@ const ProductAdminPage: FC<Props> = ({ user }) => {
     //success
     // try {
     //   const resp =   await fleedShopApi.put("/admin/users", { userId, role: newRole });
-    //   console.log(resp)
+    //   (resp)
     //   showSuccessAlert(resp.data.message)
     // } catch (error) {
-    //   console.log(error,"error");
+    //   (error,"error");
     //   showErrorAlert("error")
     // }
   };
@@ -75,7 +75,7 @@ const ProductAdminPage: FC<Props> = ({ user }) => {
     setIsSaving(true);
 
 
-    console.log(form.id ? "PUT" : "POST")
+    (form.id ? "PUT" : "POST")
 
     try {
       const { data } = await fleedShopApi({
@@ -89,7 +89,7 @@ const ProductAdminPage: FC<Props> = ({ user }) => {
          
         },
       });
-      console.log({ data });
+      ({ data });
       if (!form.id) {
         showSuccessAlert("User Created Succesfull")
         router.replace(`/admin/users/${form.id}`);
@@ -101,7 +101,7 @@ const ProductAdminPage: FC<Props> = ({ user }) => {
 
       }
     } catch (error) {
-      console.log(error);
+      (error);
       setIsSaving(false);
       showErrorAlert("Error")
     }

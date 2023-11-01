@@ -31,7 +31,7 @@ export const AuthProvider:FC<Props> = ({ children }) => {
     const [state, dispatch] = useReducer( authReducer, AUTH_INITIAL_STATE );
     const { data , status } = useSession();
     const router = useRouter();
-   console.log(data, " user data session")
+  
     useEffect(() => {
         
         if ( status === 'authenticated' ) {
@@ -92,7 +92,7 @@ export const AuthProvider:FC<Props> = ({ children }) => {
             }
 
         } catch (error) {
-            console.log(error)
+            (error)
             if ( axios.isAxiosError(error) ) {
                 return {
                     hasError: true,
@@ -118,7 +118,7 @@ export const AuthProvider:FC<Props> = ({ children }) => {
         Cookies.remove('city');
         Cookies.remove('country');
         Cookies.remove('phone');
-        console.log('logout')
+        ('logout')
         signOut();
         // router.reload();
         // Cookies.remove('token');

@@ -6,7 +6,6 @@ import { signIn, getSession, getProviders } from "next-auth/react";
 import {
   Box,
   Button,
-  Chip,
   Divider,
   Grid,
   Link,
@@ -15,7 +14,6 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { ErrorOutline } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 
 import { useRouter } from "next/router";
@@ -48,7 +46,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     getProviders().then((prov) => {
-      console.log({ prov });
+      ({ prov });
       setProviders(prov);
     });
   }, []);
@@ -74,7 +72,7 @@ const LoginPage = () => {
         router.replace(destination);
       }
     } catch (error) {
-      console.log(error);
+      (error);
     }
   };
 
@@ -82,7 +80,7 @@ const LoginPage = () => {
  const googleHandler = async ()=> {
   const signin = await signIn("google");
 
-  console.log(signin)
+  (signin)
  }
 
 
@@ -262,7 +260,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   query,
 }) => {
   const session = await getSession({ req });
-  // console.log({session});
+  // ({session});
 
   const { p = "/shopping-cart" } = query;
 

@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import Head from 'next/head';
 import { Box, Grid, Paper } from '@mui/material';
-import DarkModeToggle from '../ui/DarkModeToggle';
 import Image from 'next/image';
 import Carousel from 'react-material-ui-carousel'
 
@@ -54,14 +53,7 @@ export const AuthLayout: FC<Props> = ({ children, title  }) => {
             
             </div>
             
-    {/* <Image src="/Forklift/forklift-2-1024x673.jpg"  layout='fill'
-    objectFit='cover' alt='logo'/>
-      <Image src="/Forklift/forklift-4-1024x673.jpg"  layout='fill'
-    objectFit='cover' alt='logo'/>
-    <Image src="/Forklift/forklift-5-1024x673.jpg"  layout='fill'
-    objectFit='cover' alt='logo'/>
-    <Image src="/Forklift/forklift-6-1024x673.jpg"  layout='fill'
-    objectFit='cover' alt='logo'/> */}
+  
 
             </Carousel>
         </Grid>

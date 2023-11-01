@@ -1,18 +1,26 @@
-import { Card, CardHeader, Avatar, Typography, CardContent, CardActions, Button, CardMedia, Box } from '@mui/material';
-import { UiContext } from 'fleed/context/ui';
+import { Card, Typography, CardContent, CardActions, Button, CardMedia, Box, Skeleton } from '@mui/material';
 import { IProduct, ItemInterface } from 'fleed/interfaces'
-import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { FC, useContext, useRef, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { useShoppingCart } from 'use-shopping-cart';
-import { motion, transform } from "framer-motion"
+import { motion } from "framer-motion"
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import { useTranslation } from 'next-i18next'
 import { Product } from 'use-shopping-cart/core';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+
+const CardHeader = dynamic(() => import('@mui/material/CardHeader'), {
+  loading: ()=> <Skeleton
+  variant="rectangular"
+  height="200px"
+  width="200px"
+/>
+})
 
 
 type Props = {
@@ -73,10 +81,6 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
     initial={{ opacity: 0 }}
   whileInView={{ opacity: 1 }}
     transition={{ ease: "easeOut", duration: 2 }}
-    
-    // animate={hover ? "hoverCard" : "closed"}
-    // variants={variants}
-    // transform: translate(-3.5rem, -3.5rem);
     >
       <CardHeader 
        title={product.name}
@@ -101,20 +105,16 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
        
       </Menu>
         
-      <CardMedia
-        component="img"
-        height="200px"
-        width="200px"
-        image={image}
+        <Image 
+        height={200}
+        width={300}
+        src={image}   
+        loading='lazy'
+        // loader={ () =>  <Skeleton/> }
         onError={(e)=> setimage('/coming.jpg')}
-        alt="Image product"
-      />
+        alt="Image product"/>
+      
      
-       {/* <CardMedia
-        sx={{ height: 80}}
-        image={`/${product.name}/logo.png`}
-        title="logo product"
-      /> */}
        <CardContent 
        >
       <Box className="content"  component={motion.div}
@@ -128,27 +128,13 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
         <p>Esta es la info </p>
       </Box>
      
-       {/* <Box  
-         
-          sx={{
-            // borderRadius :"20px",
-            display: hover ? 'none' : 'block',
-            width:'100%',
-            height:'200px',
-            backgroundImage: `url(/${imageLocation}/${imageLocation}-5-1024x673.jpg)`,
-            backgroundRepeat: 'no-repeat',
-            // backgroundColor: (t) =>
-            //   t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundAttachment : 'initial',
-            backgroundPosition: 'center',
-          }}/> */}
+      
          <Typography variant="h1" color="secondary">{product.price /100} USD</Typography>
        </CardContent>
         <CardActions className='flex justify-center'>
             <Button variant="outlined" color="primary" size='small' onClick={() => {
              addItem(productToAdd as Product)
-             showSuccessAlert("Product Add to cart")
+             showSuccessAlert(t('product-add'))
           }}>
                  {t('button-add')}
             </Button>

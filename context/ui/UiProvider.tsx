@@ -57,7 +57,7 @@ export const UiProvider: FC<Props> = ({ children }) => {
   };
  
   const setLanguage = (language:Language) => {
-    // console.log(language.value,"language")
+    // (language.value,"language")
     dispatch({type : 'Set Language',payload : language})
   }
   const showInfoAlert = (msg : string) =>{
@@ -103,7 +103,7 @@ export const UiProvider: FC<Props> = ({ children }) => {
 
   // useEffect(() => {
   //   setTheme(Cookies.get('theme') || 'light')
-  // // console.log(Cookies.get("theme"), "cookie")
+  // // (Cookies.get("theme"), "cookie")
 
   // }, [])
  

@@ -2,14 +2,13 @@ import AdminLayout from "fleed/components/layouts/AdminLayout";
 import React, { useState, useEffect } from "react";
 
 // @mui
-import { useTheme } from "@mui/material/styles";
+
 import { Grid, Container, Typography } from "@mui/material";
 // components
 // sections
 import { AppWidgetSummary } from "../../components/admin/dashboard/app";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import PeopleIcon from "@mui/icons-material/People";
-import LocalPostOfficeIcon from "@mui/icons-material/LocalPostOffice";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import { IDashboard } from "fleed/interfaces";
@@ -29,7 +28,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log("Tick");
+      ("Tick");
       setRefreshIn((refreshIn) => (refreshIn > 0 ? refreshIn - 1 : 30));
     }, 1000);
 
@@ -41,7 +40,7 @@ const Dashboard = () => {
   }
 
   if (error) {
-    console.log(error);
+    (error);
     return <Typography>Error al cargar la información</Typography>;
   }
 

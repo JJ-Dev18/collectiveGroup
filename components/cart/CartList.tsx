@@ -1,8 +1,6 @@
-import { FC, useEffect } from 'react';
-import NextLink from 'next/link';
-import { Box, Button, CardActionArea, CardMedia, Divider, Grid, Link, Typography } from '@mui/material';
+import { FC } from 'react';
+import { Box, Divider, Grid } from '@mui/material';
 import { useShoppingCart } from 'use-shopping-cart';
-import { ItemCounter } from '../ui/ItemCounter';
 import { CartEntry } from 'use-shopping-cart/core';
 import { useRouter } from 'next/router';
 import { ItemCart } from './ItemCart';
@@ -19,7 +17,6 @@ interface Props {
 export const CartList: FC<Props> = ({handleCheckout}) => {
   
   const { addItem, removeItem ,cartDetails,cartCount  } = useShoppingCart();
-  const router = useRouter();
  
   const productsInCart:CartEntry[] = Object.values(cartDetails as CartEntry)
   

@@ -8,17 +8,15 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
-import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import _ from 'lodash';
-import { Router, useRouter } from 'next/router';
-import { Icon,InputAdornment,Input ,Slide} from '@mui/material';
+import {  useRouter } from 'next/router';
+import { Icon,Input} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
-import zIndex from '@mui/material/styles/zIndex';
 
 const Root = styled('div')(({ theme }) => ({
   '& .FuseSearch-container': {
@@ -53,7 +51,7 @@ const Root = styled('div')(({ theme }) => ({
 }));
 
 function renderInputComponent(inputProps:any) {
- console.log(inputProps, "inputprops ")
+
   return (
     <div className="w-full relative">  
           <Input

@@ -7,7 +7,7 @@ export const getBenefits = async() => {
       const benefits = await prisma.benefit.findMany()
       return benefits
     } catch (error) {
-      console.log(error)
+      (error)
     }
 
 }

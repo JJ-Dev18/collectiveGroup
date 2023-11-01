@@ -73,7 +73,7 @@ export default async function handler(
         await stripe.checkout.sessions.create(params)
       res.status(200).json(checkoutSession)
     } catch (err) {
-      console.log(err)
+      (err)
       const errorMessage =
         err instanceof Error ? err.message : 'Internal server error'
       res.status(500).json({ statusCode: 500, message: errorMessage })

@@ -1,15 +1,12 @@
 import { Button, Card, Box,CardActions, CardContent, CardHeader, Typography } from '@mui/material'
-import {  IProduct, ItemInterface } from 'fleed/interfaces'
-import React, { FC ,useContext,useEffect} from 'react'
-import { useShoppingCart, formatCurrencyString } from 'use-shopping-cart';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import {   ItemInterface } from 'fleed/interfaces'
+import React, { FC } from 'react'
+import { useShoppingCart } from 'use-shopping-cart';
 import { Services } from './Services';
-import { useCheckout } from 'fleed/hooks/useCheckout';
-import {  ToastContainer, toast } from 'react-toastify';
-import { UiContext } from 'fleed/context/ui';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'next-i18next'
+
 type Props = {
   handleCheckoutSubscribe  : (packagetoAdd:ItemInterface) => void 
   loading : boolean
@@ -57,7 +54,7 @@ export const Package:FC<Props> = React.memo(({handleCheckoutSubscribe,packageInf
            <Typography variant="h1" color="secondary">
             {packageInfo.price /100} USD
            </Typography>
-           <Typography variant="subtitle1" color="primary">
+           <Typography variant="h2" color="primary">
             {t('subscription')}
            </Typography>
         </Box>

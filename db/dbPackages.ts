@@ -16,7 +16,7 @@ export const getInventory = async() => {
      })
       return inventoryProducts as unknown
     } catch (error) {
-      console.log(error)
+      (error)
     }
 
 }
@@ -44,6 +44,6 @@ export const getPackageById = async (id:number)=> {
     return {...packaged, services}
 
   } catch (error) {
-     console.log(error)
+     (error)
   }
 }

@@ -1,12 +1,7 @@
-import { NextPage } from 'next'
-import { useRouter } from 'next/router'
-import { useContext, useEffect} from 'react'
-import PrintObject from '../components/PrintObject'
-import Cart from '../components/cart/CartProvider'
 
+import { useContext, useEffect} from 'react'
 import { fetchGetJSON } from '../utils/api-helpers'
 import useSWR from 'swr'
-import { useSearchParams } from 'next/navigation'
 import { useTranslation } from 'next-i18next'
 
 type Props={
@@ -28,7 +23,7 @@ const ResultPage: FC <Props>= ({session_id,sale_id}) => {
       : null,
     fetchGetJSON
   )
- console.log(typeof session_id,"session")
+
   useEffect(() => {
     const sendEmail = async() =>{
       if(data?.payment_intent.status === 'succeeded'){
@@ -46,12 +41,10 @@ const ResultPage: FC <Props>= ({session_id,sale_id}) => {
 
 
           })
-          console.log(saleData,"se actualizo la venta")
-           const postsend =  await fleedShopApi.post('/send', {...saleData,email : user?.email} )
-          console.log(postsend, "Asdfasd ")     
+           const postsend =  await fleedShopApi.post('/send', {...saleData,email : user?.email} )     
           clearCart()    
         } catch (error) {
-          console.log(error)
+          (error)
           
         }
       }
@@ -90,7 +83,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticProps,InferGetStaticPropsType ,InferGetServerSidePropsType } from 'next'
 
 export const getServerSideProps: GetServerSideProps = async ({query,locale}) => {
-  console.log(query)
+  (query)
 
   return {
     props: {

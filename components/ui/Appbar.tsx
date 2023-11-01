@@ -50,7 +50,7 @@ function ResponsiveAppBar({color = "transparent"}:{color? : PropTypes.Color | 't
       }
       ];
 
-  console.log(user,"uiser")
+  
   
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -66,12 +66,7 @@ function ResponsiveAppBar({color = "transparent"}:{color? : PropTypes.Color | 't
     }) },
     { label: t('menu.logout'), action: logout },
   ];
-  // const pages = [
-  //   { label: "Login", action: handleCloseUserMenu },
-  //   { label: "Loggout", action: handleCloseUserMenu },
-  //   // { label: "Dashboard", action: handleCloseUserMenu },
-  //   // { label: "Cerrar Sesion", action: logout },
-  // ];
+ 
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
@@ -115,14 +110,7 @@ function ResponsiveAppBar({color = "transparent"}:{color? : PropTypes.Color | 't
                 keepMounted
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                // anchorOrigin={{
-                //   vertical: "bottom",
-                //   horizontal: "left",
-                // }}
-                // transformOrigin={{
-                //   vertical: "top",
-                //   horizontal: "left",
-                // }}
+               
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
                 sx={{
@@ -164,8 +152,7 @@ function ResponsiveAppBar({color = "transparent"}:{color? : PropTypes.Color | 't
                 <Button
                   key={page.name}
                   onClick={() => navegar(page.path)}
-                  // color="primary"
-                  // variant="outlined"
+                  
                   sx={{
                     my: 2,
                     fontWeight: "700",

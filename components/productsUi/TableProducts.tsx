@@ -1,16 +1,14 @@
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { Benefit, Benefits, IProduct, ItemInterface } from "fleed/interfaces";
-import React, { FC ,useContext,useEffect} from "react";
+import { ItemInterface } from "fleed/interfaces";
+import React, { FC ,useContext} from "react";
 import styled from "styled-components";
-// import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import { Button, Card, Stack, Typography } from '@mui/material';
-import { inherits } from 'util';
+import { Skeleton, Typography } from '@mui/material';
 import DoneAllSharpIcon from '@mui/icons-material/DoneAllSharp';
 import DoDisturbOnSharpIcon from '@mui/icons-material/DoDisturbOnSharp';
 import { CardProduct } from './CardProduct';
@@ -18,7 +16,6 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useShoppingCart } from 'use-shopping-cart';
 import { UiContext } from 'fleed/context/ui';
 import { AuthContext } from 'fleed/context/auth';
-
 import { useTranslation } from 'next-i18next'
 import { Product } from 'use-shopping-cart/core';
 
@@ -44,7 +41,7 @@ type Props = {
 }
 
 
-export const TableProducts: FC<Props> = ({columns,products,handleCheckout,loading}) => {
+ const TableProducts: FC<Props> = ({columns,products,handleCheckout,loading}) => {
   
   const { addItem } = useShoppingCart()
   const { t } = useTranslation("common")
@@ -58,8 +55,8 @@ export const TableProducts: FC<Props> = ({columns,products,handleCheckout,loadin
         <StyledTableCell  component="th" scope="row" align="left" sx={{fontSize:'18px',fontWeight:'700'}}>
           <Typography variant="h1" color="inherit" sx={{marginTop :{ xs: '0', lg: '370px' } }}> {t('title-benefits')}</Typography>
         </StyledTableCell>
-          {
-            products.map( product => (
+        {
+          loading ? <Skeleton/> :  products.map( product => (
             <StyledTableCell align="center" key={product.id}> 
                 <div className='hidden lg:flex align-center justify-center'>
                 <CardProduct 
@@ -76,7 +73,7 @@ export const TableProducts: FC<Props> = ({columns,products,handleCheckout,loadin
                       id :product.id.toString() ,
                       price : Number(product.price),
                      } as Product)
-                    showSuccessAlert("Product Add to cart")
+                     showSuccessAlert(t('product-add'))
                    }}
                    sx={{display:'flex',flexDirection:'column',justifyContent:"center",alignItems:'center'}}>
                     <Typography variant="caption" color="secondary" >
@@ -87,12 +84,10 @@ export const TableProducts: FC<Props> = ({columns,products,handleCheckout,loadin
                 </div>
             </StyledTableCell>
             ))
-          }
-         
+          
+        }   
         </TableRow>
-        {/* <TableRow >
-
-        </TableRow> */}
+      
       </TableHead>
       <TableBody>
         
@@ -114,3 +109,5 @@ export const TableProducts: FC<Props> = ({columns,products,handleCheckout,loadin
 
   );
 };
+
+export default TableProducts

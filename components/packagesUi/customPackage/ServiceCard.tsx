@@ -1,8 +1,6 @@
 import React, { FC } from 'react'
-import { CSS } from "@dnd-kit/utilities";
 import { useDraggable } from "@dnd-kit/core";
-import { IService } from 'fleed/interfaces';
-import { Paper, Typography, Box } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { ServiceItemCreator } from './CreateBoard';
 
 

@@ -1,8 +1,7 @@
-import { Box, CardHeader, Avatar, IconButton, Typography, Button,Card, CardContent } from '@mui/material'
+import { Box, CardHeader, Typography, Button,Card } from '@mui/material'
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import React from 'react'
-import {useState} from 'react';
 import { useTranslation } from 'next-i18next'
 
 export const CustomPackage = () => {

@@ -1,5 +1,5 @@
 import prisma from 'fleed/db/db';
-import { Benefit, ItemInterface } from 'fleed/interfaces';
+import { Benefit } from 'fleed/interfaces';
 import { IProduct } from 'fleed/interfaces/product';
 import { comparatorArray } from 'fleed/utils/arrayComparator';
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -137,7 +137,6 @@ const deleteProduct = async( req: NextApiRequest, res :NextApiResponse)=> {
   res.status(200).json({message : 'Product updated'})
   } catch (error) {
     console.log(error)
-    console.log(typeof error)
   }
 
 

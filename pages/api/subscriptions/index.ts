@@ -85,7 +85,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
        res.status(200).json(newSubscription)
 
     } catch (error) {
-        console.log(error)
+        (error)
     } 
 
  }
@@ -102,7 +102,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
        
       } = req.body as { paymentResult: string, isPaid : boolean ,paidAt:string,transactionId : string, city :string,country:string,id: number};
       
-     console.log(req.body)
+     (req.body)
      const subscriptionUpdated =  await prisma.subscription.update({
         where :{
             id

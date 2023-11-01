@@ -5,19 +5,15 @@ import {
   CardContent,
   Divider,
   Grid,
-  Paper,
   Typography,
 } from "@mui/material";
 import { CartList } from "fleed/components/cart/CartList";
 import { OrderSummary } from "fleed/components/cart/OrderSummary";
-
 import Layout from "fleed/components/layouts/Layout";
 import { AuthContext } from "fleed/context/auth";
 import { useCheckout } from "fleed/hooks/useCheckout";
-import { fetchPostJSON } from "fleed/utils/api-helpers";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
-import { DebugCart, useShoppingCart } from "use-shopping-cart";
 import { useTranslation } from 'next-i18next'
 
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import Typography from '@mui/material/Typography'
-import { Card, Link, Paper, Box } from '@mui/material'
+import { Card, Link } from '@mui/material'
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import NextLink from 'next/link';

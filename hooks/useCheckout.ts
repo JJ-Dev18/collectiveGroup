@@ -16,7 +16,7 @@ export const useCheckout = () => {
   const { showErrorAlert , showPromiseAlert} = useContext(UiContext)
   const { user } = useContext(AuthContext)
 
-  console.log(totalPrice,"Cart")
+ 
   
 
   const handleCheckout = async (
@@ -33,7 +33,7 @@ export const useCheckout = () => {
      
       productsInCart = [{ ...cartEntry, quantity: 1 } as CartEntry]
     }
-    console.log(cartDetails,productsInCart)
+    
    
     try {
       
@@ -47,11 +47,11 @@ export const useCheckout = () => {
         showErrorAlert("Ops somethings is wrong... Please try later")
         return;
       }
-      // console.log(saleCreate)
-      // console.log(response, "response");
+      // (saleCreate)
+      // (response, "response");
        showPromiseAlert( redirectToCheckout(response.id))
     } catch (error) {
-      console.log(Error)
+      (Error)
       showErrorAlert("Ops somethings is wrong... Please try later")
 
     }

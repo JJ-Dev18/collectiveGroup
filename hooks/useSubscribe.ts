@@ -26,7 +26,7 @@ export const useSubscribe = () => {
         setErrorMessage("");
         const ID_PK = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!;
         const STRIPE_PK = process.env.STRIPE_SECRET_KEY
-        console.log(STRIPE_PK)
+        (STRIPE_PK)
         const stripe = await loadStripe(`${ID_PK}`) ;
         const appearance = {
           theme: 'night',
@@ -49,7 +49,7 @@ export const useSubscribe = () => {
         const { data : subscriptionCreate } = await fleetshopApi.post('/subscriptions',{clienteId : user?.id ,packageSub : cartEntry})
         
         const response = await fetchPostJSON(`/api/checkout_sessions/subscription?subscriptionId=${subscriptionCreate.id}`,body);
-        console.log(response,"response de usesuscribe")
+        (response,"response de usesuscribe")
         if (response.statusCode > 399) {
           console.error(response.message);
           setErrorMessage(response.message);
@@ -60,11 +60,11 @@ export const useSubscribe = () => {
         }
        
 
-        // console.log(saleCreate)
+        // (saleCreate)
          
          showPromiseAlert( stripe?.redirectToCheckout({ sessionId: response.id }))
     } catch (error) {
-        console.log(error)
+        (error)
         showErrorAlert("Ops somethings is wrong... Please try later")
     }
    

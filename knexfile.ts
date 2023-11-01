@@ -8,7 +8,12 @@ const config: Record<DbEnvironments, Knex.Config> = {
   
   development: {
     client: 'pg',
-    connection: process.env.DATABASE_URL,
+    connection: {
+      connectionString : process.env.DATABASE_URL,
+      ssl:{
+        rejectUnauthorized : false 
+      }
+    },
     seeds: {
       directory: './seeds/dev'
    },

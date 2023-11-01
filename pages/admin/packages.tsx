@@ -1,19 +1,16 @@
 import NextLink from 'next/link';
-import { AddOutlined, CategoryOutlined } from '@mui/icons-material';
-import { Box, Button, CardMedia, Chip, Grid, Link, Stack, Typography } from '@mui/material'
-import { DataGrid, GridColDef, GridValueGetterParams, GridRenderCellParams, GridActionsCellItem } from '@mui/x-data-grid';
+import { AddOutlined} from '@mui/icons-material';
+import { Box, Button,  Chip, Grid, Link, Typography } from '@mui/material'
+import {  GridColDef, GridRenderCellParams, GridActionsCellItem } from '@mui/x-data-grid';
 import useSWR from 'swr';
 import React, { useState, useEffect, useContext } from "react";
 import AdminLayout from 'fleed/components/layouts/AdminLayout';
-import { IPackage, IProduct, ItemInterface, Services } from 'fleed/interfaces';
+import { IPackage, Services } from 'fleed/interfaces';
 import { fetchGetJSON } from 'fleed/utils/api-helpers';
-import { Benefit, Benefits } from '../../interfaces/benefit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { UiContext } from 'fleed/context/ui';
 import fleedShopApi from 'fleed/api/fleedShopApi';
 import ScrollBar from 'fleed/components/admin/ui/scrollbar/ScrollBar';
-import { StyledDataGrid } from '../../components/admin/ui/datagrid/styles';
-import LinearProgress from '@mui/material/LinearProgress';
 import { DataGridCustom } from 'fleed/components/admin/ui/datagrid/DataGridCustom';
 
 
@@ -64,7 +61,7 @@ const ProductsPage = () => {
           showSuccessAlert(data.data.message)
       } catch (error) {
         setPackages(previousPackage);
-          console.log(error,"error");
+      
           showErrorAlert("error")
       } 
   

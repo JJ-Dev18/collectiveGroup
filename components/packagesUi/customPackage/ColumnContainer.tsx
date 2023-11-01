@@ -1,5 +1,5 @@
-import { useDroppable, DragOverlay } from "@dnd-kit/core";
-import { Box, List, ListItem, Paper, Typography, Card } from "@mui/material";
+import { useDroppable } from "@dnd-kit/core";
+import {  List, ListItem, Typography, Card } from "@mui/material";
 import { IService } from "fleed/interfaces";
 import React, { FC } from "react";
 import { ServiceCard } from "./ServiceCard";

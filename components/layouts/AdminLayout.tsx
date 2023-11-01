@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 // @mui
 import { styled, alpha } from '@mui/material/styles';
-import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material';
+import { Box, Link, Drawer, Typography, Avatar, Stack } from '@mui/material';
 import useResponsive from 'fleed/hooks/useResponsive';
 import ScrollBar from '../admin/ui/scrollbar/ScrollBar';
 import Header from '../admin/ui/adminHeader/Header';
@@ -17,6 +17,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import NavSection from '../admin/ui/nav-section/NavSection';
 import { IUser } from 'fleed/interfaces';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+
 export const navConfig = [
   {
     title: 'dashboard',
@@ -205,11 +206,5 @@ const Main = styled('div')(({ theme }) => ({
 }
 
 export default AdminLayout;
-// @mui
 
-
-// ----------------------------------------------------------------------
-
-
-// ----------------------------------------------------------------------
 

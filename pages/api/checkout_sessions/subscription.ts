@@ -48,7 +48,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     //   const checkoutSession: Stripe.Checkout.Session =
     //   await stripe.checkout.sessions.create(params)
     // res.status(200).json(checkoutSession)
-    console.log(customer.id)
+    (customer.id)
     const params: Stripe.Checkout.SessionCreateParams = {
       // submit_type: 'pay',
       payment_method_types: ["card"],

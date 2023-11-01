@@ -48,7 +48,7 @@ module.exports = {
       },
     ]
   },
-  nextConfig,
+  ...nextConfig,
   reactStrictMode: false,
   swcMinify: true,
   // onDemandEntries: {

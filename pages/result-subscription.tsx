@@ -1,12 +1,7 @@
-import { NextPage } from 'next'
-import { useRouter } from 'next/router'
 import { useContext, useEffect} from 'react'
-import PrintObject from '../components/PrintObject'
-import Cart from '../components/cart/CartProvider'
 
 import { fetchGetJSON } from '../utils/api-helpers'
 import useSWR from 'swr'
-import { useSearchParams } from 'next/navigation'
 import { useTranslation } from 'next-i18next'
 
 type Props={
@@ -46,11 +41,11 @@ const ResultSubscriptionPage: FC <Props>= ({session_id,sale_id}) => {
 
 
           })
-          console.log(saleData,"se actualizo la subscripcion")
+          
            const postsend =  await fleedShopApi.post('/send', {...saleData,email : user?.email} )   
           clearCart()    
         } catch (error) {
-          console.log(error)
+          (error)
           
         }
       }

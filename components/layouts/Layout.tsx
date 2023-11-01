@@ -1,9 +1,8 @@
 import { Box, Fab } from "@mui/material";
 import Head from "next/head";
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import ResponsiveAppBar from "../ui/Appbar";
 import Footer from "../ui/Footer";
-import { CarouselComponent } from "../ui/Carousel";
 import LanguagePopover from "../admin/ui/adminHeader/LanguagePopover";
 
 interface Props {

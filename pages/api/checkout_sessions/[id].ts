@@ -20,7 +20,7 @@ export default async function handler(
       await stripe.checkout.sessions.retrieve(id, {
         expand : ["line_items","display_items","payment_intent"],
       })
-    // console.log(checkout_session,"results")
+    // (checkout_session,"results")
     res.status(200).json(checkout_session)
   } catch (err) {
     const errorMessage =

@@ -1,30 +1,30 @@
 version: '3'
 
 services:
-  app:
-      build:
-        context: .
-        dockerfile: Dockerfile
-      container_name: docker-next
-      restart: always
-      environment:
-        EXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: pk_test_51NaNucCkEgyNPbHomm2U0Dz3AiuL8HNyJK9HOsDUXo1BP1nNnBzWCsiWBosPpyA47oupNWfGLEInip73VV9rWtgq00RhgKUEhl
-        STRIPE_SECRET_KEY: sk_test_51NaNucCkEgyNPbHoeB6Uz7nMJqw71i57I1JeQKDKI5Ykmlz0mjdmzTqIpNCv0eHx26kOZbMnDX6UXTam9kg6dyfX00iLSllGYi
-        # Set this environment variable to support webhooks — https://stripe.com/docs/webhooks#verify-events
-        STRIPE_WEBHOOK_SECRET: whsec_82993d387bd85ab1b4d8574fcbf87ee2996a2bedfa5e1d344601a9f2f97dec6b
-        DATABASE_URL: postgresql://postgres:123456@postgres_database:5432/fleetDb
-        NODE_ENV=: production
-        NEXTAUTH_SECRET: fl33etq3560
-        JWT_SECRET_SEED: fl33etq3560
-        NEXT_PUBLIC_APIKEY_EMAIL: re_69tYbJoN_6tKEt8xyvMJTsgExKBnnFNS9
-        GOOGLE_CLIENT_ID: 75718306031-fftli9o4steak2c0pf2hvhpoaahorjif.apps.googleusercontent.com
-        GOOGLE_CLIENT_SECRET: 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
-      depends_on:
-        - db
-      ports:
-        - '3000:3000'
-      volumes:
-        - postgresdb:/var/lib/postgresql/data
+  # app:
+  #     build:
+  #       context: .
+  #       dockerfile: Dockerfile
+  #     container_name: docker-next
+  #     restart: always
+  #     environment:
+  #       EXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: pk_test_51NaNucCkEgyNPbHomm2U0Dz3AiuL8HNyJK9HOsDUXo1BP1nNnBzWCsiWBosPpyA47oupNWfGLEInip73VV9rWtgq00RhgKUEhl
+  #       STRIPE_SECRET_KEY: sk_test_51NaNucCkEgyNPbHoeB6Uz7nMJqw71i57I1JeQKDKI5Ykmlz0mjdmzTqIpNCv0eHx26kOZbMnDX6UXTam9kg6dyfX00iLSllGYi
+  #       STRIPE_WEBHOOK_SECRET: whsec_82993d387bd85ab1b4d8574fcbf87ee2996a2bedfa5e1d344601a9f2f97dec6b
+  #       # Set this environment variable to support webhooks — https://stripe.com/docs/webhooks#verify-events
+  #       DATABASE_URL: postgresql://postgres:123456@postgres_database:5432/fleetDb
+  #       NODE_ENV : production
+  #       NEXTAUTH_SECRET: fl33etq3560
+  #       JWT_SECRET_SEED: fl33etq3560
+  #       NEXT_PUBLIC_APIKEY_EMAIL: re_69tYbJoN_6tKEt8xyvMJTsgExKBnnFNS9
+  #       GOOGLE_CLIENT_ID: 75718306031-fftli9o4steak2c0pf2hvhpoaahorjif.apps.googleusercontent.com
+  #       GOOGLE_CLIENT_SECRET: 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
+  #     depends_on:
+  #       - db
+  #     ports:
+  #       - '3000:3000'
+  #     volumes:
+  #       - postgresdb:/var/lib/postgresql/data
   db:
     container_name: postgres_database
     image: postgres:15-alpine

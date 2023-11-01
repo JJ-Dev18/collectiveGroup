@@ -1,11 +1,10 @@
 
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-// import { styled } from '@mui/material';
-// import styled from 'styled-components'
+
 import { styled } from '@mui/material/styles';
-import Switch, { SwitchProps } from '@mui/material/Switch';
+import Switch from '@mui/material/Switch';
 import Cookies from "js-cookie";
 import { UiContext } from "fleed/context/ui";
 

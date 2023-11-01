@@ -41,7 +41,7 @@ export const Footer: FC = (): ReactElement => {
             </List>
           </Grid>
           <Grid item xs={12} md={6} lg={6} sx={{ marginBottom :{ xs : 3}}}>
-            <Image src="/logo3.svg" alt="logo" width={400} height={350} layout="responsive"/>
+            <Image src="/logo3.svg" alt="logo" width={400} height={350}  loading="lazy"/>
           </Grid>
         </Grid>
       </Container>

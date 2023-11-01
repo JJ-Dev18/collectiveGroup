@@ -1,17 +1,11 @@
 import UserLayout from 'fleed/components/layouts/UserLayout'
-import React, { useContext,useState, useEffect, FC } from 'react'
+import React, { useState, useEffect, FC } from 'react'
 import { Divider, CardContent, CardHeader,Box ,Chip, Stack} from "@mui/material";
 import IconButton from '@mui/material/IconButton';
-import { DataGrid, GridActionsCellItem, GridColDef, GridRenderCellParams, GridValueGetterParams } from "@mui/x-data-grid";
+import {  GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import useSWR from "swr";
-import { IPackage, ISales, IUser, SaleProduct } from "fleed/interfaces";
 import { fetchGetJSON } from "fleed/utils/api-helpers";
-import { UiContext } from "fleed/context/ui";
-import DeleteIcon from '@mui/icons-material/Delete';
 import ScrollBar from "fleed/components/admin/ui/scrollbar/ScrollBar";
-import { StyledDataGrid } from '../../components/admin/ui/datagrid/styles';
-import { useRouter } from 'next/router';
-import { AuthContext } from 'fleed/context/auth';
 import { useTranslation } from 'next-i18next'
 import { DataGridCustom } from 'fleed/components/admin/ui/datagrid/DataGridCustom';
 
@@ -26,14 +20,12 @@ type Props = {
    
 const MySubscription:FC<Props> = ({id}) => {
 
-    
-  console.log(id,'id del usuario')
+ 
     const { data , error, isLoading } = useSWR<ISubscription[]>(`/api/user/subscriptions/${id}`,fetchGetJSON);
      const [subscriptions, setSubscriptions] = useState<ISubscription[]>([]);
     const {  t  } = useTranslation("common")
     
-    console.log(data,"subscriptions")
-    const router = useRouter()
+ 
     
     useEffect(() => {
         if (data) {
@@ -41,7 +33,6 @@ const MySubscription:FC<Props> = ({id}) => {
         }
       }, [data]);
 
-  const {  showErrorAlert, showSuccessAlert} = useContext(UiContext)
 
  
 
@@ -122,7 +113,7 @@ export default MySubscription
 
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { GetStaticProps,InferGetStaticPropsType ,InferGetServerSidePropsType, GetServerSideProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { ISubscription, SubscriptionPackage } from 'fleed/interfaces/subscriptions';
 
 export const getServerSideProps:GetServerSideProps = async ({ locale,req }) => {

@@ -1,37 +1,21 @@
-import { ChangeEvent, FC, useContext, useEffect, useRef, useState } from "react";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { FormProvider, useForm } from "react-hook-form";
 
 import {
   Box,
-  Button,
-  capitalize,
-  Card,
-  CardActions,
-  CardMedia,
-  Checkbox,
-  Chip,
+  Button, 
   Divider,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
   Grid,
-  ListItem,
-  Paper,
-  Radio,
-  RadioGroup,
   TextField,
   Typography,
 } from "@mui/material";
 import {
-  DriveFileRenameOutline,
   SaveOutlined,
-  UploadOutlined,
 } from "@mui/icons-material";
 
-import { Benefit, Benefits, IProduct } from "fleed/interfaces";
+import { Benefit, IProduct } from "fleed/interfaces";
 import { dbProducts } from "fleed/db";
 import AdminLayout from "fleed/components/layouts/AdminLayout";
 import fleedShopApi from "fleed/api/fleedShopApi";
@@ -40,9 +24,6 @@ import useSWR from "swr";
 import { fetchGetJSON } from "fleed/utils/api-helpers";
 import { UiContext } from "fleed/context/ui";
 
-const validTypes = ["shirts", "pants", "hoodies", "hats"];
-const validGender = ["men", "women", "kid", "unisex"];
-const validSizes = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
 
 interface FormData {
   id?: number;
@@ -69,34 +50,12 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
     fetchGetJSON
   );
 
-  // useEffect(() => {
-  //   const subscription = methods.watch((value, { name, type }) => {
-  //     if (name === "name") {
-  //       const newId =
-  //         value.name
-  //           ?.trim()
-  //           .replaceAll(" ", "_")
-  //           .replaceAll("'", "")
-  //           .toLocaleLowerCase() || "";
-
-  //       methods.setValue("id", Number(newId));
-  //     }
-  //   });
-  //   return () => subscription.unsubscribe();
-  // }, [methods.watch, methods.setValue]);
-
-  // useEffect(() => {
-  //   const subscription = methods.watch((value, { name, type }) =>
-  //     console.log(value, name, type)
-  //   )
-  //   return () => subscription.unsubscribe()
-  // }, [methods.watch])
   
   const onSubmit = async (form: IProduct) => {
     setIsSaving(true);
 
 
-    console.log(form.id ? "PUT" : "POST")
+    (form.id ? "PUT" : "POST")
 
     try {
       const { data } = await fleedShopApi({
@@ -110,7 +69,7 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
           benefits : form.benefits
         },
       });
-      console.log({ data });
+      ({ data });
       if (!form.id) {
         showSuccessAlert("Product Created Succesfull")
         router.replace(`/admin/products/${form.id}`);
@@ -122,7 +81,7 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
 
       }
     } catch (error) {
-      console.log(error);
+      (error);
       setIsSaving(false);
       showErrorAlert("Error")
     }

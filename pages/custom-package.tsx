@@ -1,7 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import Layout from 'fleed/components/layouts/Layout'
 import { CreateBoard } from 'fleed/components/packagesUi/customPackage/CreateBoard'
-import { useCheckout } from 'fleed/hooks/useCheckout'
 import { useServices } from 'fleed/hooks/useServices'
 import { fetchGetJSON } from 'fleed/utils/api-helpers'
 import { motion } from 'framer-motion'

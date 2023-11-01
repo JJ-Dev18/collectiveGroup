@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useContext, useEffect, useRef, useState } from "react";
+import {  FC, useContext, useEffect, useRef, useState } from "react";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { FormProvider, useForm } from "react-hook-form";
@@ -6,33 +6,17 @@ import { FormProvider, useForm } from "react-hook-form";
 import {
   Box,
   Button,
-  capitalize,
-  Card,
-  CardActions,
-  CardMedia,
-  Checkbox,
-  Chip,
   Divider,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
   Grid,
-  ListItem,
-  Paper,
-  Radio,
-  RadioGroup,
   TextField,
   Typography,
 } from "@mui/material";
 import {
-  DriveFileRenameOutline,
   SaveOutlined,
-  UploadOutlined,
 } from "@mui/icons-material";
 
-import { Benefit, Benefits, IPackage, IProduct, IService, Services } from "fleed/interfaces";
-import { dbPackages, dbProducts } from "fleed/db";
+import { Benefit, IPackage, IService, Services } from "fleed/interfaces";
+import { dbPackages } from "fleed/db";
 import AdminLayout from "fleed/components/layouts/AdminLayout";
 import fleedShopApi from "fleed/api/fleedShopApi";
 import MultipleSelect from "fleed/components/admin/ui/multipleSelect/MultipleSelect";
@@ -40,9 +24,6 @@ import useSWR from "swr";
 import { fetchGetJSON } from "fleed/utils/api-helpers";
 import { UiContext } from "fleed/context/ui";
 
-const validTypes = ["shirts", "pants", "hoodies", "hats"];
-const validGender = ["men", "women", "kid", "unisex"];
-const validSizes = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
 
 interface FormData {
   id?: number;
@@ -75,7 +56,7 @@ const ProductAdminPage: FC<Props> = ({ packaged }) => {
     setIsSaving(true);
 
 
-    console.log(form.id ? "PUT" : "POST")
+    (form.id ? "PUT" : "POST")
 
     try {
       const { data } = await fleedShopApi({
@@ -89,7 +70,7 @@ const ProductAdminPage: FC<Props> = ({ packaged }) => {
           services : form.services
         },
       });
-      console.log({ data });
+      ({ data });
       if (!form.id) {
         showSuccessAlert("Package Created Succesfull")
         router.replace(`/admin/packages/${form.id}`);
@@ -101,7 +82,7 @@ const ProductAdminPage: FC<Props> = ({ packaged }) => {
 
       }
     } catch (error) {
-      console.log(error);
+      (error);
       setIsSaving(false);
       showErrorAlert("Error")
     }
@@ -124,7 +105,7 @@ const ProductAdminPage: FC<Props> = ({ packaged }) => {
             disabled={isSaving}
           >
 
-            Guardar
+            Save
 
           </Button>
         </Box>

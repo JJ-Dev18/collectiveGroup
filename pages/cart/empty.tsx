@@ -5,7 +5,6 @@ import { Box, Link, Typography } from "@mui/material"
 import Layout from 'fleed/components/layouts/Layout';
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useCheckout } from '../../hooks/useCheckout';
 import { useTranslation } from 'next-i18next'
 
 const EmptyPage = () => {
@@ -44,7 +43,7 @@ const EmptyPage = () => {
             <RemoveShoppingCartOutlined sx={{ fontSize: 100 }} />
             <Box display='flex' flexDirection='column' alignItems='center'>
                 <Typography>{t('cart-empty')}</Typography>
-                <NextLink href='/' passHref legacyBehavior>
+                <NextLink href='/' passHref legacyBehavior prefetch={false}>
                     <Link typography="h5" color='secondary'>
                        {t("back")}
                     </Link>

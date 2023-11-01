@@ -1,15 +1,8 @@
 // @mui
-import PropTypes from 'prop-types';
 import { alpha, styled } from '@mui/material/styles';
-import { Card, SvgIconTypeMap, Theme, Typography, useTheme } from '@mui/material';
+import { Card, SvgIconTypeMap, Typography } from '@mui/material';
 import { FC } from 'react';
-import InventoryIcon from '@mui/icons-material/Inventory';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
-
-// utils
-// import { fShortenNumber } from '../../../utils/formatNumber';
-// components
-// import Iconify from '../../../components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -37,9 +30,7 @@ type Props = {
 }
 const AppWidgetSummary:FC<Props> = ({ title, total, Icon, color = 'primary', sx , ...other }) => {
  
-  // const IconWidget = () => {
-  //   return <Icon/>
-  // }
+ 
   return (
     <Card
       content='dashboard'
@@ -71,7 +62,6 @@ const AppWidgetSummary:FC<Props> = ({ title, total, Icon, color = 'primary', sx 
       {
         Icon  && <Icon  sx={{ color: (theme:any) => theme.palette[color].dark,fontSize:"24px"}}/>
       }
-       {/* <InventoryIcon/> */}
       </StyledIcon>
 
       <Typography variant="h1">{total}</Typography>

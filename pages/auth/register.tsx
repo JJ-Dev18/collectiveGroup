@@ -145,7 +145,7 @@ const RegisterPage = () => {
 export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
     
     const session = await getSession({ req });
-    // console.log({session});
+    // ({session});
 
     const { p = '/shopping-cart' } = query;
 
