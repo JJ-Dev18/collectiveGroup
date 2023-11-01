@@ -15,7 +15,7 @@ export default NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      
+       
       // redirect_uri :' http://127.0.0.1:3000/api/auth/callback/google'
     }),
     CredentialsProvider({

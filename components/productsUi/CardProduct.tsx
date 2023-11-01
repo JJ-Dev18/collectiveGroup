@@ -13,6 +13,9 @@ import { useTranslation } from 'next-i18next'
 import { Product } from 'use-shopping-cart/core';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import Fleet from '../../public/Fleet/fleet-5-1024x673.jpg'
+import Forklift from '../../public/Forklift/forklift-5-1024x673.jpg'
+
 
 const CardHeader = dynamic(() => import('@mui/material/CardHeader'), {
   loading: ()=> <Skeleton
@@ -108,7 +111,7 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
         <Image 
         height={200}
         width={300}
-        src={image}   
+        src={imageLocation === 'Fleet' ? Fleet : Forklift}   
         loading='lazy'
         // loader={ () =>  <Skeleton/> }
         onError={(e)=> setimage('/coming.jpg')}
