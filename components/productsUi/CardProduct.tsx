@@ -13,8 +13,8 @@ import { useTranslation } from 'next-i18next'
 import { Product } from 'use-shopping-cart/core';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import Fleet from '../../public/Fleet/fleet-5-1024x673.jpg'
-import Forklift from '../../public/Forklift/forklift-5-1024x673.jpg'
+// import Fleet from 'fleed/public/Fleet/fleet-5-1024x673.jpg'
+// import Forklift from 'fleed/public/Forklift/forklift-5-1024x673.jpg'
 
 
 const CardHeader = dynamic(() => import('@mui/material/CardHeader'), {
@@ -112,9 +112,9 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
         height={200}
         width={300}
         src={imageLocation === 'Fleet' 
-        ? Fleet 
+        ? '/Fleet/fleet-5-1024x673.jpg'
         : (imageLocation === 'Forklift' )
-        ? Forklift 
+        ? '/Forklift/forklift-5-1024x673.jpg'
         :'/coming.jpg'}   
         loading='lazy'
         // loader={ () =>  <Skeleton/> }
