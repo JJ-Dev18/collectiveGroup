@@ -78,7 +78,7 @@ const MySubscription:FC<Props> = ({id}) => {
      
       }));
     
-      console.log(rows)
+  
  
   return (
     <UserLayout title='User Account'>

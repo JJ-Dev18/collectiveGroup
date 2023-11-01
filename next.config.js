@@ -54,7 +54,7 @@ module.exports = {
   // onDemandEntries: {
   //   websocketPort: 3007,
   // },
-  output: "standalone",
+  // output: "standalone",
   i18n
   // distDir :'dist'
 };

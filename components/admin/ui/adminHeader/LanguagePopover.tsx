@@ -4,6 +4,7 @@ import { alpha } from '@mui/material/styles';
 import { Box, MenuItem, Stack, IconButton, Popover, Avatar } from '@mui/material';
 import { Language, UiContext } from 'fleed/context/ui';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 // ----------------------------------------------------------------------
 
@@ -59,7 +60,7 @@ export default function LanguagePopover() {
           }),
         }}
       >
-        <img src={language.icon} alt={language.label} width="24px" height="24px"/>
+        <Image src={language.icon} alt={language.label} width={22} height={22}/>
       </Avatar>
 
       <Popover
