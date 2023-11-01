@@ -111,7 +111,11 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
         <Image 
         height={200}
         width={300}
-        src={imageLocation === 'Fleet' ? Fleet : Forklift}   
+        src={imageLocation === 'Fleet' 
+        ? Fleet 
+        : (imageLocation === 'Forklift' )
+        ? Forklift 
+        :'/coming.jpg'}   
         loading='lazy'
         // loader={ () =>  <Skeleton/> }
         onError={(e)=> setimage('/coming.jpg')}
