@@ -1,7 +1,7 @@
 import { Card, Typography, CardContent, CardActions, Button, CardMedia, Box, Skeleton } from '@mui/material';
 import { IProduct, ItemInterface } from 'fleed/interfaces'
 import { useRouter } from 'next/router';
-import React, { FC, useState } from 'react'
+import React, { FC, useMemo, useState } from 'react'
 import { useShoppingCart } from 'use-shopping-cart';
 import { motion } from "framer-motion"
 import MoreVertIcon from '@mui/icons-material/MoreVert'
@@ -41,7 +41,13 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
    const open = Boolean(anchorEl);
    const imageLocation =product.name.split(" ")[0]
-   const [image, setimage] = useState(`/${imageLocation}/${imageLocation}-5-1024x673.jpg`)
+  //  const [image, setimage] = useState(`/${imageLocation}/${imageLocation}-5-1024x673.jpg`)
+   const image = useMemo(() =>
+   imageLocation === 'Fleet' 
+   ? '/fleet/fleet-5-1024x673.jpg'
+   : (imageLocation === 'Forklift' )
+   ? '/forklift/forklift-5-1024x673.jpg'
+   :'/coming.jpg', [imageLocation])
    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
      setAnchorEl(event.currentTarget);
     };
@@ -49,7 +55,7 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
      setAnchorEl(null);
     
    };
-
+  console.log(image)
    const router = useRouter()
    const productToAdd:ItemInterface | IProduct = { ... product , 
      id :product.id.toString() ,
@@ -111,14 +117,9 @@ export const CardProduct:FC<Props> = ({product,handleCheckout,loading,isLoggedIn
         <Image 
         height={200}
         width={300}
-        src={imageLocation === 'Fleet' 
-        ? '/Fleet/fleet-5-1024x673.jpg'
-        : (imageLocation === 'Forklift' )
-        ? '/Forklift/forklift-5-1024x673.jpg'
-        :'/coming.jpg'}   
+        src={image}   
         loading='lazy'
         // loader={ () =>  <Skeleton/> }
-        onError={(e)=> setimage('/coming.jpg')}
         alt="Image product"/>
       
      
