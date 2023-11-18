@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Grid, Container, Typography, Chip, Box } from "@mui/material";
 import useSWR from "swr";
-import { ISales, SaleProduct } from "fleed/interfaces";
+import { IPackage, ISales, SaleProduct } from "fleed/interfaces";
 import { GridActionsCellItem, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import AdminLayout from "fleed/components/layouts/AdminLayout";
 import { fetchGetJSON } from "fleed/utils/api-helpers";
@@ -13,39 +13,39 @@ import { DataGridCustom } from "fleed/components/admin/ui/datagrid/DataGridCusto
 const Sales = () => {
 
 
-  const { data, error, isLoading } = useSWR<ISales[]>("/api/admin/sales", fetchGetJSON);
+  const { data, error, isLoading } = useSWR<ISubscription[]>("/api/admin/subscriptions", fetchGetJSON);
 
-  const [sales, setSales] = useState<ISales[]>([]);
+  const [subscriptions , setSubscriptions ] = useState<ISubscription[]>([]);
 
   const {  showErrorAlert, showSuccessAlert} = useContext(UiContext)
   
   useEffect(() => {
     if (data) {
-        setSales(data);
+        setSubscriptions(data);
+        console.log(data)
     }
   }, [data]);
  
  
-  const deleteSale = async ( saleId: number) => {
-    const previosSale = sales.map((sale) => ({ ...sale }));
-      const newSale = sales.filter(sale => sale.id != saleId)
+  const deleteSubscription = async ( subId: number) => {
+    const previosSubs = subscriptions.map((sub) => ({ ...sub }));
+      const newSub = subscriptions.filter(sub => sub.id != subId)
       
-    
 
       
       try {
-          const data = await fleedShopApi.delete("/admin/sales", {data:{
-              id: saleId
+          const data = await fleedShopApi.delete("/admin/subscriptions", {data:{
+              id: subId
           } })
           if(data.data.error){
             showErrorAlert(data.data.error)
           }else{
             showSuccessAlert(data.data.message)
-            setSales(newSale)
+            setSubscriptions(newSub)
           }
       } catch (error) {
      
-        setSales(previosSale);
+        setSubscriptions(previosSubs);
         showErrorAlert("error")
       } 
   
@@ -54,16 +54,11 @@ const Sales = () => {
  
 
   const columns: GridColDef[] = [
-    { field: "transactionId", headerName: "Transaction", width:150 },
     { field: "isPaid", headerName: "Is paid ? ", width:80},
     { field: "user", headerName: "User",width:200  },
-    { field: "city", headerName: "City",width:200  },
-    { field: "country", headerName: "Country",width:200  },
-
-
     { 
-        field: 'products', 
-        headerName: 'Products', 
+        field: 'package', 
+        headerName: 'Package', 
         width:300 ,
         renderCell: ({row}: GridRenderCellParams<any, number>) => {
             return (
@@ -73,8 +68,9 @@ const Sales = () => {
                }}>
                <Box sx={{overflowX:'scroll'}} >
                  {
-                  row.products.map(( product:SaleProduct) => (
-                    <Chip  key={product.id} label={product.product.name} size='small'/>
+                  row.packages.map(( packaged:SubscriptionPackage) => (
+                  
+                    <Chip  key={packaged.id} label={packaged.package.name} size='small'/>
                   ))
                  }
                </Box>
@@ -95,7 +91,7 @@ const Sales = () => {
                 <GridActionsCellItem
                 icon={<DeleteIcon />}
                 label="Delete"
-                onClick={()=> deleteSale(Number(row.id))}
+                onClick={()=> deleteSubscription(Number(row.id))}
                 color="error"
               />
             )
@@ -103,14 +99,11 @@ const Sales = () => {
       },
   ];
 
-  const rows = sales.map((sales) => ({
-    id: sales.id,
-    transactionId : sales.transactionId,
-    isPaid: sales.isPaid ? 'Yes' : 'No',
-    user: sales.user.email,
-    city: sales.city,
-    countr : sales.country,
-    products : sales.saleProducts
+  const rows = subscriptions.map((sub) => ({
+    id: sub.id,
+    isPaid: sub.isPaid ? 'Yes' : 'No',
+    user: sub.user.email,
+    packages : sub.subscriptionPackage
   }));
 
  
@@ -118,7 +111,7 @@ const Sales = () => {
   return (
     <AdminLayout title="Sales">
         <Typography variant="h4" sx={{mb:3}}  textAlign="center">
-          Sales
+          Subscriptions
         </Typography>
     <Container maxWidth="xl" sx={{ overflowX: "hidden" }}>
       <Grid container >
@@ -140,6 +133,7 @@ export default Sales;
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticProps } from 'next'
 import fleedShopApi from "fleed/api/fleedShopApi";
+import { ISubscription, SubscriptionPackage } from "fleed/interfaces/subscriptions";
 
 export const getStaticProps:GetStaticProps = async ({ locale }) => {
 

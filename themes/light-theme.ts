@@ -158,7 +158,7 @@ export let lightTheme = createTheme({
             props: { content : "product" },
             style: {
                width:'100%',
-               height:'400px',
+               height:'420px',
                padding : '0',
                   
             },

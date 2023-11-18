@@ -28,18 +28,30 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 const deleteProduct = async( req: NextApiRequest, res :NextApiResponse)=> {
 
  const { id = 1} = req.body as { id : number}
-
- await prisma.benefitOnProducts.deleteMany({
-   where : {
-    productId : id 
-   }
- })
-
-   await prisma.product.delete({
-   where : {
-    id : id 
+ try {
+  
+  const salesActives = await prisma.saleDetailProduct.findFirst({
+    where :{
+      productId : id
+    }
+  })
+  if(salesActives){
+    return res.status(200).json({ error: 'No se puede eliminar producto, hay compras activas' });
   }
- })
+   await prisma.benefitOnProducts.deleteMany({
+     where : {
+      productId : id 
+     }
+   })
+  
+     await prisma.product.delete({
+     where : {
+      id : id 
+    }
+   })
+ } catch (error) {
+   console.log(error)
+ }
 
  return res.status(200).json({ message: 'Product Deleted' });
 

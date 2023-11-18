@@ -33,7 +33,7 @@ export default function handler(
     case 'PUT':
         return updatedUser(req,res)  
     case 'DELETE':
-        return deleteUser(req,res)    
+        return deleteSale(req,res)    
     default:
       res.status(400).json({
         message: "Bad request",
@@ -41,18 +41,25 @@ export default function handler(
   }
 }
 
-const deleteUser = async ( req: NextApiRequest, res: NextApiResponse) => {
+const deleteSale = async ( req: NextApiRequest, res: NextApiResponse) => {
 
     const {
         id = 1,
       } = req.body as { id: number;};
+      
+    await prisma.saleDetailProduct.deleteMany({
+      where : {
+          saleId : id
+      }
+    })  
 
-    const user = await prisma.user.delete({
+    await prisma.sale.delete({
         where: {
             id : id
         }
     })
-    return res.status(200).json({ message: 'User Deleted' });
+
+    return res.status(200).json({ message: 'Sale Deleted' });
 }
 
 const getSales = async ( req: NextApiRequest, res: NextApiResponse) => {
@@ -66,9 +73,9 @@ const getSales = async ( req: NextApiRequest, res: NextApiResponse) => {
         },
         user : true
     },
-    where:{
-      isPaid : true
-    }
+    // where:{
+    //   isPaid : true
+    // }
  })
  
  return res.status(200).json(sales);

@@ -50,17 +50,23 @@ const ProductsPage = () => {
       const previosProduct = products.map((user) => ({ ...user }));
       const newProduct = products.filter(user => user.id != productId)
       
-      setProducts(newProduct)
+     
 
       console.log(productId, " id del product ")
       try {
           const data = await fleedShopApi.delete("/admin/products", {data:{
               id: productId
           } })
-          showSuccessAlert(data.data.message)
+          if(data.data.error){
+            showErrorAlert(data.data.error)
+          }else{
+            showSuccessAlert(data.data.message)
+            setProducts(newProduct)
+          }
       } catch (error) {
+        console.log('error eliminando productos')
+        console.log(error,"error");
         setProducts(previosProduct);
-          console.log(error,"error");
           showErrorAlert("error")
       } 
   

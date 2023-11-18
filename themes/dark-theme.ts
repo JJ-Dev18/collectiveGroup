@@ -172,7 +172,7 @@ export const darkTheme = createTheme({
               props: { content : "product" },
               style: {
                 width:'100%',
-                height:'400px'
+                height:'420px'
               },
               
             },

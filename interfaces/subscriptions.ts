@@ -1,4 +1,4 @@
-import { IPackage } from "."
+import { IPackage, IUser } from "."
 
 export interface ISubscription {
     id: number
@@ -8,7 +8,8 @@ export interface ISubscription {
     paidAt: any
     transactionId: any
     city: any
-    country: any
+    country: any,
+    user : IUser,
     clienteId: number
     createdAt: string
     subscriptionPackage: SubscriptionPackage[]

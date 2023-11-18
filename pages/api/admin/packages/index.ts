@@ -28,18 +28,32 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 const deletePackage = async( req: NextApiRequest, res :NextApiResponse)=> {
 
  const { id = 1} = req.body as { id : number}
+ try {
 
- await prisma.serviceOnPackage.deleteMany({
-   where : {
-    packageId : id 
-   }
- })
+  const subscriptionsActives = await prisma.subscriptionDetailPackage.findFirst({
+    where :{
+      packageId : id
+    }
+  })
+  if(subscriptionsActives){
+    return res.status(200).json({ error: 'No se puede eliminar paquete, hay subscripciones activas' });
 
-   await prisma.package.delete({
-   where : {
-    id : id 
   }
- })
+   await prisma.serviceOnPackage.deleteMany({
+     where : {
+      packageId : id 
+     }
+   })
+  
+     await prisma.package.delete({
+     where : {
+      id : id 
+    }
+   })
+  
+ } catch (error) {
+   console.log(error)
+ }
 
  return res.status(200).json({ message: 'Package Deleted' });
 

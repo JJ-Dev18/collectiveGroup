@@ -44,6 +44,11 @@ export const navConfig = [
     path: '/admin/sales',
     icon: <AttachMoneyIcon/>,
   },
+  {
+    title: 'subscriptions',
+    path: '/admin/subscriptions',
+    icon: <AttachMoneyIcon/>,
+  },
   
 ];
 

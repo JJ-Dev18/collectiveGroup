@@ -46,7 +46,29 @@ const deleteUser = async ( req: NextApiRequest, res: NextApiResponse) => {
     const {
         id = 1,
       } = req.body as { id: number;};
-
+    
+    const subscriptionsActives = await prisma.subscription.findFirst({
+      where:{
+        user : {
+          id : id
+        }
+      }
+    })  
+    const salesActives = await prisma.sale.findFirst({
+      where : {
+        user :{
+          id : id 
+        }
+      }
+    })
+    if(subscriptionsActives){
+      return res.status(200).json({ error :'No se puede eliminar, existe una subscripcion Activa'})
+    }
+    if(salesActives){
+      return res.status(200).json({ error :'No se puede eliminar, existen compras hechas por este usuario'})
+    }
+    
+    
     const user = await prisma.user.delete({
         where: {
             id : id
@@ -74,29 +96,32 @@ const updatedUser = async ( req: NextApiRequest, res: NextApiResponse) => {
        
       } = req.body as { id: number; role: "USER" | "ADMIN"| undefined , name : string,email : string};
 
-   
-
     const validRoles = ['ADMIN','USER'];
     if ( !validRoles.includes(role) ) {
         return res.status(400).json({ message: 'Rol no permitido: ' + validRoles.join(', ') })
     }
-    const user = await prisma.user.update({
-        where: {
-            id: id,
-          },
-          data:{
-            role : role,
-            name : name,
-            email : email,
-         
-          }
-    })
-    if ( !user ) {
-        return res.status(404).json({ message: 'User not found: ' + id });
-    }
-  
+    try {
+      
+      const user = await prisma.user.update({
+          where: {
+              id: id,
+            },
+            data:{
+              role : role,
+              name : name,
+              email : email,
+           
+            }
+      })
+      if ( !user ) {
+          return res.status(404).json({ message: 'User not found: ' + id });
+      }
     
-    return res.status(200).json({ message: 'User Updated' });
+      return res.status(200).json({ message: 'User Updated' });
+    } catch (error) {
+      console.log(error)
+    }
+    
    
    }
 

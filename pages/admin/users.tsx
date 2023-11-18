@@ -31,17 +31,22 @@ const Users = () => {
   const deleteUser = async ( userId: number) => {
     const previosUsers = users.map((user) => ({ ...user }));
     const newUsers = users.filter(user => user.id != userId)
-    setUsers(newUsers)
+    
     
     try {
         const data = await fleedShopApi.delete("/admin/users", {data:{
             id: userId
         } })
-        showSuccessAlert(data.data.message)
+        if(data.data.error){
+          showErrorAlert(data.data.error)
+        }else{
+          showSuccessAlert(data.data.message)
+          setUsers(newUsers)
+        }
     } catch (error) {
         setUsers(previosUsers);
-      
-        showErrorAlert("error")
+        console.log(error)
+        showErrorAlert("Internal server Error")
     } 
 
    
@@ -59,12 +64,12 @@ const Users = () => {
     //success
     try {
       if(user){
-        const resp =   await fleedShopApi.put("/admin/users", { userId, role: newRole, name : user.name, email : user.email });
+        const resp =   await fleedShopApi.put("/admin/users", { id : userId, role: newRole, name : user.name, email : user.email });
         showSuccessAlert(resp.data.message)
       }
     } catch (error) {
       setUsers(previosUsers);
-     
+      // console.log(error)
       showErrorAlert("error")
     }
   };

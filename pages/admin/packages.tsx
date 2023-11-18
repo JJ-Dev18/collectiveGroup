@@ -51,14 +51,19 @@ const ProductsPage = () => {
       const previousPackage = packages.map((packaged) => ({ ...packaged }));
       const newPackage = packages.filter(packaged => packaged.id != packageId)
       
-      setPackages(newPackage)
+    
 
  
       try {
           const data = await fleedShopApi.delete("/admin/packages", {data:{
               id: packageId
           } })
-          showSuccessAlert(data.data.message)
+          if(data.data.error){
+            showErrorAlert(data.data.error)
+          }else{
+            showSuccessAlert(data.data.message)
+            setPackages(newPackage)
+          }
       } catch (error) {
         setPackages(previousPackage);
       
