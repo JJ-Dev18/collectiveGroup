@@ -27,6 +27,7 @@ const config: Record<DbEnvironments, Knex.Config> = {
     migrations: {
       extension: 'ts',
     },
+   
   }
 
  
