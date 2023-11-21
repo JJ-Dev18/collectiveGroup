@@ -19,7 +19,7 @@ const CarouselComponent = () => {
         fill
         quality={100}
         // loader={contentfulImageLoader}
-        sizes="100vw" priority={false} src={ (theme.palette.mode === 'light') ? '/carousel/light.jpg' : '/carousel/dark.jpg'} alt="Carousel Image"  style={{ objectFit: (isPhone) ? 'contain' : 'cover'}} />
+        sizes="100vw" priority={false} src={ (theme.palette.mode === 'light') ? '/carousel/light.webp' : '/carousel/dark.webp'} alt="Carousel Image"  style={{ objectFit: (isPhone) ? 'contain' : 'cover'}} />
     </Carousel>
   );
 };
