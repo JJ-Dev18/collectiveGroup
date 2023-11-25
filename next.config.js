@@ -71,6 +71,7 @@ module.exports = {
     ]
   },
   ...nextConfig,
+  localePath: 	'./public/locales',
   // reactStrictMode: false,
   // swcMinify: true,
   // onDemandEntries: {
