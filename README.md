@@ -1,4 +1,4 @@
-
+.
 # Collective Intelligence shop module
 
 
