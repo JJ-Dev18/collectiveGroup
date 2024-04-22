@@ -29,7 +29,7 @@ export interface UiState {
   language :Language
 }
 
-const UI_INITIAL_STATE: UiState = {
+export const UI_INITIAL_STATE: UiState = {
   theme: lightTheme,
   language :  {
     value: 'en',

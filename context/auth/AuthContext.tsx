@@ -3,7 +3,7 @@ import { createContext } from 'react';
 import { IUser } from '../../interfaces';
 
 
-interface ContextProps {
+export interface AuthContextProps {
     isLoggedIn: boolean;
     user?: IUser;
 
@@ -13,4 +13,4 @@ interface ContextProps {
 }
 
 
-export const AuthContext = createContext({} as ContextProps );
+export const AuthContext = createContext({} as AuthContextProps );

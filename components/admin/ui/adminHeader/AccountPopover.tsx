@@ -28,6 +28,7 @@ const AccountPopover:FC<Props> = ({logout}) =>  {
   const [open, setOpen] = useState<HTMLElement | null>(null);
   const { user } = useContext(AuthContext)
   const router = useRouter()
+  
   const handleOpen = (event:React.MouseEvent<HTMLElement>) => {
     setOpen(event.currentTarget);
   };

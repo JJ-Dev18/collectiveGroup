@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useContext} from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -28,13 +28,13 @@ import { useTranslation } from 'next-i18next'
 
 
 function ResponsiveAppBar({color = "transparent"}:{color? : PropTypes.Color | 'transparent'}) {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(
     null
     );
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+    const [anchorElUser, setAnchorElUser] =useState<null | HTMLElement>(
       null
       );
-      const { user, isLoggedIn, logout } = React.useContext(AuthContext);
+      const { user, isLoggedIn, logout } = useContext(AuthContext);
       const { cartCount } = useShoppingCart();
       const router = useRouter();
       const { t } = useTranslation("common")

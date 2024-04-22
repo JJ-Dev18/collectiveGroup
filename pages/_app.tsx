@@ -10,13 +10,13 @@ import 'react-toastify/dist/ReactToastify.css';
  function App({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider>
-     <AuthProvider>
-        <UiProvider>
-        <CartProviderComponent>
+     <AuthProvider> 
+         <UiProvider> 
+         <CartProviderComponent> 
            <Component {...pageProps} />
-        </CartProviderComponent>
-        </UiProvider>
-        </AuthProvider>
+         </CartProviderComponent> 
+         </UiProvider> 
+        </AuthProvider> 
     </SessionProvider> 
   );
 }

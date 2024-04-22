@@ -2,7 +2,7 @@ import {  createContext } from 'react';
 import { Language, UiState } from './UiProvider';
 import { StripeError } from '@stripe/stripe-js';
 
-interface ContextProps {
+export interface UiContextProps {
     state : UiState,
     setTheme : (theme:string) => void,
     setLanguage : (language:Language) => void,
@@ -13,4 +13,4 @@ interface ContextProps {
     showPromiseAlert : (promise:Promise<{ error: StripeError}> | undefined) => void,
 }
 
-export const UiContext = createContext({} as ContextProps);
+export const UiContext = createContext({} as UiContextProps);

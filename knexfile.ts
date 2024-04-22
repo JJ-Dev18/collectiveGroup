@@ -9,7 +9,7 @@ const config: Record<DbEnvironments, Knex.Config> = {
   development: {
     client: 'pg',
     connection: {
-      connectionString : process.env.DATABASE_URL,
+      connectionString : process.env.POSTGRES_PRISMA_URL,
       ssl:{
         rejectUnauthorized : false 
       }
@@ -23,7 +23,7 @@ const config: Record<DbEnvironments, Knex.Config> = {
   },
   production: { 
     client: 'pg', 
-    connection: process.env.DATABASE_URL,
+    connection: process.env.POSTGRES_PRISMA_URL,
     migrations: {
       extension: 'ts',
     },

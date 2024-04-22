@@ -96,7 +96,7 @@ function renderSuggestion(suggestion:Suggestion, { query, isHighlighted } : {que
     </MenuItem>
   );
 }
-interface Suggestion {
+export interface Suggestion {
   title : string ,
   path : string ,
   icon : JSX.Element,
