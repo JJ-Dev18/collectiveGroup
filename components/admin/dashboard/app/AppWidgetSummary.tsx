@@ -39,7 +39,7 @@ const AppWidgetSummary:FC<Props> = ({ title, total, Icon, color = 'primary', sx 
         boxShadow: 0,
         textAlign: 'center',
         // bgcolor :  theme.palette.background,/
-        color: '#fff',
+        color: '#fffg',
         fontWeight : 800,
         bgcolor: (theme:any) => theme.palette[color].light,
         ...sx,
